@@ -1,9 +1,12 @@
 package Model;
 
 public class Point {
-	
 	private int x;
 	private int y;
+	private Boolean isActive;
+
+
+
 	public int getX() {
 		return x;
 	}
@@ -20,11 +23,18 @@ public class Point {
 		super();
 		this.x = x;
 		this.y = y;
+		this.isActive = false;
 	}
 	@Override
 	public String toString() {
 		return "Point [x=" + x + ", y=" + y + "]";
 	}
 
+	public Boolean getActive() {
+		return isActive;
+	}
 
+	public void setActive(Boolean active) {
+		isActive = active;
+	}
 }

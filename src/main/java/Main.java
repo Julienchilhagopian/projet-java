@@ -1,3 +1,4 @@
+import Controller.BoardController;
 import View.BoardView;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         BoardView board = BoardView.create(frame);
+        BoardController boardController = BoardController.inst(board);
 
     }
 
