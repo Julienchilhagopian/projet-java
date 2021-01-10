@@ -19,9 +19,9 @@ public class BoardController {
         return board;
     }
 
-    public static BoardController inst(BoardView view) {
-        Board model = Board.withClassicBoard();
-        return new BoardController(model, view);
-    }
+//    public static BoardController inst(BoardView view) {
+//        Board model = Board.withClassicBoard();
+//        return new BoardController(model, view);
+//    }
 
 }

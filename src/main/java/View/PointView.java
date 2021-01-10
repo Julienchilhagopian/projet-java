@@ -1,26 +1,30 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Model.Board;
 import Model.Point;
 
+//sert plus a rien je pense
 public class PointView extends JPanel{
+	
+	
+	private JFrame frame;
+	private List<Point> points;
 
-	private Point point;
-
-	@Override
-	public void paintComponent(Graphics g) {
-		System.out.println("ddd");
-		super.paintComponent(g);
-        g.fillOval(point.getX(), point.getY(), 10, 10);
-        repaint();
+	public static PointView create(JFrame mainFrame) {
+		return new PointView(mainFrame);
+	}
+	
+	private PointView(JFrame frame) {
+		this.frame = frame;
+		this.points = new ArrayList<>();
 	}
 
-	public PointView(Point point) {
-		super();
-		this.point = point;
-		System.out.println(point.toString());
-	}
 }

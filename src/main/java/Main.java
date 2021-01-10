@@ -1,5 +1,6 @@
 import Controller.BoardController;
 import View.BoardView;
+import View.PointView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,12 +12,14 @@ public class Main {
 
     private void displayMorpion() {
         JFrame frame = new JFrame("Java Avancée - Morpion Solitaire");
-        frame.setSize(new Dimension(500,500));
+        frame.setSize(new Dimension(600,600));
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
 
-        BoardView board = BoardView.create(frame);
-        BoardController boardController = BoardController.inst(board);
+        BoardView board = new BoardView();
+        frame.add(board);
+        frame.setVisible(true);
+        
 
     }
 
