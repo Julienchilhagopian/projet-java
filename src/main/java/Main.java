@@ -20,6 +20,10 @@ public class Main {
         frame.add(board);
         frame.setVisible(true);
         
+        JPanel jp = new JPanel();
+        frame.add(jp);
+        BoardController boardController = new BoardController(jp);
+        
 
     }
 

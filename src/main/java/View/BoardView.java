@@ -20,10 +20,12 @@ public class BoardView extends JPanel{
 	private List<Point> points;
 	
 	public BoardView() {
-		points = new ArrayList<>();
 		init();
     }
-	
+	public BoardView(List<Point> points) {
+		this.points = points;
+    }
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -48,15 +50,16 @@ public class BoardView extends JPanel{
 	}
 	
 	public void addPoint(int x, int y) {
-		points.add(new Point(x, y));
+		System.out.println(points);
+		Point p = new Point(x,y);
+		this.points.add(p);
+		System.out.println(points);
         repaint();
     }
 	
 	public void init() {
-		
 		Board b = new Board();
 		points = b.buildStartList();
-		
 		repaint();
 	}
 }
