@@ -13,8 +13,7 @@ import Model.Point;
 
 //sert plus a rien je pense
 public class PointView extends JPanel{
-	
-	
+
 	private JFrame frame;
 	private List<Point> points;
 

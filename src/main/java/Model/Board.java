@@ -4,23 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-	
     private List<Point> points;
     private Integer row = 15;
     private Integer column = 15;
 
-//    private Board(List<Point> points) {
-//        this.points = points;
-//    }
-
-    public Board() {
+    private Board() {
         this.points = this.buildStartList();
     }
 
-
-//    public static Board withClassicBoard() {
-//        return new Board();
-//    }
+    public static Board withClassicBoard() {
+       return new Board();
+   }
 
     // Construction du plateau de départ d'un point de vue modèle.
     //J'ai modifie la classe pour accèder a cette methode plus facilement mais du coup on changera :) 
@@ -70,5 +64,7 @@ public class Board {
     }
 
 
-
+    public List<Point> getPoints() {
+        return points;
+    }
 }

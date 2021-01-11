@@ -15,19 +15,12 @@ import javax.swing.border.Border;
 import Model.Board;
 import Model.Point;
 
-public class BoardView extends JPanel{
-	
-	private List<Point> points;
-	
-	public BoardView() {
-		points = new ArrayList<>();
-		init();
-    }
+public class BoardView extends JPanel {
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		/*
         for (Point p : points) {
             int cellX = 30 + (p.getX()*30);
             int cellY = 30 + (p.getY()*30);
@@ -35,7 +28,7 @@ public class BoardView extends JPanel{
             cellY = cellY - 10 /2;
             g.drawOval(cellX, cellY, 10, 10);
         }
-        
+        */
         g.drawRect(30, 30, 450, 450);
 
         for (int i = 30; i <= 450; i += 30) {
@@ -46,17 +39,23 @@ public class BoardView extends JPanel{
             g.drawLine(30, i, 480, i);
         }
 	}
-	
+
+
+	/*
 	public void addPoint(int x, int y) {
 		points.add(new Point(x, y));
         repaint();
+    }*/
+
+    public void printPoints(List<Point> points){
+        for (Point p : points) {
+            int cellX = 30 + (p.getX()*30);
+            int cellY = 30 + (p.getY()*30);
+            cellX = cellX - 10 /2;
+            cellY = cellY - 10 /2;
+            this.getGraphics().drawOval(cellX, cellY, 10, 10);
+        }
+
     }
-	
-	public void init() {
-		
-		Board b = new Board();
-		points = b.buildStartList();
-		
-		repaint();
-	}
+
 }
