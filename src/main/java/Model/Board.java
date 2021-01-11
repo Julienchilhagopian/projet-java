@@ -28,36 +28,26 @@ public class Board {
                 //J'ai un peu changer la méthode, j'ai pas trop compris les setactive
                 if ((r == 3) && (c >= 6 && c <= 9)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 4 && (c == 6 || c == 9)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 5 && (c == 6 || c == 9)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 6 && ((c >= 3 && c <= 6) || ((c >= 9 && c <= 12)))) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 7 && (c == 3 || c == 12)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 8 && (c == 3 || c == 12)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 9 && ((c >= 3 && c <= 6) || ((c >= 9 && c <= 12)))) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 10 && (c == 6 || c == 9)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if (r == 11 && (c == 6 || c == 9)) {
                     pt.setActive(true);
-                    points.add(pt);
                 } else if ((r == 12 ) && (c >= 6 && c <= 9)) {
                     pt.setActive(true);
-                    points.add(pt);
                 }
-                //points.add(pt);
+                points.add(pt);
             }
         }
         return points;

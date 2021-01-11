@@ -21,7 +21,6 @@ public class Main {
         frame.setVisible(true);
 
         BoardController boardController = BoardController.inst(board);
-
     }
 
 }

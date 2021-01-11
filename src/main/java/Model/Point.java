@@ -30,7 +30,7 @@ public class Point {
 		return "Point [x=" + x + ", y=" + y + "]";
 	}
 
-	public Boolean getActive() {
+	public Boolean isActive() {
 		return isActive;
 	}
 
