@@ -7,10 +7,8 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.*;
+import javax.swing.border.*;
 
 import Model.Board;
 import Model.Point;
@@ -20,15 +18,6 @@ public class BoardView extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		/*
-        for (Point p : points) {
-            int cellX = 30 + (p.getX()*30);
-            int cellY = 30 + (p.getY()*30);
-            cellX = cellX - 10 /2;
-            cellY = cellY - 10 /2;
-            g.drawOval(cellX, cellY, 10, 10);
-        }
-        */
         g.drawRect(30, 30, 450, 450);
 
         for (int i = 30; i <= 450; i += 30) {
@@ -40,22 +29,20 @@ public class BoardView extends JPanel {
         }
 	}
 
-
-	/*
-	public void addPoint(int x, int y) {
-		points.add(new Point(x, y));
-        repaint();
-    }*/
-
     public void printPoints(List<Point> points){
         for (Point p : points) {
             int cellX = 30 + (p.getX()*30);
             int cellY = 30 + (p.getY()*30);
             cellX = cellX - 10 /2;
             cellY = cellY - 10 /2;
-            this.getGraphics().drawOval(cellX, cellY, 10, 10);
-        }
 
+            JButton btn = new JButton("");
+            btn.setBounds(cellX, cellY, 10, 10);
+            btn.setBorder(new RoundedBorder(50)); //10 is the radius
+            btn.setForeground(Color.BLACK);
+            this.add(btn);
+        }
+        repaint();
     }
 
 }
