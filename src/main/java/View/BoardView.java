@@ -69,4 +69,9 @@ public class BoardView extends JPanel {
     }
 
 
+    public Point getPoint(JButton btn) {
+        return this.buttons.get(btn);
+    }
+
+
 }

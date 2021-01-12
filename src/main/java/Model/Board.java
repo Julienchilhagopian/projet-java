@@ -57,4 +57,28 @@ public class Board {
     public List<Point> getPoints() {
         return points;
     }
+
+    public void setActive(Point pointToUpdate) {
+        if(!this.points.contains(pointToUpdate)) {
+            throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
+        }
+
+        for(Point pt : this.points) {
+            if(pt.equals(pointToUpdate)) {
+                pt.setActive(true);
+            }
+        }
+    }
+
+    // méthode pour test
+    public void countActive() {
+        int counter = 0;
+        for (Point pt : this.points) {
+            if(pt.isActive()) {
+                counter++;
+            }
+        }
+
+        System.out.println("Nb points actifs MODEL :" + counter);
+    }
 }

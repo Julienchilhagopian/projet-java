@@ -1,12 +1,14 @@
 package Controller;
 
 import Model.Board;
+import Model.Point;
 import View.BoardView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class BoardController {
     private Board boardModel;
@@ -43,10 +45,11 @@ public class BoardController {
     }
 
     private void handleOnClickButton(JButton btn) {
-        btn.setBackground(Color.BLACK);
-        btn.setOpaque(true);
-        btn.setContentAreaFilled(true);
-        // UPDATE LE MODEL
+        Point pointToUpdate = this.boardView.getPoint(btn);
+        this.boardModel.setActive(pointToUpdate);
+
+        this.boardView.printPoints(this.boardModel.getPoints());
+        this.boardModel.countActive();
     }
 
 
