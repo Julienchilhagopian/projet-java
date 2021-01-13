@@ -74,14 +74,14 @@ public class BoardView extends JPanel {
     
     public void addPoint(JButton btn, Point p) {
     	
-    	JLabel aqui = new JLabel();
+    	JLabel numtext = new JLabel();
     	int x = btn.getX()-10;
     	int y = btn.getY();
     	setLayout(null);
-    	aqui.setBounds(x, y, 50, 30);
+    	numtext.setBounds(x, y, 50, 30);
     	String s=String.valueOf(p.getNum());
-    	aqui.setText(s);
-    	this.add(aqui);
+    	numtext.setText(s);
+    	this.add(numtext);
     }
 
 
