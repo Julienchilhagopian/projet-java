@@ -4,8 +4,7 @@ public class Point {
 	private int x;
 	private int y;
 	private Boolean isActive;
-
-
+	private int num;
 
 	public int getX() {
 		return x;
@@ -24,12 +23,13 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
+		this.num=0;
 	}
+	
 	@Override
 	public String toString() {
-		return "Point [x=" + x + ", y=" + y + "]";
+		return "Point [x=" + x + ", y=" + y + ", isActive=" + isActive + ", num=" + num + "]";
 	}
-
 	public Boolean isActive() {
 		return isActive;
 	}
@@ -37,4 +37,12 @@ public class Point {
 	public void setActive(Boolean active) {
 		isActive = active;
 	}
+	
+	public int getNum() {
+		return num;
+	}
+	public void pointNum(int count) {
+		this.num = count;
+	}
+
 }

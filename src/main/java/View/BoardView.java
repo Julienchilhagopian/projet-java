@@ -46,7 +46,6 @@ public class BoardView extends JPanel {
 
             JButton btn = new JButton("");
             btn.setBounds(cellX, cellY, 10, 10);
-            btn.setBorder(new RoundedBorder(50));
             btn.setBackground(Color.BLACK);
             btn.setOpaque(true);
 
@@ -71,6 +70,18 @@ public class BoardView extends JPanel {
 
     public Point getPoint(JButton btn) {
         return this.buttons.get(btn);
+    }
+    
+    public void addPoint(JButton btn, Point p) {
+    	
+    	JLabel aqui = new JLabel();
+    	int x = btn.getX()-10;
+    	int y = btn.getY();
+    	setLayout(null);
+    	aqui.setBounds(x, y, 50, 30);
+    	String s=String.valueOf(p.getNum());
+    	aqui.setText(s);
+    	this.add(aqui);
     }
 
 

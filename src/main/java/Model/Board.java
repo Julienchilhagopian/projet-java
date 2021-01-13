@@ -7,6 +7,7 @@ public class Board {
     private List<Point> points;
     private Integer row = 15;
     private Integer column = 15;
+    private int count=1;
 
     private Board() {
         this.points = this.buildStartList();
@@ -62,11 +63,16 @@ public class Board {
         if(!this.points.contains(pointToUpdate)) {
             throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
         }
-
+        
         for(Point pt : this.points) {
             if(pt.equals(pointToUpdate)) {
                 pt.setActive(true);
+                pt.pointNum(count);
+                count++;
+                System.out.println(pt);
             }
+            
+            	
         }
     }
 
@@ -78,7 +84,6 @@ public class Board {
                 counter++;
             }
         }
-
         System.out.println("Nb points actifs MODEL :" + counter);
     }
 }
