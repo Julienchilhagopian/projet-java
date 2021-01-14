@@ -5,11 +5,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sound.sampled.Line;
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -35,6 +37,8 @@ public class BoardView extends JPanel {
         for (int i = 30; i <= 450; i += 30) {
             g.drawLine(30, i, 480, i);
         }
+        
+        
 	}
 
     public void printPoints(List<Point> points){
@@ -83,6 +87,4 @@ public class BoardView extends JPanel {
     	numtext.setText(s);
     	this.add(numtext);
     }
-
-
 }
