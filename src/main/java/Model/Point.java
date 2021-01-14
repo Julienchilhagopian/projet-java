@@ -1,11 +1,13 @@
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Point {
 	private int x;
 	private int y;
 	private Boolean isActive;
-
-
+	private List<Point> neighbors;
 
 	public int getX() {
 		return x;
@@ -24,6 +26,7 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
+		this.neighbors = new ArrayList<>();
 	}
 	@Override
 	public String toString() {
@@ -36,5 +39,9 @@ public class Point {
 
 	public void setActive(Boolean active) {
 		isActive = active;
+	}
+
+	public void addNeighbour(Point neighbour){
+		this.addNeighbour(neighbour);
 	}
 }
