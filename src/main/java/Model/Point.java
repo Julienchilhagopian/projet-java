@@ -42,6 +42,10 @@ public class Point {
 	}
 
 	public void addNeighbour(Point neighbour){
-		this.addNeighbour(neighbour);
+		this.neighbors.add(neighbour);
+	}
+
+	public List<Point> getNeighbors() {
+		return neighbors;
 	}
 }
