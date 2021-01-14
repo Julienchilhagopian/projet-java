@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BoardController {
     private Board boardModel;
@@ -51,11 +52,11 @@ public class BoardController {
 
         this.boardView.printPoints(this.boardModel.getPoints());
         this.boardModel.countActive();
-        System.out.println(getVerticalNeighbours(pointToUpdate));
+        System.out.println(this.boardModel.getActiveVoisins(pointToUpdate));
     }
 
 
-    private List<Point> getVerticalNeighbours(Point inputPoint) {
+    private List<Point> getVerticalNeighboursV1(Point inputPoint) {
         List<Point> verticalNeighboursDown = new ArrayList<>();
         verticalNeighboursDown.add(inputPoint);
         int counter = inputPoint.getY() + 1;
@@ -101,6 +102,33 @@ public class BoardController {
         }*/
 
         return new ArrayList<>();
+    }
+
+    private List<Point> getVerticalNeighbours(Point inputPoint) {
+        List<Point> verticalNeighbours = new ArrayList<>();
+        Point ptToSearch = inputPoint;
+
+        while(searchPoint(ptToSearch).isPresent()) {
+            Point voisin = searchPoint(ptToSearch).get();
+            verticalNeighbours.add(voisin);
+            ptToSearch = voisin;
+        }
+
+        return verticalNeighbours;
+    }
+
+    public Optional<Point> searchPoint(Point pointToSearch) {
+        Point point = null;
+
+        for(Point p : pointToSearch.getNeighbors()) {
+            if(p.getX() == pointToSearch.getX() && p.isActive()) {
+                if(p.getY() == pointToSearch.getY() + 1){
+                    point = p;
+                }
+            }
+        }
+
+        return Optional.ofNullable(point);
     }
 
 

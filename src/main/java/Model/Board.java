@@ -81,4 +81,24 @@ public class Board {
 
         System.out.println("Nb points actifs MODEL :" + counter);
     }
+
+    public List<Point> getActiveVoisins(Point p) {
+        List<Point> voisins = new ArrayList<>();
+
+        for(Point voisin : this.points) {
+            if(voisin.isActive()) {
+                if(voisin.getY() + 1 == p.getY() && voisin.getX() == p.getX()) {
+                    voisins.add(voisin);
+                } else if(voisin.getY() - 1 == p.getY() && voisin.getX() == p.getX()) {
+                    voisins.add(voisin);
+                } else if(voisin.getX() + 1 == p.getY()) {
+                    voisins.add(voisin);
+                } else if (voisin.getX() -1 ==  p.getY()){
+                    voisins.add(voisin);
+                }
+            }
+        }
+
+        return voisins;
+    }
 }
