@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,12 +13,15 @@ import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import java.awt.geom.Line2D;
+import javax.sound.sampled.Line;
 
 import Model.Board;
 import Model.Point;
 
 public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
+    private List<LineView> line;
 
     public BoardView() {
         this.buttons = new HashMap<>();
@@ -34,6 +38,10 @@ public class BoardView extends JPanel {
 
         for (int i = 30; i <= 450; i += 30) {
             g.drawLine(30, i, 480, i);
+        }
+
+        for(LineView l : line) {
+            l.draw(g);
         }
 	}
 
@@ -66,6 +74,10 @@ public class BoardView extends JPanel {
         for (JButton btn : this.buttons.keySet()) {
             btn.addActionListener(callback);
         }
+    }
+
+    public void printLine(int xa, int ya, int xb, int yb) {
+        line.add(new LineView(xa,ya,xb,yb));
     }
 
 
