@@ -120,8 +120,8 @@ public class BoardController {
     public Optional<Point> searchPoint(Point pointToSearch) {
         Point point = null;
 
-        for(Point p : pointToSearch.getNeighbors()) {
-            if(p.getX() == pointToSearch.getX() && p.isActive()) {
+        for(Point p : this.boardModel.getActiveVoisins(pointToSearch)) {
+            if(p.getX() == pointToSearch.getX()) {
                 if(p.getY() == pointToSearch.getY() + 1){
                     point = p;
                 }

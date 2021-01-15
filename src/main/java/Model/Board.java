@@ -91,9 +91,13 @@ public class Board {
                     voisins.add(voisin);
                 } else if(voisin.getY() - 1 == p.getY() && voisin.getX() == p.getX()) {
                     voisins.add(voisin);
-                } else if(voisin.getX() + 1 == p.getY()) {
+                } else if(voisin.getX() + 1 == p.getX() && voisin.getX() == p.getX()) {
                     voisins.add(voisin);
-                } else if (voisin.getX() -1 ==  p.getY()){
+                } else if (voisin.getX() - 1 == p.getX() && voisin.getX() == p.getX()){
+                    voisins.add(voisin);
+                } else if (voisin.getX() - 1 == p.getX() && voisin.getY() - 1 == p.getY()){
+                    voisins.add(voisin);
+                } else if (voisin.getX() + 1 == p.getX() && voisin.getY() + 1 == p.getY()){
                     voisins.add(voisin);
                 }
             }
