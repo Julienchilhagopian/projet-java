@@ -69,7 +69,6 @@ public class Board {
                 pt.setActive(true);
                 pt.pointNum(count);
                 count++;
-                System.out.println(pt);
             }
             
             	

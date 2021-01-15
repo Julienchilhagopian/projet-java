@@ -1,11 +1,13 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.util.List;
 
 import javax.swing.JPanel;
 
 public class LineView extends JPanel{
-
+	
 	private int xa;
 	private int ya;
 	private int xb;
@@ -18,13 +20,12 @@ public class LineView extends JPanel{
 		this.xb = xb;
 		this.yb = yb;
 	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		System.out.println("dd");
+	public void draw(Graphics g) {
+		g.setColor(Color.RED);
         g.drawLine(xa, ya, xb, yb);
-        repaint();
-        
 	}
+	
+
+	
+
 }

@@ -1,6 +1,5 @@
 import Controller.BoardController;
 import View.BoardView;
-import View.PointView;
 
 import javax.swing.*;
 import java.awt.*;

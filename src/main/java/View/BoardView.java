@@ -1,8 +1,10 @@
 package View;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.geom.Line2D;
@@ -20,26 +22,41 @@ import Model.Point;
 
 public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
+    private List<LineView> line;
+    
 
     public BoardView() {
         this.buttons = new HashMap<>();
+        this.line = new ArrayList<>();
     }
-	
+    
+    public void printLine(int xa, int ya, int xb, int yb) {
+    	line.add(new LineView(xa,ya,xb,yb));
+    }
+    
+    
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
         g.drawRect(30, 30, 450, 450);
-
+        g.setColor(Color.GRAY);
         for (int i = 30; i <= 450; i += 30) {
             g.drawLine(i, 30, i, 480);
+      
         }
 
         for (int i = 30; i <= 450; i += 30) {
             g.drawLine(30, i, 480, i);
+            
         }
         
-        
+        //On affiche chaque ligne 
+        for(LineView l:line) {
+        	l.draw(g);
+		}
 	}
+	
+	
 
     public void printPoints(List<Point> points){
         for (Point p : points) {
