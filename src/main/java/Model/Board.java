@@ -82,27 +82,33 @@ public class Board {
         System.out.println("Nb points actifs MODEL :" + counter);
     }
 
-    public List<Point> getActiveVoisins(Point p) {
-        List<Point> voisins = new ArrayList<>();
+    public void updateVoisins() {
+        //List<Point> voisins = new ArrayList<>();
 
-        for(Point voisin : this.points) {
-            if(voisin.isActive()) {
-                if(voisin.getY() + 1 == p.getY() && voisin.getX() == p.getX()) {
-                    voisins.add(voisin);
-                } else if(voisin.getY() - 1 == p.getY() && voisin.getX() == p.getX()) {
-                    voisins.add(voisin);
-                } else if(voisin.getX() + 1 == p.getX() && voisin.getX() == p.getX()) {
-                    voisins.add(voisin);
-                } else if (voisin.getX() - 1 == p.getX() && voisin.getX() == p.getX()){
-                    voisins.add(voisin);
-                } else if (voisin.getX() - 1 == p.getX() && voisin.getY() - 1 == p.getY()){
-                    voisins.add(voisin);
-                } else if (voisin.getX() + 1 == p.getX() && voisin.getY() + 1 == p.getY()){
-                    voisins.add(voisin);
+        for (Point p : this.points) {
+            for (Point voisin : this.points) {
+                if (voisin.isActive()) {
+                    if (voisin.getY() + 1 == p.getY() && voisin.getX() == p.getX()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getY() - 1 == p.getY() && voisin.getX() == p.getX()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() + 1 == p.getX() && voisin.getY() == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() - 1 == p.getX() && voisin.getY() == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() - 1 == p.getX() && voisin.getY() - 1 == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() + 1 == p.getX() && voisin.getY() + 1 == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
                 }
             }
         }
-
-        return voisins;
     }
+
 }

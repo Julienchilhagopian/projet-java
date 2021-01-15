@@ -1,13 +1,12 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Point {
 	private int x;
 	private int y;
 	private Boolean isActive;
-	private List<Point> neighbors;
+	private Set<Point> neighbors;
 
 	public int getX() {
 		return x;
@@ -26,7 +25,7 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
-		this.neighbors = new ArrayList<>();
+		this.neighbors = new HashSet<>();
 	}
 	@Override
 	public String toString() {
@@ -44,4 +43,20 @@ public class Point {
 	public void addNeighbour(Point neighbour){
 		this.neighbors.add(neighbour);
 	}
+
+	public Set<Point> getNeighbors() {
+		return neighbors;
+	}
+
+	public Optional<Point> getDownNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getY() + 1 == p.getY() && this.getX() == p.getX()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
 }

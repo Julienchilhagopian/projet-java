@@ -5,12 +5,10 @@ import Model.Point;
 import View.BoardView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class BoardController {
     private Board boardModel;
@@ -52,58 +50,35 @@ public class BoardController {
 
         this.boardView.printPoints(this.boardModel.getPoints());
         this.boardModel.countActive();
-        System.out.println(this.boardModel.getActiveVoisins(pointToUpdate));
+
+        // maj des voisins de tous les points.
+        this.boardModel.updateVoisins();
+        System.out.println(pointToUpdate.getNeighbors());
+        System.out.println("TRACE : " + verticalTrace(pointToUpdate));
     }
 
 
-    private List<Point> getVerticalNeighboursV1(Point inputPoint) {
-        List<Point> verticalNeighboursDown = new ArrayList<>();
-        verticalNeighboursDown.add(inputPoint);
-        int counter = inputPoint.getY() + 1;
-        for(Point pt : this.boardModel.getPoints()) {
-            if((pt.getX() == inputPoint.getX()) && pt.isActive()) {
-                if (pt.getY() == counter) {
-                    verticalNeighboursDown.add(pt);
-                    counter++;
-                }
-                if(verticalNeighboursDown.size() == 5) {
-                    break;
-                }
+    private List<Point> verticalTrace(Point inputPoint) {
+        List<Point> trace = new ArrayList<>();
+        Point startPoint = inputPoint;
+
+        // ajout du point de départ.
+        trace.add(startPoint);
+
+        while(startPoint.getDownNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getDownNeighbor().get();
+            trace.add(foundPoint);
+            startPoint = foundPoint;
+
+            if(trace.size() == 5) {
+                break;
             }
         }
-        if(verticalNeighboursDown.size() < 5) {
-            verticalNeighboursDown.clear();
-        }
 
-        List<Point> verticalNeighboursUp = new ArrayList<>();
-        int counter2 = inputPoint.getY() - 1;
-        for(Point pt : this.boardModel.getPoints()) {
-            if((pt.getX() == inputPoint.getX()) && pt.isActive()) {
-                if (pt.getY() == counter2) {
-                    verticalNeighboursUp.add(pt);
-                    counter2--;
-                }
-                if(verticalNeighboursUp.size() == 5) {
-                    break;
-                }
-            }
-        }
-        if(verticalNeighboursUp.size() < 5) {
-         //  verticalNeighboursUp.clear();
-        }
-
-        System.out.println("DOWN " + verticalNeighboursDown);
-        System.out.println("UP " + verticalNeighboursUp);
-        /*
-        if(verticalNeighboursDown.size() == 5) {
-            return verticalNeighboursDown;
-        } else if (verticalNeighboursUp.size() == 5) {
-            return verticalNeighboursUp;
-        }*/
-
-        return new ArrayList<>();
+        return trace;
     }
 
+    /*
     private List<Point> getVerticalNeighbours(Point inputPoint) {
         List<Point> verticalNeighbours = new ArrayList<>();
         Point ptToSearch = inputPoint;
@@ -115,8 +90,9 @@ public class BoardController {
         }
 
         return verticalNeighbours;
-    }
+    } */
 
+    /*
     public Optional<Point> searchPoint(Point pointToSearch) {
         Point point = null;
 
@@ -129,7 +105,7 @@ public class BoardController {
         }
 
         return Optional.ofNullable(point);
-    }
+    } */
 
 
 }
