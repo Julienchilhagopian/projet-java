@@ -70,6 +70,19 @@ public class Board {
         }
     }
 
+
+    public void setTraced(Point pointToUpdate) {
+        if(!this.points.contains(pointToUpdate)) {
+            throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
+        }
+
+        for(Point pt : this.points) {
+            if(pt.equals(pointToUpdate)) {
+                pt.setTraced(true);
+            }
+        }
+    }
+
     // méthode pour test
     public void countActive() {
         int counter = 0;

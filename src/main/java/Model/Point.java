@@ -6,6 +6,7 @@ public class Point {
 	private int x;
 	private int y;
 	private Boolean isActive;
+	private Boolean isTraced;
 	private Set<Point> neighbors;
 
 	public int getX() {
@@ -25,6 +26,7 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
+		this.isTraced = false;
 		this.neighbors = new HashSet<>();
 	}
 	@Override
@@ -59,4 +61,22 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	public Optional<Point> getUpNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getY() - 1 == p.getY() && this.getX() == p.getX()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+	public void setTraced(Boolean traced) {
+		isTraced = traced;
+	}
+
+	public Boolean isTraced() {
+		return isTraced;
+	}
 }

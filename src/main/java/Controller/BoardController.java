@@ -67,14 +67,53 @@ public class BoardController {
 
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
-            trace.add(foundPoint);
             startPoint = foundPoint;
 
-            if(trace.size() == 5) {
-                break;
+            if(!foundPoint.isTraced()) {
+                trace.add(foundPoint);
+
+                // la trace est terminée
+                if(trace.size() == 5) {
+                    // fin de boucle
+                    // Avertir le model des points tracés
+                    for(Point pt : trace) {
+                        this.boardModel.setTraced(pt);
+                    }
+                    return trace;
+                }
             }
         }
 
+
+        // si on est la c'est que la trace n'est pas complète
+        // je lance une recherche dans l'autre sens.
+
+        // Reset
+        trace.clear();
+        startPoint = inputPoint;
+        trace.add(startPoint);
+
+        while(startPoint.getUpNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getUpNeighbor().get();
+            startPoint = foundPoint;
+
+            if(!foundPoint.isTraced()) {
+                trace.add(foundPoint);
+
+                // la trace est terminée
+                if(trace.size() == 5) {
+                    // fin de boucle
+                    // Avertir le model des points tracés
+                    for(Point pt : trace) {
+                        this.boardModel.setTraced(pt);
+                    }
+                    return trace;
+                }
+            }
+        }
+
+        trace.clear();
+        // Attention la liste peut ne pas être complète !!
         return trace;
     }
 
