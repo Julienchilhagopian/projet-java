@@ -65,6 +65,7 @@ public class BoardController {
         // ajout du point de départ.
         trace.add(startPoint);
 
+        // Creuser tant qu'il y a un voisin du dessous
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
             startPoint = foundPoint;
@@ -116,35 +117,6 @@ public class BoardController {
         // Attention la liste peut ne pas être complète !!
         return trace;
     }
-
-    /*
-    private List<Point> getVerticalNeighbours(Point inputPoint) {
-        List<Point> verticalNeighbours = new ArrayList<>();
-        Point ptToSearch = inputPoint;
-
-        while(searchPoint(ptToSearch).isPresent()) {
-            Point voisin = searchPoint(ptToSearch).get();
-            verticalNeighbours.add(voisin);
-            ptToSearch = voisin;
-        }
-
-        return verticalNeighbours;
-    } */
-
-    /*
-    public Optional<Point> searchPoint(Point pointToSearch) {
-        Point point = null;
-
-        for(Point p : this.boardModel.getActiveVoisins(pointToSearch)) {
-            if(p.getX() == pointToSearch.getX()) {
-                if(p.getY() == pointToSearch.getY() + 1){
-                    point = p;
-                }
-            }
-        }
-
-        return Optional.ofNullable(point);
-    } */
 
 
 }
