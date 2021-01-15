@@ -21,10 +21,11 @@ import Model.Point;
 
 public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
-    private List<LineView> line;
+    private List<LineView> lines;
 
     public BoardView() {
         this.buttons = new HashMap<>();
+        this.lines = new ArrayList<>();
     }
 	
 	@Override
@@ -40,7 +41,7 @@ public class BoardView extends JPanel {
             g.drawLine(30, i, 480, i);
         }
 
-        for(LineView l : line) {
+        for(LineView l : lines) {
             l.draw(g);
         }
 	}
@@ -77,13 +78,11 @@ public class BoardView extends JPanel {
     }
 
     public void printLine(int xa, int ya, int xb, int yb) {
-        line.add(new LineView(xa,ya,xb,yb));
+        lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
     }
-
 
     public Point getPoint(JButton btn) {
         return this.buttons.get(btn);
     }
-
 
 }

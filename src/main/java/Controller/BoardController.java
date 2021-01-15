@@ -54,9 +54,10 @@ public class BoardController {
         // maj des voisins de tous les points.
         this.boardModel.updateVoisins();
         System.out.println(pointToUpdate.getNeighbors());
-       // System.out.println("TRACE : " + verticalTrace(pointToUpdate));
 
         List<Point> trace = verticalTrace(pointToUpdate);
+
+        // A améliorer pour les autres directions
         if(trace.size() != 0) {
             this.boardView.printLine(trace.get(0).getX(), trace.get(0).getY(), trace.get(trace.size() - 1).getX(), trace.get(trace.size() - 1).getY());
         }
@@ -89,7 +90,6 @@ public class BoardController {
                 }
             }
         }
-
 
         // si on est la c'est que la trace n'est pas complète
         // je lance une recherche dans l'autre sens.
