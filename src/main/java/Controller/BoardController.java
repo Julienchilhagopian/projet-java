@@ -61,6 +61,7 @@ public class BoardController {
         List<List<Point>> traces = new ArrayList<>();
 
         traces.add(verticalTrace(pointToUpdate));
+        traces.add(horizontalTrace(pointToUpdate));
         handleTrace(traces);
     }
 
@@ -68,7 +69,6 @@ public class BoardController {
         for(List<Point> trace : traces) {
             System.out.println("TRACE" + trace);
             if(trace.size() == 5) {
-                trace.sort(new TraceSortByY());
                 this.boardView.printLine(trace.get(0).getX(), trace.get(0).getY(), trace.get(trace.size() - 1).getX(), trace.get(trace.size() - 1).getY());
                 break;
             }
@@ -123,6 +123,7 @@ public class BoardController {
                     for(Point pt : trace) {
                         this.boardModel.setTraced(pt);
                     }
+                    trace.sort(new TraceSortByY());
                     return trace;
                 }
             }
@@ -130,6 +131,58 @@ public class BoardController {
 
         trace.clear();
         // Attention la liste peut ne pas être complète !!
+        return trace;
+    }
+
+    private List<Point> horizontalTrace(Point inputPoint) {
+        List<Point> trace = new ArrayList<>();
+        Point startPoint = inputPoint;
+
+        // ajout du point de départ.
+        trace.add(startPoint);
+
+        // Creuser tant qu'il y a un voisin du dessous
+        while(startPoint.getRightNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getRightNeighbor().get();
+            startPoint = foundPoint;
+
+            if(!foundPoint.isTraced()) {
+                trace.add(foundPoint);
+
+                // la trace est terminée
+                if(trace.size() == 5) {
+                    // Avertir le model des points tracés
+                    for(Point pt : trace) {
+                        this.boardModel.setTraced(pt);
+                    }
+                    return trace;
+                }
+            }
+        }
+
+        // RESET
+        startPoint = inputPoint;
+
+        while(startPoint.getLeftNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getLeftNeighbor().get();
+            startPoint = foundPoint;
+
+            if(!foundPoint.isTraced()) {
+                trace.add(foundPoint);
+
+                // la trace est terminée
+                if(trace.size() == 5) {
+                    // Avertir le model des points tracés
+                    for(Point pt : trace) {
+                        this.boardModel.setTraced(pt);
+                    }
+                    trace.sort(new TraceSortByX());
+                    return trace;
+                }
+            }
+        }
+
+        trace.clear();
         return trace;
     }
 

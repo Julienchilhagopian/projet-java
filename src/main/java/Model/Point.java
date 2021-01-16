@@ -72,6 +72,30 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	public Optional<Point> getLeftNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() - 1 == p.getX() && this.getY() == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+	public Optional<Point> getRightNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() + 1 == p.getX() && this.getY() == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+
+
 	public void setTraced(Boolean traced) {
 		isTraced = traced;
 	}

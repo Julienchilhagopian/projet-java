@@ -96,8 +96,6 @@ public class Board {
     }
 
     public void updateVoisins() {
-        //List<Point> voisins = new ArrayList<>();
-
         for (Point p : this.points) {
             for (Point voisin : this.points) {
                 if (voisin.isActive()) {
