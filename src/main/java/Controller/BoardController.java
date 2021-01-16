@@ -62,7 +62,7 @@ public class BoardController {
         List<List<Point>> traces = new ArrayList<>();
 
         traces.add(verticalTrace(pointToUpdate));
-        traces.add(horizontalTrace(pointToUpdate));
+        //traces.add(horizontalTrace(pointToUpdate));
         handleTrace(traces);
     }
 
@@ -88,7 +88,7 @@ public class BoardController {
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
 
-            if(foundPoint.isTraceEligible("Vertical")) {
+            if(foundPoint.isTraceEligibleVertical(true)) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -113,7 +113,7 @@ public class BoardController {
         while(startPoint.getUpNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpNeighbor().get();
 
-            if(foundPoint.isTraceEligible("Vertical")) {
+            if(foundPoint.isTraceEligibleVertical(true)) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -135,6 +135,7 @@ public class BoardController {
         return trace;
     }
 
+    /*
     private List<Point> horizontalTrace(Point inputPoint) {
         List<Point> trace = new ArrayList<>();
         Point startPoint = inputPoint;
@@ -146,7 +147,7 @@ public class BoardController {
         while(startPoint.getRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getRightNeighbor().get();
 
-            if(!foundPoint.isTraced()) {
+            if(foundPoint.isTraceEligible("Horizontal")) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -167,7 +168,7 @@ public class BoardController {
         while(startPoint.getLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getLeftNeighbor().get();
 
-            if(!foundPoint.isTraced()) {
+            if(foundPoint.isTraceEligible("Horizontal")) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -186,6 +187,7 @@ public class BoardController {
         trace.clear();
         return trace;
     }
+    */
 
 
 }

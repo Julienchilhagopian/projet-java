@@ -82,7 +82,7 @@ public class Board {
         for(Point pt : this.points) {
             if(pt.equals(pointToUpdate)) {
                 pt.setTraced(true);
-                pt.setTraceOrientation(orientation);
+                pt.setVerticalOrientation(true);
             }
         }
     }
