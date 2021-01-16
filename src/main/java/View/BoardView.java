@@ -23,11 +23,11 @@ public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
     private List<LineView> lines;
 
-    public BoardView() {
+	public BoardView() {
         this.buttons = new HashMap<>();
         this.lines = new ArrayList<>();
     }
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -48,30 +48,35 @@ public class BoardView extends JPanel {
 	}
 
     public void printPoints(List<Point> points){
+    	
         for (Point p : points) {
             int cellX = 30 + (p.getX()*30);
             int cellY = 30 + (p.getY()*30);
             cellX = cellX - 10 /2;
             cellY = cellY - 10 /2;
 
-            JButton btn = new JButton("");
+            JButton btn = new JButton();
             btn.setBounds(cellX, cellY, 10, 10);
             btn.setBackground(Color.GRAY);
             btn.setOpaque(true);
-
+            
             if(!p.isActive()) {
                 btn.setOpaque(false);
                 btn.setContentAreaFilled(false);
                 btn.setBorderPainted(false);
             }
 
-            this.buttons.put(btn, p);
+            this.buttons.put(btn, p); 
+            this.setLayout(null);
+    
             this.add(btn);
+            
         }
-        repaint();
+        
+        
     }
 
-    public void attachOnClickButtonListenner(ActionListener callback) {
+	public void attachOnClickButtonListenner(ActionListener callback) {
         for (JButton btn : this.buttons.keySet()) {
             btn.addActionListener(callback);
         }
