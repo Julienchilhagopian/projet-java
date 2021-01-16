@@ -1,7 +1,9 @@
 package View;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -21,6 +23,7 @@ public class LineView extends JPanel{
 		this.yb = yb;
 	}
 	public void draw(Graphics g) {
+
 		g.setColor(Color.RED);
         g.drawLine(xa, ya, xb, yb);
 	}

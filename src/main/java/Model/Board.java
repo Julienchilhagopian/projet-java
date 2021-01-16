@@ -18,15 +18,13 @@ public class Board {
    }
 
     // Construction du plateau de départ d'un point de vue modèle.
-    //J'ai modifie la classe pour accèder a cette methode plus facilement mais du coup on changera :) 
     public List<Point> buildStartList() {
         List<Point> points = new ArrayList<>();
 
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < column; c++) {
+        for (int r = 0; r <= row; r++) {
+            for (int c = 0; c <= column; c++) {
                 Point pt = new Point(r, c);
 
-                //J'ai un peu changer la méthode, j'ai pas trop compris les setactive
                 if ((r == 3) && (c >= 6 && c <= 9)) {
                     pt.setActive(true);
                 } else if (r == 4 && (c == 6 || c == 9)) {

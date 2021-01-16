@@ -54,32 +54,43 @@ public class BoardView extends JPanel {
         for(LineView l:line) {
         	l.draw(g);
 		}
+       
 	}
 	
 	
 
     public void printPoints(List<Point> points){
+    	
+    	int cellX =0;
+    	int cellY=0;
         for (Point p : points) {
-            int cellX = 30 + (p.getX()*30);
-            int cellY = 30 + (p.getY()*30);
+        	
+            cellX = 30 + (p.getX()*30);
+            cellY = 30 + (p.getY()*30);
             cellX = cellX - 10 /2;
             cellY = cellY - 10 /2;
+            System.out.println(cellX+" "+cellY);
 
             JButton btn = new JButton("");
             btn.setBounds(cellX, cellY, 10, 10);
+
             btn.setBackground(Color.BLACK);
             btn.setOpaque(true);
 
-            if(!p.isActive()) {
-                btn.setOpaque(false);
-                btn.setContentAreaFilled(false);
-                btn.setBorderPainted(false);
-            }
+
+//            if(!p.isActive()) {
+//                btn.setOpaque(false);
+//                btn.setContentAreaFilled(false);
+//                btn.setBorderPainted(false);
+//            }
 
             this.buttons.put(btn, p);
             this.add(btn);
+            
+            
         }
         repaint();
+        
     }
 
     public void attachOnClickButtonListenner(ActionListener callback) {
