@@ -19,12 +19,8 @@ public class Main {
         BoardView board = new BoardView();
         frame.add(board);
         frame.setVisible(true);
-        
-        JPanel jp = new JPanel();
-        frame.add(jp);
-        BoardController boardController = new BoardController(jp);
-        
 
+        BoardController boardController = BoardController.inst(board);
     }
 
 }

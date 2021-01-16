@@ -4,71 +4,134 @@ import Model.Board;
 import Model.Point;
 import View.BoardView;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JPanel;
+public class BoardController {
+    private Board boardModel;
+    private BoardView boardView;
 
-public class BoardController extends JPanel implements MouseListener{
+    private BoardController(Board boardModel, BoardView view) {
+        this.boardModel = boardModel;
+        this.boardView = view;
+        initBoardView();
+    }
 
-    //private Board board;
-    //private BoardView boardView;
-	private JPanel jpanel;
+    public Board getModel() {
+        return boardModel;
+    }
 
-//    public BoardController(Board boardModel, BoardView view) {
-//        this.board = boardModel;
-//        this.boardView = view;
-//    }
+    public static BoardController inst(BoardView view) {
+        Board model = Board.withClassicBoard();
+        return new BoardController(model, view);
+    }
 
-//    public Board getModel() {
-//        return board;
-//    }
+    private void initBoardView() {
+        boardView.printPoints(this.boardModel.getPoints());
+        boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
+    }
 
-//    public static BoardController inst(BoardView view) {
-//        Board model = Board.withClassicBoard();
-//        return new BoardController(model, view);
-//    }
-	
-	public BoardController(JPanel jpanel){
-		this.jpanel=jpanel;
-		jpanel.addMouseListener(this);
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		System.out.println("Click: x= "+e.getX()+" y = "+e.getY());
-		
-		int x = e.getX()/30;
-		int y = e.getY()/30;
-		
-		BoardView b = new BoardView();
-		b.addPoint(x, y);
-	}
+    private ActionListener buildAddAlternativeBehavior() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton btnData = (JButton) e.getSource();
+                handleOnClickButton(btnData);
+            }
+        };
+    }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-		
-	}
+    private void handleOnClickButton(JButton btn) {
+        Point pointToUpdate = this.boardView.getPoint(btn);
+        this.boardModel.setActive(pointToUpdate);
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-		
-	}
+        this.boardView.printPoints(this.boardModel.getPoints());
+        this.boardModel.countActive();
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-		
-	}
+        // maj des voisins de tous les points.
+        this.boardModel.updateVoisins();
+        System.out.println("VOISINS" + pointToUpdate.getNeighbors());
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-		
-	}
+
+        // toutes les traces
+        List<List<Point>> traces = new ArrayList<>();
+
+        traces.add(verticalTrace(pointToUpdate));
+        handleTrace(traces);
+    }
+
+    private void handleTrace(List<List<Point>> traces) {
+        for(List<Point> trace : traces) {
+            System.out.println("TRACE" + trace);
+            if(trace.size() == 5) {
+                trace.sort(new TraceSortByY());
+                this.boardView.printLine(trace.get(0).getX(), trace.get(0).getY(), trace.get(trace.size() - 1).getX(), trace.get(trace.size() - 1).getY());
+                break;
+            }
+        }
+    }
+
+
+    private List<Point> verticalTrace(Point inputPoint) {
+        List<Point> trace = new ArrayList<>();
+        Point startPoint = inputPoint;
+
+        // ajout du point de départ.
+        trace.add(startPoint);
+
+        // Creuser tant qu'il y a un voisin du dessous
+        while(startPoint.getDownNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getDownNeighbor().get();
+            startPoint = foundPoint;
+
+            if(!foundPoint.isTraced()) {
+                trace.add(foundPoint);
+
+                // la trace est terminée
+                if(trace.size() == 5) {
+                    // fin de boucle
+                    // Avertir le model des points tracés
+                    for(Point pt : trace) {
+                        this.boardModel.setTraced(pt);
+                    }
+                    return trace;
+                }
+            }
+        }
+
+        // si on est la c'est que la trace n'est pas complète
+        // je lance une recherche dans l'autre sens.
+
+        // RESET
+        startPoint = inputPoint;
+
+        while(startPoint.getUpNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getUpNeighbor().get();
+            startPoint = foundPoint;
+
+            if(!foundPoint.isTraced()) {
+                trace.add(foundPoint);
+
+                // la trace est terminée
+                if(trace.size() == 5) {
+                    // fin de boucle
+                    // Avertir le model des points tracés
+                    for(Point pt : trace) {
+                        this.boardModel.setTraced(pt);
+                    }
+                    return trace;
+                }
+            }
+        }
+
+        trace.clear();
+        // Attention la liste peut ne pas être complète !!
+        return trace;
+    }
+
 
 }

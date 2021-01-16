@@ -4,40 +4,33 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.geom.Line2D;
+import javax.sound.sampled.Line;
 
 import Model.Board;
 import Model.Point;
 
-public class BoardView extends JPanel{
-	
-	private List<Point> points;
-	
-	public BoardView() {
-		init();
-    }
-	public BoardView(List<Point> points) {
-		this.points = points;
-    }
+public class BoardView extends JPanel {
+    private Map<JButton, Point> buttons;
+    private List<LineView> lines;
 
+    public BoardView() {
+        this.buttons = new HashMap<>();
+        this.lines = new ArrayList<>();
+    }
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-        for (Point p : points) {
-            int cellX = 30 + (p.getX()*30);
-            int cellY = 30 + (p.getY()*30);
-            cellX = cellX - 10 /2;
-            cellY = cellY - 10 /2;
-            g.drawOval(cellX, cellY, 10, 10);
-        }
-        
         g.drawRect(30, 30, 450, 450);
 
         for (int i = 30; i <= 450; i += 30) {
@@ -47,19 +40,49 @@ public class BoardView extends JPanel{
         for (int i = 30; i <= 450; i += 30) {
             g.drawLine(30, i, 480, i);
         }
+
+        for(LineView l : lines) {
+            l.draw(g);
+        }
 	}
-	
-	public void addPoint(int x, int y) {
-		System.out.println(points);
-		Point p = new Point(x,y);
-		this.points.add(p);
-		System.out.println(points);
+
+    public void printPoints(List<Point> points){
+        for (Point p : points) {
+            int cellX = 30 + (p.getX()*30);
+            int cellY = 30 + (p.getY()*30);
+            cellX = cellX - 10 /2;
+            cellY = cellY - 10 /2;
+
+            JButton btn = new JButton("");
+            btn.setBounds(cellX, cellY, 10, 10);
+            btn.setBorder(new RoundedBorder(50));
+            btn.setBackground(Color.BLACK);
+            btn.setOpaque(true);
+
+            if(!p.isActive()) {
+                btn.setOpaque(false);
+                btn.setContentAreaFilled(false);
+                btn.setBorderPainted(false);
+            }
+
+            this.buttons.put(btn, p);
+            this.add(btn);
+        }
         repaint();
     }
-	
-	public void init() {
-		Board b = new Board();
-		points = b.buildStartList();
-		repaint();
-	}
+
+    public void attachOnClickButtonListenner(ActionListener callback) {
+        for (JButton btn : this.buttons.keySet()) {
+            btn.addActionListener(callback);
+        }
+    }
+
+    public void printLine(int xa, int ya, int xb, int yb) {
+        lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
+    }
+
+    public Point getPoint(JButton btn) {
+        return this.buttons.get(btn);
+    }
+
 }
