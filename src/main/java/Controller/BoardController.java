@@ -67,7 +67,6 @@ public class BoardController {
     private void handleTrace(List<List<Point>> traces) {
         for(List<Point> trace : traces) {
             System.out.println("TRACE" + trace);
-
             if(trace.size() == 5) {
                 trace.sort(new TraceSortByY());
                 this.boardView.printLine(trace.get(0).getX(), trace.get(0).getY(), trace.get(trace.size() - 1).getX(), trace.get(trace.size() - 1).getY());
