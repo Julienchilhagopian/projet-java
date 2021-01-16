@@ -44,6 +44,7 @@ public class BoardView extends JPanel {
         for(LineView l : lines) {
             l.draw(g);
         }
+        repaint();
 	}
 
     public void printPoints(List<Point> points){
@@ -55,8 +56,7 @@ public class BoardView extends JPanel {
 
             JButton btn = new JButton("");
             btn.setBounds(cellX, cellY, 10, 10);
-            btn.setBorder(new RoundedBorder(50));
-            btn.setBackground(Color.BLACK);
+            btn.setBackground(Color.GRAY);
             btn.setOpaque(true);
 
             if(!p.isActive()) {
@@ -83,6 +83,18 @@ public class BoardView extends JPanel {
 
     public Point getPoint(JButton btn) {
         return this.buttons.get(btn);
+    }
+    
+    public void addPoint(JButton btn, Point p) {
+    	
+    	JLabel numtext = new JLabel();
+    	int x = btn.getX()-10;
+    	int y = btn.getY();
+    	setLayout(null);
+    	numtext.setBounds(x, y, 50, 30);
+    	String s=String.valueOf(p.getNum());
+    	numtext.setText(s);
+    	this.add(numtext);
     }
 
 }

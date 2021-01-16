@@ -7,7 +7,8 @@ public class Board {
     private List<Point> points;
     private Integer row = 15;
     private Integer column = 15;
-
+    private int count=1;
+    
     private Board() {
         this.points = this.buildStartList();
     }
@@ -21,8 +22,8 @@ public class Board {
     public List<Point> buildStartList() {
         List<Point> points = new ArrayList<>();
 
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < column; c++) {
+        for (int r = 0; r <= row; r++) {
+            for (int c = 0; c <= column; c++) {
                 Point pt = new Point(r, c);
 
                 //J'ai un peu changer la méthode, j'ai pas trop compris les setactive
@@ -66,6 +67,8 @@ public class Board {
         for(Point pt : this.points) {
             if(pt.equals(pointToUpdate)) {
                 pt.setActive(true);
+                pt.pointNum(count);
+                count++;
             }
         }
     }

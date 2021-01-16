@@ -8,6 +8,7 @@ public class Point {
 	private Boolean isActive;
 	private Boolean isTraced;
 	private Set<Point> neighbors;
+	private int num;
 
 	public int getX() {
 		return x;
@@ -28,6 +29,7 @@ public class Point {
 		this.isActive = false;
 		this.isTraced = false;
 		this.neighbors = new HashSet<>();
+		this.num=0;
 	}
 	@Override
 	public String toString() {
@@ -78,5 +80,12 @@ public class Point {
 
 	public Boolean isTraced() {
 		return isTraced;
+	}
+	
+	public void pointNum(int count) {
+		this.num = count;
+	}
+	public int getNum() {
+		return num;
 	}
 }

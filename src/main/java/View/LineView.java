@@ -27,6 +27,7 @@ public class LineView extends JPanel{
         g2.setStroke(new BasicStroke(4));
         g2.setColor(Color.RED);
         g2.drawLine(xa, ya, xb, yb);   //thick
+        repaint();
     }
 
 }
