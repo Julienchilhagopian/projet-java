@@ -146,7 +146,7 @@ public class BoardController {
         while(startPoint.getRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getRightNeighbor().get();
 
-            if(!foundPoint.isTraced()) {
+            if(foundPoint.isTraceEligible("Horizontal")) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -167,7 +167,7 @@ public class BoardController {
         while(startPoint.getLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getLeftNeighbor().get();
 
-            if(!foundPoint.isTraced()) {
+            if(foundPoint.isTraceEligible("Horizontal")) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
