@@ -65,6 +65,7 @@ public class BoardController {
 
     private void handleTrace(List<List<Point>> traces) {
         for(List<Point> trace : traces) {
+            System.out.println("TRACE" + trace);
             if(trace.size() == 5) {
                 this.boardView.printLine(trace.get(0).getX(), trace.get(0).getY(), trace.get(trace.size() - 1).getX(), trace.get(trace.size() - 1).getY());
                 break;
@@ -104,8 +105,9 @@ public class BoardController {
         // je lance une recherche dans l'autre sens.
 
         // Reset
-        trace.clear();
+        //trace.clear();
         startPoint = inputPoint;
+        trace.remove(0);
         trace.add(startPoint);
 
         while(startPoint.getUpNeighbor().isPresent()) {

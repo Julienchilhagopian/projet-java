@@ -78,6 +78,8 @@ public class BoardView extends JPanel {
     }
 
     public void printLine(int xa, int ya, int xb, int yb) {
+        System.out.println("DEBUT TRACE" + xa + " : " + ya);
+        System.out.println("FIN TRACE" + xb + " : " + yb);
         lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
     }
 
