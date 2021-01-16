@@ -123,11 +123,11 @@ public class Point {
 		return traceOrientation;
 	}
 
-	public Boolean isTraceEligible(Point pointToCompare) {
+	public Boolean isTraceEligible(String orientationDemande) {
 		if(!this.isTraced){
 			return true;
 		} else {
-			return !this.traceOrientation.equals(pointToCompare.getTraceOrientation());
+			return !this.traceOrientation.equals(orientationDemande);
 		}
 	}
 }
