@@ -8,6 +8,7 @@ public class Point {
 	private Boolean isActive;
 	private Boolean isTraced;
 	private Set<Point> neighbors;
+	private String traceOrientation;
 	private int num;
 
 	public int getX() {
@@ -29,6 +30,7 @@ public class Point {
 		this.isActive = false;
 		this.isTraced = false;
 		this.neighbors = new HashSet<>();
+		this.traceOrientation = "";
 		this.num=0;
 	}
 	@Override
@@ -111,5 +113,21 @@ public class Point {
 	}
 	public int getNum() {
 		return num;
+	}
+
+	public void setTraceOrientation(String traceOrientation) {
+		this.traceOrientation = traceOrientation;
+	}
+
+	public String getTraceOrientation() {
+		return traceOrientation;
+	}
+
+	public Boolean isTraceEligible(Point pointToCompare) {
+		if(!this.isTraced){
+			return true;
+		} else {
+			return !this.traceOrientation.equals(pointToCompare.getTraceOrientation());
+		}
 	}
 }

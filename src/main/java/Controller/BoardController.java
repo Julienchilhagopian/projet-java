@@ -87,9 +87,8 @@ public class BoardController {
         // Creuser tant qu'il y a un voisin du dessous
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
-            startPoint = foundPoint;
 
-            if(!foundPoint.isTraced()) {
+            if(foundPoint.isTraceEligible(startPoint)) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -97,11 +96,12 @@ public class BoardController {
                     // fin de boucle
                     // Avertir le model des points tracés
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt);
+                        this.boardModel.setTraced(pt, "Vertical");
                     }
                     return trace;
                 }
             }
+            startPoint = foundPoint;
         }
 
         // si on est la c'est que la trace n'est pas complète
@@ -112,9 +112,8 @@ public class BoardController {
 
         while(startPoint.getUpNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpNeighbor().get();
-            startPoint = foundPoint;
 
-            if(!foundPoint.isTraced()) {
+            if(foundPoint.isTraceEligible(startPoint)) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
@@ -122,12 +121,13 @@ public class BoardController {
                     // fin de boucle
                     // Avertir le model des points tracés
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt);
+                        this.boardModel.setTraced(pt, "Vertical");
                     }
                     trace.sort(new TraceSortByY());
                     return trace;
                 }
             }
+            startPoint = foundPoint;
         }
 
         trace.clear();
@@ -145,7 +145,6 @@ public class BoardController {
         // Creuser tant qu'il y a un voisin du dessous
         while(startPoint.getRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getRightNeighbor().get();
-            startPoint = foundPoint;
 
             if(!foundPoint.isTraced()) {
                 trace.add(foundPoint);
@@ -154,11 +153,12 @@ public class BoardController {
                 if(trace.size() == 5) {
                     // Avertir le model des points tracés
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt);
+                        this.boardModel.setTraced(pt, "Horizontal");
                     }
                     return trace;
                 }
             }
+            startPoint = foundPoint;
         }
 
         // RESET
@@ -166,7 +166,6 @@ public class BoardController {
 
         while(startPoint.getLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getLeftNeighbor().get();
-            startPoint = foundPoint;
 
             if(!foundPoint.isTraced()) {
                 trace.add(foundPoint);
@@ -175,12 +174,13 @@ public class BoardController {
                 if(trace.size() == 5) {
                     // Avertir le model des points tracés
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt);
+                        this.boardModel.setTraced(pt, "Horizontal");
                     }
                     trace.sort(new TraceSortByX());
                     return trace;
                 }
             }
+            startPoint = foundPoint;
         }
 
         trace.clear();

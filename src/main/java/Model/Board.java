@@ -74,7 +74,7 @@ public class Board {
     }
 
 
-    public void setTraced(Point pointToUpdate) {
+    public void setTraced(Point pointToUpdate, String orientation) {
         if(!this.points.contains(pointToUpdate)) {
             throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
         }
@@ -82,6 +82,7 @@ public class Board {
         for(Point pt : this.points) {
             if(pt.equals(pointToUpdate)) {
                 pt.setTraced(true);
+                pt.setTraceOrientation(orientation);
             }
         }
     }
