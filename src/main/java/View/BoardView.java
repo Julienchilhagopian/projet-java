@@ -128,7 +128,7 @@ public class BoardView extends JPanel {
     }
 
     public void gameOver() {
-        JOptionPane.showMessageDialog(null,"Game Over");
+        JOptionPane.showMessageDialog(null,"Game Over !\nScore : "+ this.score);
     }
 
     public void reset() {
