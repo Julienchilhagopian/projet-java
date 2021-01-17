@@ -42,7 +42,7 @@ public class BoardController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton btnData = (JButton) e.getSource();
-                handleOnClickButton(btnData);
+                handleOnClickButton(btnData);   
             }
         };
     }
@@ -52,35 +52,45 @@ public class BoardController {
         
         // maj des voisins de tous les points.
         this.boardModel.updateVoisins();
-        System.out.println("VOISINS" + pointToUpdate.getNeighbors());
-
-        Trace trace = this.searchTrace(pointToUpdate);
+        System.out.println("VOISINS" + pointToUpdate.getNeighbors());  
+        Trace trace = this.searchTrace(pointToUpdate); 
         
-        if(trace.isValid()) {
+        if(!trace.isValid()) {
+        	boardView.erreurMsg();
+        }
+        
+        else {
         	this.boardModel.setActive(pointToUpdate);
             this.boardView.addPoint(btn,pointToUpdate);
             this.boardView.printPoints(this.boardModel.getPoints());
             this.boardModel.countActive();
             handlePrintTrace(trace);
+            //gameOver();
             
         }
-        else {
-        	boardView.erreurMsg();
-        }
-       
+
+      
     }
-    
-//    private void gameOver() {
-//        
-//    	for(Point pt : boardModel.getPoints()) {	
-//    		Trace traceOver = this.searchTrace(pt);
-//    		System.out.println(pt);          
-//    		System.out.println(traceOver);	
-//    		
-//    	}
-//
-//        
-//    }
+       
+    private boolean gameOver() {
+        Trace traceOver = new Trace();
+      	for(Point pt : boardModel.getPoints()) {
+      		if(!pt.isActive()) {
+      			traceOver = this.searchTrace(pt);
+      			System.out.println(pt);          
+      			System.out.println(traceOver);
+      		
+      			if(traceOver.isValid()) {
+      				return true;
+      			}
+      		}
+      	}
+      	
+		return false;
+      	
+      	
+    }
+
 
     private Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
@@ -112,8 +122,7 @@ public class BoardController {
     private void handlePrintTrace(Trace trace) {
        List<Point> tracePoints = trace.getPoints();
        System.out.println("TRACE " + trace);
-       this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
-       
+       this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());  
     }
 
 
