@@ -69,18 +69,7 @@ public class BoardController {
         }
        
     }
-    
-//    private void gameOver() {
-//        
-//    	for(Point pt : boardModel.getPoints()) {	
-//    		Trace traceOver = this.searchTrace(pt);
-//    		System.out.println(pt);          
-//    		System.out.println(traceOver);	
-//    		
-//    	}
-//
-//        
-//    }
+
 
     private Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
