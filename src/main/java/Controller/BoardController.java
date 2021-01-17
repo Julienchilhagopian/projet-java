@@ -32,6 +32,7 @@ public class BoardController {
 
     private void initBoardView() {
         boardView.printPoints(this.boardModel.getPoints());
+        boardView.printScore();
         boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
     }
 
@@ -48,6 +49,8 @@ public class BoardController {
     private void handleOnClickButton(JButton btn) {
         Point pointToUpdate = this.boardView.getPoint(btn);
         this.boardModel.setActive(pointToUpdate);
+        
+        //Numérote les points qui sont ajoutés
         this.boardView.addPoint(btn,pointToUpdate);
 
         this.boardView.printPoints(this.boardModel.getPoints());

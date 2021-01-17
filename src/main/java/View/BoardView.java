@@ -2,6 +2,7 @@ package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -22,10 +23,13 @@ import Model.Point;
 public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
     private List<LineView> lines;
+    private int score;
+    private JLabel scoreTxt = new JLabel();
 
 	public BoardView() {
         this.buttons = new HashMap<>();
         this.lines = new ArrayList<>();
+        this.score = 0;
     }
 
 	@Override
@@ -68,12 +72,16 @@ public class BoardView extends JPanel {
 
             this.buttons.put(btn, p); 
             this.setLayout(null);
+            this.add(btn);    
+        }        
+    }
     
-            this.add(btn);
-            
-        }
-        
-        
+    public void printScore() {
+    	this.scoreTxt.repaint();
+    	setLayout(null);
+    	scoreTxt.setBounds(50, 470, 100, 100);
+    	scoreTxt.setText("Score : "+this.score);
+        this.add(scoreTxt);
     }
 
 	public void attachOnClickButtonListenner(ActionListener callback) {
@@ -100,6 +108,7 @@ public class BoardView extends JPanel {
     	String s=String.valueOf(p.getNum());
     	numtext.setText(s);
     	this.add(numtext);
+    	this.score++;
+    	printScore();
     }
-
 }
