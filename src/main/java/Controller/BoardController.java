@@ -13,13 +13,11 @@ import java.util.List;
 public class BoardController {
     private Board boardModel;
     private BoardView boardView;
-    private JFrame mainFrame;
 
 
-    private BoardController(Board boardModel, BoardView view, JFrame mainFrame) {
+    private BoardController(Board boardModel, BoardView view) {
         this.boardModel = boardModel;
         this.boardView = view;
-        this.mainFrame = mainFrame;
         initBoardView();
     }
 
@@ -27,9 +25,9 @@ public class BoardController {
         return boardModel;
     }
 
-    public static BoardController inst(BoardView view, JFrame frame) {
+    public static BoardController inst(BoardView view) {
         Board model = Board.withClassicBoard();
-        return new BoardController(model, view, frame);
+        return new BoardController(model, view);
     }
 
     private void initBoardView() {
@@ -127,7 +125,6 @@ public class BoardController {
        List<Point> tracePoints = trace.getPoints();
        System.out.println("TRACE " + trace);
        this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
-       
     }
 
 

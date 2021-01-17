@@ -20,7 +20,7 @@ public class Main {
         frame.add(board);
         frame.setVisible(true);
 
-        BoardController boardController = BoardController.inst(board, frame);
+        BoardController boardController = BoardController.inst(board);
     }
 
 }
