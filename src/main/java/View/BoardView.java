@@ -126,4 +126,16 @@ public class BoardView extends JPanel {
     	msgErreur.setForeground(new Color(255,0,0));
         this.add(msgErreur);
     }
+
+    public void gameOver() {
+        JOptionPane.showMessageDialog(null,"Game Over");
+    }
+
+    public void reset() {
+	    this.lines.clear();
+	    this.removeAll();
+	    this.buttons.clear();
+	    this.score = 0;
+	    this.repaint();
+    }
 }

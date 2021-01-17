@@ -74,14 +74,12 @@ public class Board {
     }
 
 
-    public void setTrace(Point pointToUpdate, Trace trace) {
-        if(!this.points.contains(pointToUpdate)) {
-            throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
-        }
-
-        for(Point pt : this.points) {
-            if(pt.equals(pointToUpdate)) {
-                pt.addTraces(trace);
+    public void setTrace(Trace trace) {
+        for(Point tracePoint : trace.getPoints()) {
+            for(Point pt : this.points) {
+                if(pt.equals(tracePoint)) {
+                    pt.addTraces(trace);
+                }
             }
         }
     }
