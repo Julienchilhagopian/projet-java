@@ -54,7 +54,7 @@ public class BoardController {
         this.boardModel.updateVoisins();
         System.out.println("VOISINS" + pointToUpdate.getNeighbors());
 
-        Trace trace = this.buildTrace(pointToUpdate);
+        Trace trace = this.searchTrace(pointToUpdate);
 
         if(trace.isValid()) {
             this.boardModel.setTrace(trace);
@@ -68,7 +68,7 @@ public class BoardController {
         	boardView.erreurMsg();
         }
 
-        //this.gameOver();
+        this.gameOver();
        
     }
 
@@ -77,13 +77,23 @@ public class BoardController {
 
         for(Point p : this.boardModel.getPoints()) {
             if(p.getTraces().isEmpty()) {
-
+                if (this.searchTrace(p).isValid()) {
+                    gameOver = false;
+                }
             }
+        }
+        handlePrintGameOver(gameOver);
+    }
+
+    private void handlePrintGameOver(Boolean gameOver) {
+        if(gameOver) {
+            this.boardView.gameOver();
+            // RESET TOUT
         }
     }
 
 
-    private Trace buildTrace(Point pointToUpdate) {
+    private Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
 
         // il faut executer une méthode de recherche seulement une après l'autre si la précédente n'a pas trouvé de trace.
