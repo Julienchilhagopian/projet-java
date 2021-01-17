@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Board;
 import Model.Point;
+import Model.Trace;
 import View.BoardView;
 
 import javax.swing.*;
@@ -62,7 +63,7 @@ public class BoardController {
         List<List<Point>> traces = new ArrayList<>();
 
         traces.add(verticalTrace(pointToUpdate));
-        //traces.add(horizontalTrace(pointToUpdate));
+        traces.add(horizontalTrace(pointToUpdate));
         handleTrace(traces);
     }
 
@@ -88,18 +89,22 @@ public class BoardController {
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
 
-            if(foundPoint.isTraceEligibleVertical(true)) {
+            if(foundPoint.isTraceEligibleVertical()) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
                 if(trace.size() == 5) {
                     // fin de boucle
                     // Avertir le model des points tracés
+                    Trace tra = new Trace(trace, "Vertical");
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt, "Vertical");
+                        this.boardModel.setTrace(pt, tra);
                     }
+                    trace.sort(new TraceSortByY());
                     return trace;
                 }
+            } else {
+                break;
             }
             startPoint = foundPoint;
         }
@@ -113,19 +118,22 @@ public class BoardController {
         while(startPoint.getUpNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpNeighbor().get();
 
-            if(foundPoint.isTraceEligibleVertical(true)) {
+            if(foundPoint.isTraceEligibleVertical()) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
                 if(trace.size() == 5) {
                     // fin de boucle
                     // Avertir le model des points tracés
+                    Trace tra = new Trace(trace, "Vertical");
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt, "Vertical");
+                        this.boardModel.setTrace(pt, tra);
                     }
                     trace.sort(new TraceSortByY());
                     return trace;
                 }
+            } else {
+                break;
             }
             startPoint = foundPoint;
         }
@@ -135,7 +143,7 @@ public class BoardController {
         return trace;
     }
 
-    /*
+
     private List<Point> horizontalTrace(Point inputPoint) {
         List<Point> trace = new ArrayList<>();
         Point startPoint = inputPoint;
@@ -147,17 +155,21 @@ public class BoardController {
         while(startPoint.getRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getRightNeighbor().get();
 
-            if(foundPoint.isTraceEligible("Horizontal")) {
+            if(foundPoint.isTraceEligibleHorizontal()) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
                 if(trace.size() == 5) {
                     // Avertir le model des points tracés
+                    Trace tra = new Trace(trace, "Horizontal");
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt, "Horizontal");
+                        this.boardModel.setTrace(pt, tra);
                     }
+                    trace.sort(new TraceSortByX());
                     return trace;
                 }
+            } else {
+                break;
             }
             startPoint = foundPoint;
         }
@@ -168,18 +180,21 @@ public class BoardController {
         while(startPoint.getLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getLeftNeighbor().get();
 
-            if(foundPoint.isTraceEligible("Horizontal")) {
+            if(foundPoint.isTraceEligibleHorizontal()) {
                 trace.add(foundPoint);
 
                 // la trace est terminée
                 if(trace.size() == 5) {
                     // Avertir le model des points tracés
+                    Trace tra = new Trace(trace, "Horizontal");
                     for(Point pt : trace) {
-                        this.boardModel.setTraced(pt, "Horizontal");
+                        this.boardModel.setTrace(pt, tra);
                     }
                     trace.sort(new TraceSortByX());
                     return trace;
                 }
+            } else {
+                break;
             }
             startPoint = foundPoint;
         }
@@ -187,7 +202,6 @@ public class BoardController {
         trace.clear();
         return trace;
     }
-    */
 
 
 }

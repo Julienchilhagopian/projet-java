@@ -74,7 +74,7 @@ public class Board {
     }
 
 
-    public void setTraced(Point pointToUpdate, String orientation) {
+    public void setTraced(Point pointToUpdate) {
         if(!this.points.contains(pointToUpdate)) {
             throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
         }
@@ -82,7 +82,34 @@ public class Board {
         for(Point pt : this.points) {
             if(pt.equals(pointToUpdate)) {
                 pt.setTraced(true);
-                pt.setVerticalOrientation(true);
+            }
+        }
+    }
+
+    public void setTrace(Point pointToUpdate, Trace trace) {
+        if(!this.points.contains(pointToUpdate)) {
+            throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
+        }
+
+        for(Point pt : this.points) {
+            if(pt.equals(pointToUpdate)) {
+                pt.addTraces(trace);
+            }
+        }
+    }
+
+    public void setVerticalTrace(Point pointToUpdate) {
+        for(Point pt : this.points) {
+            if(pt.equals(pointToUpdate)) {
+                pt.setHasVerticalTrace(true);
+            }
+        }
+    }
+
+    public void setHorizontalTrace(Point pointToUpdate) {
+        for(Point pt : this.points) {
+            if(pt.equals(pointToUpdate)) {
+                pt.setHasHorizontalTrace(true);
             }
         }
     }
@@ -119,6 +146,12 @@ public class Board {
                         p.addNeighbour(voisin);
                     }
                     if (voisin.getX() + 1 == p.getX() && voisin.getY() + 1 == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() - 1 == p.getX() && voisin.getY() + 1 == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() + 1 == p.getX() && voisin.getY() - 1 == p.getY()) {
                         p.addNeighbour(voisin);
                     }
                 }

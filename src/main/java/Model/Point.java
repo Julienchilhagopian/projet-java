@@ -8,8 +8,9 @@ public class Point {
 	private Boolean isActive;
 	private Boolean isTraced;
 	private Set<Point> neighbors;
-	private Boolean verticalOrientation;
-	private Boolean horizontalOrientation;
+	private Boolean hasVerticalTrace;
+	private Boolean hasHorizontalTrace;
+	private List<Trace> traces;
 
 	private int num;
 
@@ -32,13 +33,14 @@ public class Point {
 		this.isActive = false;
 		this.isTraced = false;
 		this.neighbors = new HashSet<>();
-		this.verticalOrientation = false;
-		this.horizontalOrientation = false;
+		this.hasHorizontalTrace = false;
+		this.hasVerticalTrace = false;
+		this.traces = new ArrayList<>();
 		this.num=0;
 	}
 	@Override
 	public String toString() {
-		return "Point [x=" + x + ", y=" + y + "]";
+		return x + ":" + y;
 	}
 
 	public Boolean isActive() {
@@ -119,21 +121,45 @@ public class Point {
 	}
 
 
-
-	public Boolean isTraceEligibleVertical(Boolean demand) {
-		if(!this.isTraced){
+	public Boolean isTraceEligibleVertical() {
+		if(this.traces.isEmpty()){
 			return true;
 		} else {
-			return demand != this.verticalOrientation;
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("Vertical")) {
+					return false;
+				}
+			}
+			return true;
 		}
 	}
 
-
-	public void setVerticalOrientation(Boolean verticalOrientation) {
-		this.verticalOrientation = verticalOrientation;
+	public void setHasVerticalTrace(Boolean hasVerticalTrace) {
+		this.hasVerticalTrace = hasVerticalTrace;
 	}
 
-	public void setHorizontalOrientation(Boolean horizontalOrientation) {
-		this.horizontalOrientation = horizontalOrientation;
+	public Boolean isTraceEligibleHorizontal() {
+		if(this.traces.isEmpty()){
+			return true;
+		} else {
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("Horizontal")) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	public void setHasHorizontalTrace(Boolean hasHorizontalTrace) {
+		this.hasHorizontalTrace = hasHorizontalTrace;
+	}
+
+	public void addTraces(Trace trace) {
+		this.traces.add(trace);
+	}
+
+	public List<Trace> getTraces() {
+		return this.traces;
 	}
 }

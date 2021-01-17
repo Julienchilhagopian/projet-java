@@ -92,7 +92,7 @@ public class BoardView extends JPanel {
     	int y = btn.getY();
     	setLayout(null);
     	numtext.setBounds(x, y, 50, 30);
-    	String s=String.valueOf(p.getNum());
+    	String s=p.toString();
     	numtext.setText(s);
     	this.add(numtext);
     }
