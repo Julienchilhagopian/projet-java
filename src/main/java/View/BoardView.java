@@ -44,6 +44,8 @@ public class BoardView extends JPanel {
         for (int i = 30; i <= 450; i += 30) {
             g.drawLine(30, i, 480, i);
         }
+        
+        g.drawRect(30, 500, 100, 40);
 
         for(LineView l : lines) {
             l.draw(g);
@@ -73,7 +75,7 @@ public class BoardView extends JPanel {
             this.buttons.put(btn, p); 
             this.setLayout(null);
             this.add(btn);    
-        }        
+        }
     }
     
     public void printScore() {
