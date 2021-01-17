@@ -103,6 +103,51 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	public Optional<Point> getUpRightNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() - 1 == p.getX() && this.getY() + 1 == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+	public Optional<Point> getDownLeftNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() + 1 == p.getX() && this.getY() - 1 == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+	public Optional<Point> getUpLeftNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() + 1 == p.getX() && this.getY() + 1 == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+	public Optional<Point> getDownRightNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() - 1 == p.getX() && this.getY() - 1 == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+
 	
 	public void pointNum(int count) {
 		this.num = count;
@@ -112,7 +157,7 @@ public class Point {
 	}
 
 
-	public Boolean isTraceEligibleVertical() {
+	public Boolean isEligibleVertical() {
 		if(this.traces.isEmpty()){
 			return true;
 		} else {
@@ -125,12 +170,38 @@ public class Point {
 		}
 	}
 
-	public Boolean isTraceEligibleHorizontal() {
+	public Boolean isEligibleHorizontal() {
 		if(this.traces.isEmpty()){
 			return true;
 		} else {
 			for(Trace tr : traces) {
 				if(tr.getOrientation().equals("Horizontal")) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	public Boolean isEligibleDiagonalRight() {
+		if(this.traces.isEmpty()){
+			return true;
+		} else {
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("DiagonalRight")) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	public Boolean isEligibleDiagonalLeft() {
+		if(this.traces.isEmpty()){
+			return true;
+		} else {
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("DiagonalLeft")) {
 					return false;
 				}
 			}
