@@ -8,8 +8,6 @@ import View.BoardView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class BoardController {
@@ -75,7 +73,10 @@ public class BoardController {
             if (trace.isValid()) {
                 return trace;
             } else {
-                //diagonals
+                trace = this.diagonalRightTrace(pointToUpdate);
+                if (trace.isValid()) {
+                    return trace;
+                }
             }
         }
 
@@ -104,7 +105,7 @@ public class BoardController {
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
 
-            if(foundPoint.isTraceEligibleVertical()) {
+            if(foundPoint.isEligibleVertical()) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -132,7 +133,7 @@ public class BoardController {
         while(startPoint.getUpNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpNeighbor().get();
 
-            if(foundPoint.isTraceEligibleVertical()) {
+            if(foundPoint.isEligibleVertical()) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -168,7 +169,7 @@ public class BoardController {
         while(startPoint.getRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getRightNeighbor().get();
 
-            if(foundPoint.isTraceEligibleHorizontal()) {
+            if(foundPoint.isEligibleHorizontal()) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -192,7 +193,64 @@ public class BoardController {
         while(startPoint.getLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getLeftNeighbor().get();
 
-            if(foundPoint.isTraceEligibleHorizontal()) {
+            if(foundPoint.isEligibleHorizontal()) {
+                trace.getPoints().add(foundPoint);
+
+                // la trace est terminée
+                if(trace.isValid()) {
+                    // Avertir le model des points tracés
+                    for(Point pt : trace.getPoints()) {
+                        this.boardModel.setTrace(pt, trace);
+                    }
+                    trace.getPoints().sort(new TraceSortByX());
+                    return trace;
+                }
+            } else {
+                break;
+            }
+            startPoint = foundPoint;
+        }
+
+        trace.getPoints().clear();
+        return trace;
+    }
+
+    private Trace diagonalRightTrace(Point inputPoint) {
+        Trace trace = new Trace("DiagonalRight");
+        Point startPoint = inputPoint;
+
+        // ajout du point de départ.
+        trace.getPoints().add(startPoint);
+
+        // Creuser tant qu'il y a un voisin du dessous
+        while(startPoint.getUpRightNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getUpRightNeighbor().get();
+
+            if(foundPoint.isEligibleDiagonalRight()) {
+                trace.getPoints().add(foundPoint);
+
+                // la trace est terminée
+                if(trace.isValid()) {
+                    // Avertir le model des points tracés
+                    for(Point pt : trace.getPoints()) {
+                        this.boardModel.setTrace(pt, trace);
+                    }
+                    trace.getPoints().sort(new TraceSortByX());
+                    return trace;
+                }
+            } else {
+                break;
+            }
+            startPoint = foundPoint;
+        }
+
+        // RESET
+        startPoint = inputPoint;
+
+        while(startPoint.getDownLeftNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getDownLeftNeighbor().get();
+
+            if(foundPoint.isEligibleDiagonalRight()) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
