@@ -125,6 +125,29 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	public Optional<Point> getUpLeftNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() + 1 == p.getX() && this.getY() + 1 == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+	public Optional<Point> getDownRightNeighbor() {
+		Point pt = null;
+		for(Point p : this.neighbors) {
+			if(this.getX() - 1 == p.getX() && this.getY() - 1 == p.getY()) {
+				pt = p;
+			}
+		}
+
+		return Optional.ofNullable(pt);
+	}
+
+
 	
 	public void pointNum(int count) {
 		this.num = count;
@@ -166,6 +189,19 @@ public class Point {
 		} else {
 			for(Trace tr : traces) {
 				if(tr.getOrientation().equals("DiagonalRight")) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	public Boolean isEligibleDiagonalLeft() {
+		if(this.traces.isEmpty()){
+			return true;
+		} else {
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("DiagonalLeft")) {
 					return false;
 				}
 			}

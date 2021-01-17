@@ -76,10 +76,14 @@ public class BoardController {
                 trace = this.diagonalRightTrace(pointToUpdate);
                 if (trace.isValid()) {
                     return trace;
+                } else {
+                    trace = this.diagonalLeftTrace(pointToUpdate);
+                    if (trace.isValid()) {
+                        return trace;
+                    }
                 }
             }
         }
-
 
         return trace;
     }
@@ -251,6 +255,63 @@ public class BoardController {
             Point foundPoint = startPoint.getDownLeftNeighbor().get();
 
             if(foundPoint.isEligibleDiagonalRight()) {
+                trace.getPoints().add(foundPoint);
+
+                // la trace est terminée
+                if(trace.isValid()) {
+                    // Avertir le model des points tracés
+                    for(Point pt : trace.getPoints()) {
+                        this.boardModel.setTrace(pt, trace);
+                    }
+                    trace.getPoints().sort(new TraceSortByX());
+                    return trace;
+                }
+            } else {
+                break;
+            }
+            startPoint = foundPoint;
+        }
+
+        trace.getPoints().clear();
+        return trace;
+    }
+
+    private Trace diagonalLeftTrace(Point inputPoint) {
+        Trace trace = new Trace("DiagonalLeft");
+        Point startPoint = inputPoint;
+
+        // ajout du point de départ.
+        trace.getPoints().add(startPoint);
+
+        // Creuser tant qu'il y a un voisin du dessous
+        while(startPoint.getUpLeftNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getUpLeftNeighbor().get();
+
+            if(foundPoint.isEligibleDiagonalLeft()) {
+                trace.getPoints().add(foundPoint);
+
+                // la trace est terminée
+                if(trace.isValid()) {
+                    // Avertir le model des points tracés
+                    for(Point pt : trace.getPoints()) {
+                        this.boardModel.setTrace(pt, trace);
+                    }
+                    trace.getPoints().sort(new TraceSortByX());
+                    return trace;
+                }
+            } else {
+                break;
+            }
+            startPoint = foundPoint;
+        }
+
+        // RESET
+        startPoint = inputPoint;
+
+        while(startPoint.getDownRightNeighbor().isPresent()) {
+            Point foundPoint = startPoint.getDownRightNeighbor().get();
+
+            if(foundPoint.isEligibleDiagonalLeft()) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
