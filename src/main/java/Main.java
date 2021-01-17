@@ -19,8 +19,8 @@ public class Main {
         BoardView board = new BoardView();
         frame.add(board);
         frame.setVisible(true);
-        
-        BoardController boardController = BoardController.inst(board);
+
+        BoardController boardController = BoardController.inst(board, frame);
     }
 
 }

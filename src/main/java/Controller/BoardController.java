@@ -13,11 +13,13 @@ import java.util.List;
 public class BoardController {
     private Board boardModel;
     private BoardView boardView;
+    private JFrame mainFrame;
 
 
-    private BoardController(Board boardModel, BoardView view) {
+    private BoardController(Board boardModel, BoardView view, JFrame mainFrame) {
         this.boardModel = boardModel;
         this.boardView = view;
+        this.mainFrame = mainFrame;
         initBoardView();
     }
 
@@ -25,16 +27,15 @@ public class BoardController {
         return boardModel;
     }
 
-    public static BoardController inst(BoardView view) {
+    public static BoardController inst(BoardView view, JFrame frame) {
         Board model = Board.withClassicBoard();
-        return new BoardController(model, view);
+        return new BoardController(model, view, frame);
     }
 
     private void initBoardView() {
         boardView.printPoints(this.boardModel.getPoints());
         boardView.printScore();
         boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
-        
     }
 
     private ActionListener buildAddAlternativeBehavior() {
@@ -69,11 +70,11 @@ public class BoardController {
         }
 
         this.gameOver();
-       
     }
 
     private void gameOver() {
         Boolean gameOver = true;
+
 
         for(Point p : this.boardModel.getPoints()) {
             if(p.getTraces().isEmpty()) {
@@ -82,13 +83,16 @@ public class BoardController {
                 }
             }
         }
+
         handlePrintGameOver(gameOver);
     }
 
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
             this.boardView.gameOver();
-            // RESET TOUT
+            this.boardView.reset();
+            this.boardModel = Board.withClassicBoard();
+            initBoardView();
         }
     }
 
