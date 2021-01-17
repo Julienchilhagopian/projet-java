@@ -40,7 +40,7 @@ public class Point {
 	}
 	@Override
 	public String toString() {
-		return x + ":" + y;
+		return "Point [x=" + x + ", y=" + y + "]";
 	}
 
 	public Boolean isActive() {
@@ -103,15 +103,6 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
-
-
-	public void setTraced(Boolean traced) {
-		isTraced = traced;
-	}
-
-	public Boolean isTraced() {
-		return isTraced;
-	}
 	
 	public void pointNum(int count) {
 		this.num = count;
@@ -134,10 +125,6 @@ public class Point {
 		}
 	}
 
-	public void setHasVerticalTrace(Boolean hasVerticalTrace) {
-		this.hasVerticalTrace = hasVerticalTrace;
-	}
-
 	public Boolean isTraceEligibleHorizontal() {
 		if(this.traces.isEmpty()){
 			return true;
@@ -149,10 +136,6 @@ public class Point {
 			}
 			return true;
 		}
-	}
-
-	public void setHasHorizontalTrace(Boolean hasHorizontalTrace) {
-		this.hasHorizontalTrace = hasHorizontalTrace;
 	}
 
 	public void addTraces(Trace trace) {

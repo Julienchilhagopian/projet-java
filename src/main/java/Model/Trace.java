@@ -1,13 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Trace {
     private List<Point> points;
     private String orientation;
 
-    public Trace(List<Point> points, String orientation) {
-        this.points = points;
+    public Trace(String orientation) {
+        this.points = new ArrayList<>();
         this.orientation = orientation;
     }
 
@@ -17,5 +18,9 @@ public class Trace {
 
     public String getOrientation() {
         return orientation;
+    }
+
+    public Boolean isValid() {
+        return this.points.size() == 5;
     }
 }
