@@ -6,10 +6,7 @@ public class Point {
 	private int x;
 	private int y;
 	private Boolean isActive;
-	private Boolean isTraced;
 	private Set<Point> neighbors;
-	private Boolean hasVerticalTrace;
-	private Boolean hasHorizontalTrace;
 	private List<Trace> traces;
 
 	private int num;
@@ -31,10 +28,7 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
-		this.isTraced = false;
 		this.neighbors = new HashSet<>();
-		this.hasHorizontalTrace = false;
-		this.hasVerticalTrace = false;
 		this.traces = new ArrayList<>();
 		this.num=0;
 	}
