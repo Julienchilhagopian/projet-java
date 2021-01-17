@@ -8,7 +8,10 @@ public class Point {
 	private Boolean isActive;
 	private Boolean isTraced;
 	private Set<Point> neighbors;
-	private String traceOrientation;
+	private Boolean hasVerticalTrace;
+	private Boolean hasHorizontalTrace;
+	private List<Trace> traces;
+
 	private int num;
 
 	public int getX() {
@@ -30,7 +33,9 @@ public class Point {
 		this.isActive = false;
 		this.isTraced = false;
 		this.neighbors = new HashSet<>();
-		this.traceOrientation = "";
+		this.hasHorizontalTrace = false;
+		this.hasVerticalTrace = false;
+		this.traces = new ArrayList<>();
 		this.num=0;
 	}
 	@Override
@@ -98,15 +103,6 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
-
-
-	public void setTraced(Boolean traced) {
-		isTraced = traced;
-	}
-
-	public Boolean isTraced() {
-		return isTraced;
-	}
 	
 	public void pointNum(int count) {
 		this.num = count;
@@ -115,19 +111,38 @@ public class Point {
 		return num;
 	}
 
-	public void setTraceOrientation(String traceOrientation) {
-		this.traceOrientation = traceOrientation;
-	}
 
-	public String getTraceOrientation() {
-		return traceOrientation;
-	}
-
-	public Boolean isTraceEligible(String orientationDemande) {
-		if(!this.isTraced){
+	public Boolean isTraceEligibleVertical() {
+		if(this.traces.isEmpty()){
 			return true;
 		} else {
-			return !this.traceOrientation.equals(orientationDemande);
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("Vertical")) {
+					return false;
+				}
+			}
+			return true;
 		}
+	}
+
+	public Boolean isTraceEligibleHorizontal() {
+		if(this.traces.isEmpty()){
+			return true;
+		} else {
+			for(Trace tr : traces) {
+				if(tr.getOrientation().equals("Horizontal")) {
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	public void addTraces(Trace trace) {
+		this.traces.add(trace);
+	}
+
+	public List<Trace> getTraces() {
+		return this.traces;
 	}
 }

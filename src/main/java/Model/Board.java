@@ -74,18 +74,18 @@ public class Board {
     }
 
 
-    public void setTraced(Point pointToUpdate, String orientation) {
+    public void setTrace(Point pointToUpdate, Trace trace) {
         if(!this.points.contains(pointToUpdate)) {
             throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
         }
 
         for(Point pt : this.points) {
             if(pt.equals(pointToUpdate)) {
-                pt.setTraced(true);
-                pt.setTraceOrientation(orientation);
+                pt.addTraces(trace);
             }
         }
     }
+
 
     // méthode pour test
     public void countActive() {
@@ -119,6 +119,12 @@ public class Board {
                         p.addNeighbour(voisin);
                     }
                     if (voisin.getX() + 1 == p.getX() && voisin.getY() + 1 == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() - 1 == p.getX() && voisin.getY() + 1 == p.getY()) {
+                        p.addNeighbour(voisin);
+                    }
+                    if (voisin.getX() + 1 == p.getX() && voisin.getY() - 1 == p.getY()) {
                         p.addNeighbour(voisin);
                     }
                 }
