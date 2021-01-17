@@ -24,12 +24,15 @@ public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
     private List<LineView> lines;
     private int score;
-    private JLabel scoreTxt = new JLabel();
+    private JLabel scoreTxt; 
+    private JLabel msgErreur;
 
 	public BoardView() {
         this.buttons = new HashMap<>();
         this.lines = new ArrayList<>();
         this.score = 0;
+        this.scoreTxt = new JLabel();
+        this.msgErreur = new JLabel();
     }
 
 	@Override
@@ -112,5 +115,19 @@ public class BoardView extends JPanel {
     	this.add(numtext);
     	this.score++;
     	printScore();
+    	this.msgErreur.setText("");
+    }
+    
+    public void erreurMsg() {
+    	this.msgErreur.repaint();
+    	setLayout(null);
+    	msgErreur.setBounds(200, 470, 1000, 100);
+    	msgErreur.setText("Il n'est pas possible de placer un point ici");
+    	msgErreur.setForeground(new Color(255,0,0));
+        this.add(msgErreur);
+    }
+    
+    public void gameOver() {
+    	JOptionPane.showMessageDialog(null,"Game Over");
     }
 }
