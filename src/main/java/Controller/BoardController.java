@@ -34,7 +34,6 @@ public class BoardController {
         boardView.printPoints(this.boardModel.getPoints());
         boardView.printScore();
         boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
-        
     }
 
     private ActionListener buildAddAlternativeBehavior() {
@@ -52,45 +51,50 @@ public class BoardController {
         
         // maj des voisins de tous les points.
         this.boardModel.updateVoisins();
-        System.out.println("VOISINS" + pointToUpdate.getNeighbors());  
-        Trace trace = this.searchTrace(pointToUpdate); 
-        
-        if(!trace.isValid()) {
-        	boardView.erreurMsg();
-        }
-        
-        else {
+        System.out.println("VOISINS" + pointToUpdate.getNeighbors());
+
+        Trace trace = this.searchTrace(pointToUpdate);
+
+        if(trace.isValid()) {
+            this.boardModel.setTrace(trace);
+
         	this.boardModel.setActive(pointToUpdate);
             this.boardView.addPoint(btn,pointToUpdate);
             this.boardView.printPoints(this.boardModel.getPoints());
             this.boardModel.countActive();
             handlePrintTrace(trace);
-            //gameOver();
             
         }
+        else {
+        	boardView.erreurMsg();
+        }
 
-      
-    }
-       
-    private boolean gameOver() {
-        Trace traceOver = new Trace();
-      	for(Point pt : boardModel.getPoints()) {
-      		if(!pt.isActive()) {
-      			traceOver = this.searchTrace(pt);
-      			System.out.println(pt);          
-      			System.out.println(traceOver);
-      		
-      			if(traceOver.isValid()) {
-      				return true;
-      			}
-      		}
-      	}
-      	
-		return false;
-      	
-      	
+        this.gameOver();
     }
 
+    private void gameOver() {
+        Boolean gameOver = true;
+
+
+        for(Point p : this.boardModel.getPoints()) {
+            if(p.getTraces().isEmpty()) {
+                if (this.searchTrace(p).isValid()) {
+                    gameOver = false;
+                }
+            }
+        }
+
+        handlePrintGameOver(gameOver);
+    }
+
+    private void handlePrintGameOver(Boolean gameOver) {
+        if(gameOver) {
+            this.boardView.gameOver();
+            this.boardView.reset();
+            this.boardModel = Board.withClassicBoard();
+            initBoardView();
+        }
+    }
 
     private Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
@@ -118,11 +122,10 @@ public class BoardController {
         return trace;
     }
 
-
     private void handlePrintTrace(Trace trace) {
        List<Point> tracePoints = trace.getPoints();
        System.out.println("TRACE " + trace);
-       this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());  
+       this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
     }
 
 
@@ -142,11 +145,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // fin de boucle
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByY());
                     return trace;
                 }
@@ -170,11 +168,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // fin de boucle
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByY());
                     return trace;
                 }
@@ -206,10 +199,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
                 }
@@ -230,10 +219,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
                 }
@@ -263,10 +248,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
                 }
@@ -287,10 +268,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
                 }
@@ -320,10 +297,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
                 }
@@ -344,10 +317,6 @@ public class BoardController {
 
                 // la trace est terminée
                 if(trace.isValid()) {
-                    // Avertir le model des points tracés
-                    for(Point pt : trace.getPoints()) {
-                        this.boardModel.setTrace(pt, trace);
-                    }
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
                 }
