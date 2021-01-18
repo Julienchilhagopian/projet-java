@@ -8,12 +8,8 @@ import View.BoardView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Random;
 
 public class BoardController implements ActionListener{
     private Board boardModel;
@@ -41,7 +37,7 @@ public class BoardController implements ActionListener{
         boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
         boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
         boardView.buttonRandomGame();
-        this.boardView.printPoints(this.boardModel.getPoints());
+
         //randomGame();
     }
     
@@ -118,7 +114,8 @@ public class BoardController implements ActionListener{
 		System.out.println("MEC");
 		
 	}
-    
+
+	/*
     public void randomGame() {
     	
     	//probleme de performance : c'est très long pour les points ajoutés après
@@ -169,7 +166,36 @@ public class BoardController implements ActionListener{
 	        handlePrintTrace(trace);       
     	}
     }
-    
+    */
+
+
+    public void randomGame() {
+        System.out.println("POssible buttons" + possibleButtons());
+        this.boardModel.updateVoisins();
+        while(true){
+            List<JButton> buttons = this.possibleButtons();
+            if(buttons.size() != 0) {
+                Random rand = new Random();
+                JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
+                randomButton.doClick();
+                //this.boardView.repaint();
+            }
+        }
+
+    }
+
+    private List<JButton> possibleButtons() {
+        List<JButton> nextButtons = new ArrayList<>();
+        for (Point p : this.boardModel.getPoints()) {
+            if(this.searchTrace(p).isValid()) {
+                nextButtons.add(this.boardView.getButton(p));
+            }
+        }
+
+        return nextButtons;
+    }
+
+
     private Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
 

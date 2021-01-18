@@ -63,7 +63,6 @@ public class BoardView extends JPanel {
         for(LineView l : lines) {
             l.draw(g);
         }
-        repaint();
 	}
 
     public void printPoints(List<Point> points){
@@ -89,7 +88,7 @@ public class BoardView extends JPanel {
             this.setLayout(null);
             this.add(btn); 
             
-            repaint();
+           repaint();
         }
     }
     
@@ -181,8 +180,18 @@ public class BoardView extends JPanel {
     	jbutton.setBounds(390, 500, 100, 40);
     	//jbutton.addActionListener(new BoardController());
     	this.add(jbutton);
+    	repaint();
     }
-    
+
+    public JButton getButton(Point p){
+	    JButton button = new JButton();
+        for (Map.Entry<JButton, Point> entry : buttons.entrySet()) {
+            if (entry.getValue().equals(p)) {
+                button = entry.getKey();
+            }
+        }
+        return button;
+    }
 
     
 
