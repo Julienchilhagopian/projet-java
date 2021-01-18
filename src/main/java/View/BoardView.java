@@ -26,7 +26,7 @@ import Model.Point;
 
 public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
-	private List<LineView> lines;
+	private final List<LineView> lines;
     private int score;
     private JLabel scoreTxt; 
     private JLabel msgErreur;
@@ -133,6 +133,7 @@ public class BoardView extends JPanel {
 
     public void printLine(int xa, int ya, int xb, int yb) {
         lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
+
     }
 
     public Point getPoint(JButton btn) {
@@ -140,7 +141,6 @@ public class BoardView extends JPanel {
     }
     
     public void numPoint(JButton btn, Point p) {
-    	
     	JLabel numtext = new JLabel();
     	int x = btn.getX()-10;
     	int y = btn.getY();
@@ -192,6 +192,7 @@ public class BoardView extends JPanel {
         }
         return button;
     }
+
 
     
 

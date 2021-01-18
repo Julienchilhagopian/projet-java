@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class BoardController implements ActionListener{
     private Board boardModel;
@@ -34,14 +33,15 @@ public class BoardController implements ActionListener{
     private void initBoardView() {
         boardView.printPoints(this.boardModel.getPoints());
         boardView.printScore();
-        boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
-        boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
         boardView.buttonRandomGame();
+        boardView.attachOnClickButtonListenner(this.buildClickPointBehavior());
+        boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
 
-        //randomGame();
+        randomGame();
+        System.out.println(this);
     }
     
-    private ActionListener buildAddAlternativeBehavior() {
+    private ActionListener buildClickPointBehavior() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,15 +52,9 @@ public class BoardController implements ActionListener{
     }
     
     private ActionListener buildRandomGame() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //System.out.println("dd"); 
-                randomGame();
-            }
-        };
+        return new RandomGameListener(this);
     }
-   
+    
     private void handleOnClickButton(JButton btn) {
         Point pointToUpdate = this.boardView.getPoint(btn);
         
@@ -178,7 +172,6 @@ public class BoardController implements ActionListener{
                 Random rand = new Random();
                 JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
                 randomButton.doClick();
-                //this.boardView.repaint();
             }
         }
 
