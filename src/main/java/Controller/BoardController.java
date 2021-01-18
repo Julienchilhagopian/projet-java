@@ -10,9 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class BoardController implements ActionListener{
+public class BoardController {
     private Board boardModel;
     private BoardView boardView;
+    private Thread randomThread;
     
 
     private BoardController(Board boardModel, BoardView view) {
@@ -37,7 +38,7 @@ public class BoardController implements ActionListener{
         boardView.attachOnClickButtonListenner(this.buildClickPointBehavior());
         boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
 
-        randomGame();
+        //randomGame();
         System.out.println(this);
     }
     
@@ -52,9 +53,14 @@ public class BoardController implements ActionListener{
     }
     
     private ActionListener buildRandomGame() {
-        return new RandomGameListener(this);
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                randomGame();
+            }
+        };
     }
-    
+
     private void handleOnClickButton(JButton btn) {
         Point pointToUpdate = this.boardView.getPoint(btn);
         
@@ -164,16 +170,19 @@ public class BoardController implements ActionListener{
 
 
     public void randomGame() {
-        System.out.println("POssible buttons" + possibleButtons());
-        this.boardModel.updateVoisins();
-        while(true){
-            List<JButton> buttons = this.possibleButtons();
-            if(buttons.size() != 0) {
-                Random rand = new Random();
-                JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
-                randomButton.doClick();
+        Thread thread = new Thread(() -> {
+            this.boardModel.updateVoisins();
+            while(true){
+                List<JButton> buttons = this.possibleButtons();
+                if(buttons.size() != 0) {
+                    Random rand = new Random();
+                    JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
+                    randomButton.doClick();
+                }
             }
-        }
+
+        });
+        thread.start();
 
     }
 
