@@ -68,7 +68,7 @@ public class Board {
             if(pt.equals(pointToUpdate)) {
                 pt.setActive(true);
                 pt.pointNum(count);
-                count++;
+                this.count++;
             }
         }
     }

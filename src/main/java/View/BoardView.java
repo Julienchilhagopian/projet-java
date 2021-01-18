@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import Controller.BoardController;
+
 import java.awt.geom.Line2D;
 import javax.sound.sampled.Line;
 
@@ -22,10 +26,11 @@ import Model.Point;
 
 public class BoardView extends JPanel {
     private Map<JButton, Point> buttons;
-    private List<LineView> lines;
+	private List<LineView> lines;
     private int score;
     private JLabel scoreTxt; 
     private JLabel msgErreur;
+    private JButton jbutton;
 
 	public BoardView() {
         this.buttons = new HashMap<>();
@@ -33,7 +38,12 @@ public class BoardView extends JPanel {
         this.score = 0;
         this.scoreTxt = new JLabel();
         this.msgErreur = new JLabel();
+        this.jbutton = new JButton("Random");
     }
+	
+	public Map<JButton, Point> getButtons() {
+		return buttons;
+	}
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -77,8 +87,27 @@ public class BoardView extends JPanel {
 
             this.buttons.put(btn, p); 
             this.setLayout(null);
-            this.add(btn);    
+            this.add(btn); 
+            
+            repaint();
         }
+    }
+    
+    public void printNewPoint(Point a) {
+    	int cellX = 30 + (a.getX()*30);
+        int cellY = 30 + (a.getY()*30);
+        cellX = cellX - 10 /2;
+        cellY = cellY - 10 /2;
+        
+    	JButton j = new JButton("");
+    	j.setBounds(cellX, cellY, 10, 10);
+        j.setBackground(Color.GRAY);
+        j.setOpaque(true);
+    	this.buttons.put(j, a); 
+        this.setLayout(null);
+        this.add(j);
+        
+        repaint();
     }
     
     public void printScore() {
@@ -94,6 +123,14 @@ public class BoardView extends JPanel {
             btn.addActionListener(callback);
         }
     }
+	
+	public void attachOnClickButtonRandomGame(ActionListener callback) {
+		jbutton.addActionListener(callback);
+    }
+	
+	public void buildRandomGame(ActionListener callback) {
+		System.out.println("dd");
+	}
 
     public void printLine(int xa, int ya, int xb, int yb) {
         lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
@@ -103,7 +140,7 @@ public class BoardView extends JPanel {
         return this.buttons.get(btn);
     }
     
-    public void addPoint(JButton btn, Point p) {
+    public void numPoint(JButton btn, Point p) {
     	
     	JLabel numtext = new JLabel();
     	int x = btn.getX()-10;
@@ -121,7 +158,7 @@ public class BoardView extends JPanel {
     public void erreurMsg() {
     	this.msgErreur.repaint();
     	setLayout(null);
-    	msgErreur.setBounds(200, 470, 1000, 100);
+    	msgErreur.setBounds(140, 470, 1000, 100);
     	msgErreur.setText("Il n'est pas possible de placer un point ici");
     	msgErreur.setForeground(new Color(255,0,0));
         this.add(msgErreur);
@@ -138,4 +175,15 @@ public class BoardView extends JPanel {
 	    this.score = 0;
 	    this.repaint();
     }
+    
+    public void buttonRandomGame() {
+
+    	jbutton.setBounds(390, 500, 100, 40);
+    	//jbutton.addActionListener(new BoardController());
+    	this.add(jbutton);
+    }
+    
+
+    
+
 }

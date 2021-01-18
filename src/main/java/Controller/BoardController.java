@@ -8,12 +8,17 @@ import View.BoardView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
-public class BoardController {
+public class BoardController implements ActionListener{
     private Board boardModel;
     private BoardView boardView;
-
+    
 
     private BoardController(Board boardModel, BoardView view) {
         this.boardModel = boardModel;
@@ -34,8 +39,12 @@ public class BoardController {
         boardView.printPoints(this.boardModel.getPoints());
         boardView.printScore();
         boardView.attachOnClickButtonListenner(this.buildAddAlternativeBehavior());
+        boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
+        boardView.buttonRandomGame();
+        this.boardView.printPoints(this.boardModel.getPoints());
+        //randomGame();
     }
-
+    
     private ActionListener buildAddAlternativeBehavior() {
         return new ActionListener() {
             @Override
@@ -45,7 +54,17 @@ public class BoardController {
             }
         };
     }
-
+    
+    private ActionListener buildRandomGame() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //System.out.println("dd"); 
+                randomGame();
+            }
+        };
+    }
+   
     private void handleOnClickButton(JButton btn) {
         Point pointToUpdate = this.boardView.getPoint(btn);
         
@@ -57,10 +76,9 @@ public class BoardController {
 
         if(trace.isValid()) {
             this.boardModel.setTrace(trace);
-
         	this.boardModel.setActive(pointToUpdate);
-            this.boardView.addPoint(btn,pointToUpdate);
-            this.boardView.printPoints(this.boardModel.getPoints());
+            this.boardView.numPoint(btn,pointToUpdate);
+            this.boardView.printNewPoint(pointToUpdate);
             this.boardModel.countActive();
             handlePrintTrace(trace);
             
@@ -74,7 +92,6 @@ public class BoardController {
 
     private void gameOver() {
         Boolean gameOver = true;
-
 
         for(Point p : this.boardModel.getPoints()) {
             if(p.getTraces().isEmpty()) {
@@ -95,7 +112,64 @@ public class BoardController {
             initBoardView();
         }
     }
-
+    
+    @Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("MEC");
+		
+	}
+    
+    public void randomGame() {
+    	
+    	//probleme de performance : c'est très long pour les points ajoutés après
+    	List<Trace> t = new ArrayList<>();     	
+    	List<Point> p = new ArrayList<>();
+    	Random rand = new Random();
+    	
+    	while(true) {
+    		t.clear();
+    		p.clear();
+    		int randomIndex = 0;
+    			
+	    	for(Point points:this.boardModel.getPoints()) {
+	    		if(!points.isActive()) {
+	    			this.boardModel.updateVoisins();    	     
+	    	        Trace trace = this.searchTrace(points); 
+	    	        if(trace.isValid()) {
+	    	        	t.add(trace);
+	    	        	p.add(points); 	
+	    	        }
+	    		}
+	    	}	    	
+	    	if(t.size() == 0) {
+	    		boolean over = true;
+	    		handlePrintGameOver(over);
+	    	}	    
+    	
+	    	randomIndex = rand.nextInt(t.size());
+	        Trace trace = t.get(randomIndex);
+	        Point pointTrace = p.get(randomIndex);
+	        
+	        this.boardModel.setTrace(trace);
+	    	this.boardModel.setActive(pointTrace);
+	    	
+	    	Map<JButton, Point> map = new HashMap<>();
+	    	JButton jbutton = new JButton();
+	    	map = boardView.getButtons();
+	    	for (Entry<JButton, Point> entry : map.entrySet()) {
+	            if (entry.getValue().equals(pointTrace)) {
+	                jbutton = entry.getKey();
+	            }
+	        }
+	    	
+	        this.boardView.numPoint(jbutton,pointTrace);
+	        
+	        //problème de performance ici
+	        this.boardView.printNewPoint(pointTrace);
+	        handlePrintTrace(trace);       
+    	}
+    }
+    
     private Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
 
@@ -124,7 +198,7 @@ public class BoardController {
 
     private void handlePrintTrace(Trace trace) {
        List<Point> tracePoints = trace.getPoints();
-       System.out.println("TRACE " + trace);
+       //System.out.println("TRACE " + trace);
        this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
     }
 
@@ -329,5 +403,10 @@ public class BoardController {
         trace.getPoints().clear();
         return trace;
     }
+
+    
+   
+	
+    
 
 }
