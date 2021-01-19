@@ -9,21 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomGame implements Runnable {
+public class RandomGameWorker extends SwingWorker {
     private Board boardModel;
     private BoardController controller;
     private BoardView boardView;
     private boolean randomGameOver;
 
-    public RandomGame(Board boardModel, BoardController controller, BoardView boardView) {
+    public RandomGameWorker(Board boardModel, BoardController controller, BoardView boardView) {
         this.boardModel = boardModel;
         this.controller = controller;
         this.boardView = boardView;
-        this.randomGameOver = false;
     }
 
     @Override
-    public void run() {
+    protected Object doInBackground() throws Exception {
         this.boardModel.updateVoisins();
         this.randomGameOver = false;
         while(!randomGameOver){
@@ -32,7 +31,21 @@ public class RandomGame implements Runnable {
                 Random rand = new Random();
                 JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
                 randomButton.doClick();
+                Thread.sleep(250);
             }
+        }
+        return null;
+    }
+
+    protected void done()
+    {
+        try
+        {
+            System.out.println("IM DONE");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -51,8 +64,9 @@ public class RandomGame implements Runnable {
         randomGameOver = true;
     }
 
-    public void restartRandomGame(){
-        randomGameOver = false;
+    public void updateGameWorker(Board boardModel, BoardController controller, BoardView boardView) {
+        this.boardModel = boardModel;
+        this.controller = controller;
+        this.boardView = boardView;
     }
-
 }

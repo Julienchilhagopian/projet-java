@@ -8,20 +8,20 @@ import View.BoardView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class BoardController {
     private Board boardModel;
     private BoardView boardView;
     private Thread randomThread;
-    private boolean isRandomGameOver;
     private RandomGame randomBehavior;
+    private RandomGameWorker randomGameWorker;
 
 
     private BoardController(Board boardModel, BoardView view) {
         this.boardModel = boardModel;
         this.boardView = view;
-        this.isRandomGameOver = false;
         initBoardView();
     }
 
@@ -69,7 +69,7 @@ public class BoardController {
         
         // maj des voisins de tous les points.
         this.boardModel.updateVoisins();
-        System.out.println("VOISINS" + pointToUpdate.getNeighbors());
+        //System.out.println("VOISINS" + pointToUpdate.getNeighbors());
 
         Trace trace = this.searchTrace(pointToUpdate);
 
@@ -110,11 +110,18 @@ public class BoardController {
             this.boardModel = Board.withClassicBoard();
 
 
-            if(this.randomThread.isAlive()) {
-                this.randomBehavior.stop();
-            }
 
-            this.isRandomGameOver = true;
+            /*
+            if(this.randomThread != null) {
+                this.randomThread = null;
+            }
+            */
+            //this.randomBehavior.stopRandomGame();
+
+            /*
+            this.randomGameWorker.stopRandomGame();
+            this.randomGameWorker.cancel(true);
+            */
 
             initBoardView();
         }
@@ -176,9 +183,41 @@ public class BoardController {
 
     public void randomGame() {
 
-       this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
-       this.randomThread = new Thread(randomBehavior, "Random Thread");
+        this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
+        //RandomGame rndGame = new RandomGame(this.boardModel, this, this.boardView);
+
+        //SwingUtilities.invokeLater(new RandomGame(this.boardModel, this, this.boardView));
+        /*
+       this.randomGameWorker = new RandomGameWorker(this.boardModel, this, this.boardView);
+       randomGameWorker.execute();
+       */
+
+
+
+        /*
+        Thread thread = new Thread() {
+            public void run(){
+                SwingUtilities.invokeLater(rndGame);
+            }
+        };
+        thread.start();
+        */
+        this.randomThread = new Thread(randomBehavior, "Random Thread");
        randomThread.start();
+
+
+        /*
+       if(this.randomThread != null) {
+           this.randomBehavior.restartRandomGame();
+       } else {
+           this.randomThread = new Thread(randomBehavior, "Random Thread");
+           randomThread.start();
+       }*/
+        /*
+        Thread local = new Thread(rndGame, "Random Thread");
+        local.start();
+        */
+
         /*
         this.isRandomGameOver = false;
         this.randomThread = new Thread(() -> {
@@ -211,10 +250,6 @@ public class BoardController {
         return nextButtons;
     }
     */
-
-    public boolean isRandomGameOver() {
-        return isRandomGameOver;
-    }
 
     public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);

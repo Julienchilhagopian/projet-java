@@ -8,10 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -34,7 +31,7 @@ public class BoardView extends JPanel {
 
 	public BoardView() {
         this.buttons = new HashMap<>();
-        this.lines = new ArrayList<>();
+        this.lines = Collections.synchronizedList(new LinkedList<>());
         this.score = 0;
         this.scoreTxt = new JLabel();
         this.msgErreur = new JLabel();
@@ -60,9 +57,14 @@ public class BoardView extends JPanel {
         
         g.drawRect(30, 500, 100, 40);
 
-        for(LineView l : lines) {
-            l.draw(g);
+
+        synchronized (lines) {
+            for(LineView l : lines) {
+                l.draw(g);
+            }
         }
+
+
 	}
 
     public void printPoints(List<Point> points){
