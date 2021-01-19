@@ -103,9 +103,11 @@ public class BoardController {
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
             this.boardView.gameOver();
-            this.boardView.reset();
-            this.boardModel = Board.withClassicBoard();
             this.boardView.removeOnClickButtonRandomGame();
+            this.boardView.removeOnClickButtonRandomGame();
+            this.boardView.reset();
+
+            this.boardModel = Board.withClassicBoard();
 
             if(this.randomThread != null) {
                 this.randomThread = null;

@@ -135,6 +135,15 @@ public class BoardView extends JPanel {
         }
     }
 
+    public void removeOnClickButtonListenner() {
+        for (JButton btn : this.buttons.keySet()) {
+            for( ActionListener al : jbutton.getActionListeners() ) {
+                btn.removeActionListener( al );
+            }
+        }
+    }
+
+
 
     public void buildRandomGame(ActionListener callback) {
 		System.out.println("dd");
