@@ -128,8 +128,15 @@ public class BoardView extends JPanel {
 	public void attachOnClickButtonRandomGame(ActionListener callback) {
 		jbutton.addActionListener(callback);
     }
-	
-	public void buildRandomGame(ActionListener callback) {
+
+    public void removeOnClickButtonRandomGame() {
+        for( ActionListener al : jbutton.getActionListeners() ) {
+            jbutton.removeActionListener( al );
+        }
+    }
+
+
+    public void buildRandomGame(ActionListener callback) {
 		System.out.println("dd");
 	}
 

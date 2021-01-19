@@ -39,7 +39,7 @@ public class BoardController {
         boardView.attachOnClickButtonListenner(this.buildClickPointBehavior());
         boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
 
-        //randomGame();
+       // randomGame();
     }
     
     private ActionListener buildClickPointBehavior() {
@@ -105,12 +105,12 @@ public class BoardController {
             this.boardView.gameOver();
             this.boardView.reset();
             this.boardModel = Board.withClassicBoard();
+            this.boardView.removeOnClickButtonRandomGame();
 
             if(this.randomThread != null) {
                 this.randomThread = null;
                 this.randomBehavior.stopRandomGame();
             }
-
 
             initBoardView();
         }
