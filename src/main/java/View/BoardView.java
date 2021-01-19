@@ -63,8 +63,6 @@ public class BoardView extends JPanel {
                 l.draw(g);
             }
         }
-
-
 	}
 
     public void printPoints(List<Point> points){
@@ -143,12 +141,6 @@ public class BoardView extends JPanel {
         }
     }
 
-
-
-    public void buildRandomGame(ActionListener callback) {
-		System.out.println("dd");
-	}
-
     public void printLine(int xa, int ya, int xb, int yb) {
         lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
 
@@ -173,12 +165,12 @@ public class BoardView extends JPanel {
     }
     
     public void erreurMsg() {
-    	this.msgErreur.repaint();
     	setLayout(null);
     	msgErreur.setBounds(140, 470, 1000, 100);
     	msgErreur.setText("Il n'est pas possible de placer un point ici");
     	msgErreur.setForeground(new Color(255,0,0));
         this.add(msgErreur);
+        this.msgErreur.repaint();
     }
 
     public void gameOver() {
@@ -194,9 +186,7 @@ public class BoardView extends JPanel {
     }
     
     public void buttonRandomGame() {
-
-    	jbutton.setBounds(390, 500, 100, 40);
-    	//jbutton.addActionListener(new BoardController());
+    	jbutton.setBounds(390, 500, 100, 40);	
     	this.add(jbutton);
     	repaint();
     }
@@ -210,8 +200,4 @@ public class BoardView extends JPanel {
         }
         return button;
     }
-
-
-    
-
 }
