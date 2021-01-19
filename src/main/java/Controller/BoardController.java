@@ -14,11 +14,14 @@ public class BoardController {
     private Board boardModel;
     private BoardView boardView;
     private Thread randomThread;
-    
+    private boolean isRandomGameOver;
+    private RandomGame randomBehavior;
+
 
     private BoardController(Board boardModel, BoardView view) {
         this.boardModel = boardModel;
         this.boardView = view;
+        this.isRandomGameOver = false;
         initBoardView();
     }
 
@@ -105,15 +108,17 @@ public class BoardController {
             this.boardView.gameOver();
             this.boardView.reset();
             this.boardModel = Board.withClassicBoard();
+
+
+            if(this.randomThread.isAlive()) {
+                this.randomBehavior.stop();
+            }
+
+            this.isRandomGameOver = true;
+
             initBoardView();
         }
     }
-    
-    @Override
-	public void actionPerformed(ActionEvent e) {
-		System.out.println("MEC");
-		
-	}
 
 	/*
     public void randomGame() {
@@ -170,9 +175,15 @@ public class BoardController {
 
 
     public void randomGame() {
-        Thread thread = new Thread(() -> {
+
+       this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
+       this.randomThread = new Thread(randomBehavior, "Random Thread");
+       randomThread.start();
+        /*
+        this.isRandomGameOver = false;
+        this.randomThread = new Thread(() -> {
             this.boardModel.updateVoisins();
-            while(true){
+            while(!this.isRandomGameOver){
                 List<JButton> buttons = this.possibleButtons();
                 if(buttons.size() != 0) {
                     Random rand = new Random();
@@ -182,10 +193,13 @@ public class BoardController {
             }
 
         });
-        thread.start();
+        this.randomThread.start();
+
+        */
 
     }
 
+    /*
     private List<JButton> possibleButtons() {
         List<JButton> nextButtons = new ArrayList<>();
         for (Point p : this.boardModel.getPoints()) {
@@ -196,9 +210,13 @@ public class BoardController {
 
         return nextButtons;
     }
+    */
 
+    public boolean isRandomGameOver() {
+        return isRandomGameOver;
+    }
 
-    private Trace searchTrace(Point pointToUpdate) {
+    public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
 
         // il faut executer une méthode de recherche seulement une après l'autre si la précédente n'a pas trouvé de trace.
