@@ -26,7 +26,7 @@ public class BoardView extends JPanel {
 	private final List<LineView> lines;
     private int score;
     private JLabel scoreTxt; 
-    private JLabel msgErreur;
+	private JLabel msgErreur;
     private JButton jbutton;
 
 	public BoardView() {
@@ -140,6 +140,10 @@ public class BoardView extends JPanel {
             }
         }
     }
+    
+    public int getScore() {
+		return score;
+	}
 
     public void printLine(int xa, int ya, int xb, int yb) {
         lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
@@ -166,7 +170,7 @@ public class BoardView extends JPanel {
     
     public void erreurMsg() {
     	setLayout(null);
-    	msgErreur.setBounds(140, 470, 1000, 100);
+    	msgErreur.setBounds(250, 470, 1000, 100);
     	msgErreur.setText("Il n'est pas possible de placer un point ici");
     	msgErreur.setForeground(new Color(255,0,0));
         this.add(msgErreur);
@@ -186,7 +190,7 @@ public class BoardView extends JPanel {
     }
     
     public void buttonRandomGame() {
-    	jbutton.setBounds(390, 500, 100, 40);	
+    	jbutton.setBounds(140, 500, 100, 40);	
     	this.add(jbutton);
     	repaint();
     }
@@ -199,5 +203,26 @@ public class BoardView extends JPanel {
             }
         }
         return button;
+    }
+    
+    public void tabScore(List<String> t) {
+    	setLayout(null);
+    	JLabel nameTabScore = new JLabel();
+    	nameTabScore.setBounds(530, 0, 100, 100);
+    	nameTabScore.setText("Player rankings");
+    	this.add(nameTabScore);
+    	
+    	int y = 20;
+    	
+    	for(String s : t) {
+    		JLabel playerAndScore = new JLabel();
+    		playerAndScore.setText(s);
+    		playerAndScore.setBounds(530, y, 100, 100);
+    		y = y + 20;
+    		this.add(playerAndScore);
+    	}
+    	
+    	
+ 
     }
 }

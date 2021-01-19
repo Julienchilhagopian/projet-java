@@ -11,7 +11,7 @@ public class Main {
 
     private static void displayMorpion() {
         JFrame frame = new JFrame("Java Avancée - Morpion Solitaire");
-        frame.setSize(new Dimension(530,600));
+        frame.setSize(new Dimension(700,600));
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
         frame.setResizable(false);

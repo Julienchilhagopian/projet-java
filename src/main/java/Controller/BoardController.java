@@ -8,6 +8,14 @@ import View.BoardView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public class BoardController {
@@ -33,13 +41,14 @@ public class BoardController {
     }
 
     private void initBoardView() {
+    	readScore();
         boardView.printPoints(this.boardModel.getPoints());
         boardView.printScore();
         boardView.buttonRandomGame();
         boardView.attachOnClickButtonListenner(this.buildClickPointBehavior());
         boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
-
-       // randomGame();
+        
+       
     }
     
     private ActionListener buildClickPointBehavior() {
@@ -102,6 +111,7 @@ public class BoardController {
 
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
+        	this.writeScore();
             this.boardView.gameOver();
             this.boardView.removeOnClickButtonRandomGame();
             this.boardView.removeOnClickButtonListener();
@@ -126,6 +136,38 @@ public class BoardController {
 
         this.randomThread = new Thread(randomBehavior, "Random Thread");
        randomThread.start();
+    }
+    
+    public void readScore() {
+    	try {
+            File f = new File("PlayerRanking.txt");
+            BufferedReader b = new BufferedReader(new FileReader(f));
+            String readLine = "";
+            List<String> tab = new ArrayList<>();
+            while ((readLine = b.readLine()) != null) {
+            	tab.add(readLine);
+                System.out.println(readLine);
+            }
+            
+            boardView.tabScore(tab);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void writeScore() {
+    	
+    	System.out.println(boardView.getScore());
+    	File f = new File("PlayerRanking.txt");
+    	PrintWriter x;
+		try {
+			x = new PrintWriter(new FileWriter(f,true));
+		} catch (IOException e) {
+			throw new IllegalStateException(e);
+		}
+    	x.println(boardView.getScore());
+    	x.close();
     }
 
 
