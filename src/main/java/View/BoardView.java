@@ -133,6 +133,20 @@ public class BoardView extends JPanel {
 		System.out.println("dd");
 	}
 
+    public void removeOnClickButtonRandomGame() {
+        for( ActionListener al : jbutton.getActionListeners() ) {
+            jbutton.removeActionListener( al );
+        }
+    }
+
+    public void removeOnClickButtonListener() {
+        for (JButton btn : this.buttons.keySet()) {
+            for( ActionListener al : jbutton.getActionListeners() ) {
+                btn.removeActionListener( al );
+            }
+        }
+    }
+
     public void printLine(int xa, int ya, int xb, int yb) {
         lines.add(new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30));
 

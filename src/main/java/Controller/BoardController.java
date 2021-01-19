@@ -106,7 +106,10 @@ public class BoardController {
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
             this.boardView.gameOver();
+            this.boardView.removeOnClickButtonRandomGame();
+            this.boardView.removeOnClickButtonListener();
             this.boardView.reset();
+
             this.boardModel = Board.withClassicBoard();
 
 
@@ -183,14 +186,14 @@ public class BoardController {
 
     public void randomGame() {
 
-        this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
+        //this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
         //RandomGame rndGame = new RandomGame(this.boardModel, this, this.boardView);
 
         //SwingUtilities.invokeLater(new RandomGame(this.boardModel, this, this.boardView));
-        /*
+
        this.randomGameWorker = new RandomGameWorker(this.boardModel, this, this.boardView);
        randomGameWorker.execute();
-       */
+
 
 
 
@@ -202,8 +205,10 @@ public class BoardController {
         };
         thread.start();
         */
+        /*
         this.randomThread = new Thread(randomBehavior, "Random Thread");
        randomThread.start();
+       */
 
 
         /*

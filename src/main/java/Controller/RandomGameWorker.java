@@ -31,7 +31,7 @@ public class RandomGameWorker extends SwingWorker {
                 Random rand = new Random();
                 JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
                 randomButton.doClick();
-                Thread.sleep(250);
+                Thread.sleep(100);
             }
         }
         return null;
