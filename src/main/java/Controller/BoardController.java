@@ -104,7 +104,7 @@ public class BoardController {
         if(gameOver) {
             this.boardView.gameOver();
             this.boardView.removeOnClickButtonRandomGame();
-            this.boardView.removeOnClickButtonRandomGame();
+            this.boardView.removeOnClickButtonListener();
             this.boardView.reset();
 
             this.boardModel = Board.withClassicBoard();
