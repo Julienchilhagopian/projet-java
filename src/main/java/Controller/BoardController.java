@@ -8,7 +8,6 @@ import View.BoardView;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class BoardController {
@@ -16,7 +15,6 @@ public class BoardController {
     private BoardView boardView;
     private Thread randomThread;
     private RandomGame randomBehavior;
-    private RandomGameWorker randomGameWorker;
 
 
     private BoardController(Board boardModel, BoardView view) {
@@ -42,7 +40,6 @@ public class BoardController {
         boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
 
         //randomGame();
-        System.out.println(this);
     }
     
     private ActionListener buildClickPointBehavior() {
@@ -109,147 +106,26 @@ public class BoardController {
             this.boardView.reset();
             this.boardModel = Board.withClassicBoard();
 
-
-
-            /*
             if(this.randomThread != null) {
                 this.randomThread = null;
+                this.randomBehavior.stopRandomGame();
             }
-            */
-            //this.randomBehavior.stopRandomGame();
 
-            /*
-            this.randomGameWorker.stopRandomGame();
-            this.randomGameWorker.cancel(true);
-            */
 
             initBoardView();
         }
     }
 
-	/*
-    public void randomGame() {
-    	
-    	//probleme de performance : c'est très long pour les points ajoutés après
-    	List<Trace> t = new ArrayList<>();     	
-    	List<Point> p = new ArrayList<>();
-    	Random rand = new Random();
-    	
-    	while(true) {
-    		t.clear();
-    		p.clear();
-    		int randomIndex = 0;
-    			
-	    	for(Point points:this.boardModel.getPoints()) {
-	    		if(!points.isActive()) {
-	    			this.boardModel.updateVoisins();    	     
-	    	        Trace trace = this.searchTrace(points); 
-	    	        if(trace.isValid()) {
-	    	        	t.add(trace);
-	    	        	p.add(points); 	
-	    	        }
-	    		}
-	    	}	    	
-	    	if(t.size() == 0) {
-	    		boolean over = true;
-	    		handlePrintGameOver(over);
-	    	}	    
-    	
-	    	randomIndex = rand.nextInt(t.size());
-	        Trace trace = t.get(randomIndex);
-	        Point pointTrace = p.get(randomIndex);
-	        
-	        this.boardModel.setTrace(trace);
-	    	this.boardModel.setActive(pointTrace);
-	    	
-	    	Map<JButton, Point> map = new HashMap<>();
-	    	JButton jbutton = new JButton();
-	    	map = boardView.getButtons();
-	    	for (Entry<JButton, Point> entry : map.entrySet()) {
-	            if (entry.getValue().equals(pointTrace)) {
-	                jbutton = entry.getKey();
-	            }
-	        }
-	    	
-	        this.boardView.numPoint(jbutton,pointTrace);
-	        
-	        //problème de performance ici
-	        this.boardView.printNewPoint(pointTrace);
-	        handlePrintTrace(trace);       
-    	}
-    }
-    */
-
 
     public void randomGame() {
-
         this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
-        //RandomGame rndGame = new RandomGame(this.boardModel, this, this.boardView);
-
+        // Essai avec invokeLater
         //SwingUtilities.invokeLater(new RandomGame(this.boardModel, this, this.boardView));
-        /*
-       this.randomGameWorker = new RandomGameWorker(this.boardModel, this, this.boardView);
-       randomGameWorker.execute();
-       */
 
-
-
-        /*
-        Thread thread = new Thread() {
-            public void run(){
-                SwingUtilities.invokeLater(rndGame);
-            }
-        };
-        thread.start();
-        */
         this.randomThread = new Thread(randomBehavior, "Random Thread");
        randomThread.start();
-
-
-        /*
-       if(this.randomThread != null) {
-           this.randomBehavior.restartRandomGame();
-       } else {
-           this.randomThread = new Thread(randomBehavior, "Random Thread");
-           randomThread.start();
-       }*/
-        /*
-        Thread local = new Thread(rndGame, "Random Thread");
-        local.start();
-        */
-
-        /*
-        this.isRandomGameOver = false;
-        this.randomThread = new Thread(() -> {
-            this.boardModel.updateVoisins();
-            while(!this.isRandomGameOver){
-                List<JButton> buttons = this.possibleButtons();
-                if(buttons.size() != 0) {
-                    Random rand = new Random();
-                    JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
-                    randomButton.doClick();
-                }
-            }
-
-        });
-        this.randomThread.start();
-
-        */
-
     }
 
-    /*
-    private List<JButton> possibleButtons() {
-        List<JButton> nextButtons = new ArrayList<>();
-        for (Point p : this.boardModel.getPoints()) {
-            if(this.searchTrace(p).isValid()) {
-                nextButtons.add(this.boardView.getButton(p));
-            }
-        }
-
-        return nextButtons;
-    }
-    */
 
     public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
