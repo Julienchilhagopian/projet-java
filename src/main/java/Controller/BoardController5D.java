@@ -47,7 +47,7 @@ public class BoardController5D implements IController{
         };
     }
     
-    private ActionListener buildRandomGame() {
+    public ActionListener buildRandomGame() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

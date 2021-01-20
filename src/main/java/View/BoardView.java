@@ -136,7 +136,7 @@ public class BoardView extends JPanel {
         }
     }
 
-    private void removeOnClickButtonListener() {
+    public void removeOnClickButtonListener() {
         for (JButton btn : this.buttons.keySet()) {
             for( ActionListener al : jbutton.getActionListeners() ) {
                 btn.removeActionListener( al );
@@ -144,7 +144,7 @@ public class BoardView extends JPanel {
         }
     }
 
-    private void remmoveVersionButtonsListene() {
+    private void removeVersionButtonsListene() {
         for( ActionListener al : button5D.getActionListeners() ) {
             button5D.removeActionListener( al );
         }

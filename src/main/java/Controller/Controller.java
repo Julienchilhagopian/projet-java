@@ -38,6 +38,8 @@ public class Controller {
     }
 
     public void resetBoardView() {
+        this.view.removeOnClickButtonListener();
+        this.view.removeOnClickButtonRandomGame();
         this.getView().reset();
         this.resetDefaultModel();
     }
@@ -46,6 +48,7 @@ public class Controller {
         this.view.printPoints(this.boardModel.getPoints());
         this.view.printScore();
         this.view.attachOnClickButtonListenner(this.currentController.buildClickPointBehavior());
+        this.view.attachOnClickButtonRandomGame(this.currentController.buildRandomGame());
     }
 
     private ActionListener launch5D() {
@@ -55,6 +58,7 @@ public class Controller {
                 resetBoardView();
                 currentController = build5DController();
                 System.out.println("launch 5D");
+                restartBoardView();
             }
         };
     }
@@ -63,7 +67,6 @@ public class Controller {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 System.out.println("launch 5T");
             }
         };
