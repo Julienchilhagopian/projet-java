@@ -1,27 +1,16 @@
 package View;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.awt.Graphics2D;
 import java.util.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
-import Controller.BoardController;
-
-import java.awt.geom.Line2D;
-import javax.sound.sampled.Line;
-
-import Model.Board;
 import Model.Point;
 
 public class BoardView extends JPanel {
+    private ArrayList<JLabel> pointLabels;
     private Map<JButton, Point> buttons;
 	private final List<LineView> lines;
     private int score;
@@ -33,6 +22,7 @@ public class BoardView extends JPanel {
 
 	public BoardView() {
         this.buttons = new HashMap<>();
+        this.pointLabels = new ArrayList<>();
         this.lines = Collections.synchronizedList(new LinkedList<>());
         this.score = 0;
         this.scoreTxt = new JLabel();
@@ -140,13 +130,7 @@ public class BoardView extends JPanel {
     }
 
 
-    public void removeMorpionButtonsListener() {
-	    this.removeOnClickButtonListener();
-	    this.removeOnClickButtonRandomGame();
-    }
-
-
-    private void removeOnClickButtonRandomGame() {
+    public void removeOnClickButtonRandomGame() {
         for( ActionListener al : jbutton.getActionListeners() ) {
             jbutton.removeActionListener( al );
         }
@@ -188,6 +172,7 @@ public class BoardView extends JPanel {
     	String s = String.valueOf(p.getNum());
     	numtext.setText(s);
     	this.add(numtext);
+    	this.pointLabels.add(numtext);
     	this.score++;
     	printScore();
     	this.msgErreur.setText("");
@@ -207,10 +192,20 @@ public class BoardView extends JPanel {
     }
 
     public void reset() {
+        for(JButton btn : this.buttons.keySet()) {
+            this.remove(btn);
+        }
+
+        for(JLabel label : this.pointLabels) {
+            this.remove(label);
+        }
+
+        this.remove(scoreTxt);
+        this.pointLabels.clear();
 	    this.lines.clear();
-	    this.removeAll();
 	    this.buttons.clear();
 	    this.score = 0;
+
 	    this.repaint();
     }
 

@@ -1,34 +1,32 @@
 package Controller;
 
-import Model.Board;
 import Model.Point;
 import Model.Trace;
-import View.BoardView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class BoardController {
+public class BoardController5D implements IController{
     private Thread randomThread;
     private RandomGame randomBehavior;
     private Controller controller;
 
 
-    private BoardController(Controller mainController) {
+    private BoardController5D(Controller mainController) {
         this.controller = mainController;
         initBoardView();
     }
 
-    public static BoardController create(Controller controller) {
-        return new BoardController(controller);
+    public static BoardController5D create(Controller controller) {
+        return new BoardController5D(controller);
     }
 
 
-    /*public static BoardController inst(BoardView view) {
+    /*public static BoardController5D inst(BoardView view) {
         Board model = Board.withClassicBoard();
-        return new BoardController(model, view);
+        return new BoardController5D(model, view);
     }
     */
 
@@ -39,7 +37,7 @@ public class BoardController {
        // randomGame();
     }
     
-    private ActionListener buildClickPointBehavior() {
+    public ActionListener buildClickPointBehavior() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,17 +97,14 @@ public class BoardController {
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
             this.controller.getView().gameOver();
-            this.controller.getView().removeMorpionButtonsListener();
-            this.controller.getView().reset();
-
-            this.controller.resetDefaultModel();
+            this.controller.resetBoardView();
 
             if(this.randomThread != null) {
                 this.randomThread = null;
                 this.randomBehavior.stopRandomGame();
             }
 
-            initBoardView();
+           this.controller.restartBoardView();
         }
     }
 
