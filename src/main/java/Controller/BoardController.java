@@ -11,33 +11,33 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 public class BoardController {
-    private Board boardModel;
-    private BoardView boardView;
     private Thread randomThread;
     private RandomGame randomBehavior;
+    private Controller controller;
 
 
-    private BoardController(Board boardModel, BoardView view) {
-        this.boardModel = boardModel;
-        this.boardView = view;
+    private BoardController(Controller mainController) {
+        this.controller = mainController;
         initBoardView();
     }
 
-    public Board getModel() {
-        return boardModel;
+    public static BoardController create(Controller controller) {
+        return new BoardController(controller);
     }
 
-    public static BoardController inst(BoardView view) {
+
+    /*public static BoardController inst(BoardView view) {
         Board model = Board.withClassicBoard();
         return new BoardController(model, view);
     }
+    */
 
     private void initBoardView() {
-        boardView.printPoints(this.boardModel.getPoints());
-        boardView.printScore();
-        boardView.buttonRandomGame();
-        boardView.attachOnClickButtonListenner(this.buildClickPointBehavior());
-        boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
+        controller.getView().printPoints(this.controller.getBoardModel().getPoints());
+        controller.getView().printScore();
+        controller.getView().buttonRandomGame();
+        controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
+        controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
 
        // randomGame();
     }
@@ -62,25 +62,24 @@ public class BoardController {
     }
 
     private void handleOnClickButton(JButton btn) {
-        Point pointToUpdate = this.boardView.getPoint(btn);
+        Point pointToUpdate = this.controller.getView().getPoint(btn);
         
         // maj des voisins de tous les points.
-        this.boardModel.updateVoisins();
+        this.controller.getBoardModel().updateVoisins();
         //System.out.println("VOISINS" + pointToUpdate.getNeighbors());
 
         Trace trace = this.searchTrace(pointToUpdate);
 
         if(trace.isValid()) {
-            this.boardModel.setTrace(trace);
-        	this.boardModel.setActive(pointToUpdate);
-            this.boardView.numPoint(btn,pointToUpdate);
-            this.boardView.printNewPoint(pointToUpdate);
-            this.boardModel.countActive();
+            this.controller.getBoardModel().setTrace(trace);
+        	this.controller.getBoardModel().setActive(pointToUpdate);
+            this.controller.getView().numPoint(btn,pointToUpdate);
+            this.controller.getView().printNewPoint(pointToUpdate);
+            this.controller.getBoardModel().countActive();
             handlePrintTrace(trace);
-            
         }
         else {
-        	boardView.erreurMsg();
+        	controller.getView().erreurMsg();
         }
 
         this.gameOver();
@@ -89,7 +88,7 @@ public class BoardController {
     private void gameOver() {
         Boolean gameOver = true;
 
-        for(Point p : this.boardModel.getPoints()) {
+        for(Point p : this.controller.getBoardModel().getPoints()) {
             if(p.getTraces().isEmpty()) {
                 if (this.searchTrace(p).isValid()) {
                     gameOver = false;
@@ -102,12 +101,12 @@ public class BoardController {
 
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
-            this.boardView.gameOver();
-            this.boardView.removeOnClickButtonRandomGame();
-            this.boardView.removeOnClickButtonListener();
-            this.boardView.reset();
+            this.controller.getView().gameOver();
+            this.controller.getView().removeOnClickButtonRandomGame();
+            this.controller.getView().removeOnClickButtonListener();
+            this.controller.getView().reset();
 
-            this.boardModel = Board.withClassicBoard();
+            this.controller.resetDefaultModel();
 
             if(this.randomThread != null) {
                 this.randomThread = null;
@@ -120,9 +119,9 @@ public class BoardController {
 
 
     public void randomGame() {
-        this.randomBehavior = new RandomGame(this.boardModel, this, this.boardView);
+        this.randomBehavior = new RandomGame(this.controller.getBoardModel(), this, this.controller.getView());
         // Essai avec invokeLater
-        //SwingUtilities.invokeLater(new RandomGame(this.boardModel, this, this.boardView));
+        //SwingUtilities.invokeLater(new RandomGame(this.controller.getBoardModel(, this, this.controller.getView()));
 
         this.randomThread = new Thread(randomBehavior, "Random Thread");
        randomThread.start();
@@ -158,7 +157,7 @@ public class BoardController {
     private void handlePrintTrace(Trace trace) {
        List<Point> tracePoints = trace.getPoints();
        //System.out.println("TRACE " + trace);
-       this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
+       this.controller.getView().printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
     }
 
 

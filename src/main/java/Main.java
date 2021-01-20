@@ -1,4 +1,4 @@
-import Controller.BoardController;
+import Controller.Controller;
 import View.BoardView;
 
 import javax.swing.*;
@@ -16,11 +16,12 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
         frame.setResizable(false);
         
-        BoardView board = new BoardView();
-        frame.add(board);
+        BoardView boardView = new BoardView();
+        frame.add(boardView);
         frame.setVisible(true);
 
-        BoardController boardController = BoardController.inst(board);
+        Controller controller = Controller.withDefaultModel(boardView);
+        controller.buildEditionController();
     }
 
 }
