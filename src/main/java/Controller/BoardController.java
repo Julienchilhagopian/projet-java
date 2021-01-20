@@ -160,7 +160,6 @@ public class BoardController {
     }
     
     public void writeScore() {
-    	
     	File f = new File("PlayerRanking.txt");
     	PrintWriter x;
     	Scanner scanner;
@@ -169,6 +168,11 @@ public class BoardController {
 			scanner = new Scanner(f);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
+		}
+		
+		if(f.length() == 0) {
+			x.println(this.player +";"+ boardView.getScore());				
+	    	x.close();	
 		}
 		
 		while (scanner.hasNextLine()) 
@@ -185,11 +189,10 @@ public class BoardController {
 				}
 			}
 			else {
+			
 				x.println(this.player +";"+ boardView.getScore());				
 		    	x.close(); 
-			}
-			
-			
+			}			
 	    }
     }
 
