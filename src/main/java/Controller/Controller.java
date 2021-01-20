@@ -67,6 +67,9 @@ public class Controller {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                // set currentController = nouvelle classe 5T
+                
                 System.out.println("launch 5T");
             }
         };
