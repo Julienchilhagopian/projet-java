@@ -65,17 +65,17 @@ public class BoardController5D implements IController{
 
         Trace trace = this.searchTrace(pointToUpdate);
 
-        if(trace.isValid()) {
+        //if(trace.isValid()) {
             this.controller.getBoardModel().setTrace(trace);
         	this.controller.getBoardModel().setActive(pointToUpdate);
             this.controller.getView().numPoint(btn,pointToUpdate);
             this.controller.getView().printNewPoint(pointToUpdate);
             this.controller.getBoardModel().countActive();
             handlePrintTrace(trace);
-        }
+       /* }
         else {
         	controller.getView().erreurMsg();
-        }
+        }*/
 
         this.gameOver();
     }

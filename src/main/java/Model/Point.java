@@ -34,7 +34,7 @@ public class Point {
 	}
 	@Override
 	public String toString() {
-		return "Point [x=" + x + ", y=" + y + "]";
+		return x + ":" + y;
 	}
 
 	public Boolean isActive() {
@@ -156,9 +156,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.getOrientation().equals("Vertical")) {
-					return false;
-				}
+				return tr.isEligible("Vertical", this);
 			}
 			return true;
 		}
