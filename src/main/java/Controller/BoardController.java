@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,12 +24,17 @@ public class BoardController {
     private BoardView boardView;
     private Thread randomThread;
     private RandomGame randomBehavior;
+    private String player;
 
 
     private BoardController(Board boardModel, BoardView view) {
         this.boardModel = boardModel;
         this.boardView = view;
-        initBoardView();
+        this.player = "";
+        initBoardView();    
+        player = boardView.namePlayer();
+        if(player == null)
+        	player = "Unknown";
     }
 
     public Board getModel() {
@@ -43,12 +49,10 @@ public class BoardController {
     private void initBoardView() {
     	readScore();
         boardView.printPoints(this.boardModel.getPoints());
-        boardView.printScore();
         boardView.buttonRandomGame();
+        boardView.printScore();
         boardView.attachOnClickButtonListenner(this.buildClickPointBehavior());
         boardView.attachOnClickButtonRandomGame(this.buildRandomGame());
-        
-       
     }
     
     private ActionListener buildClickPointBehavior() {
@@ -116,7 +120,6 @@ public class BoardController {
             this.boardView.removeOnClickButtonRandomGame();
             this.boardView.removeOnClickButtonListener();
             this.boardView.reset();
-
             this.boardModel = Board.withClassicBoard();
 
             if(this.randomThread != null) {
@@ -135,20 +138,20 @@ public class BoardController {
         //SwingUtilities.invokeLater(new RandomGame(this.boardModel, this, this.boardView));
 
         this.randomThread = new Thread(randomBehavior, "Random Thread");
-       randomThread.start();
+        randomThread.start();
     }
     
     public void readScore() {
     	try {
             File f = new File("PlayerRanking.txt");
-            BufferedReader b = new BufferedReader(new FileReader(f));
-            String readLine = "";
-            List<String> tab = new ArrayList<>();
-            while ((readLine = b.readLine()) != null) {
-            	tab.add(readLine);
-                System.out.println(readLine);
-            }
-            
+            List<Ranking> tab = new ArrayList<>();
+            Scanner scanner=new Scanner(f);
+            while (scanner.hasNextLine()) {
+			      String line = scanner.nextLine();
+			      tab.add(new Ranking(line,";"));
+			}
+            Collections.sort(tab);
+            Collections.reverse(tab);       
             boardView.tabScore(tab);
 
         } catch (IOException e) {
@@ -158,18 +161,37 @@ public class BoardController {
     
     public void writeScore() {
     	
-    	System.out.println(boardView.getScore());
     	File f = new File("PlayerRanking.txt");
     	PrintWriter x;
+    	Scanner scanner;
 		try {
 			x = new PrintWriter(new FileWriter(f,true));
+			scanner = new Scanner(f);
 		} catch (IOException e) {
 			throw new IllegalStateException(e);
 		}
-    	x.println(boardView.getScore());
-    	x.close();
+		
+		while (scanner.hasNextLine()) 
+	    {
+			String lineFromFile = scanner.nextLine();
+			
+			if(lineFromFile.contains(this.player)) {
+				String[] decompose = lineFromFile.split(";");
+				
+				if(this.boardView.getScore()>Integer.parseInt(decompose[1])) {
+					int a = Integer.parseInt(decompose[1]);
+					int b = this.boardView.getScore();
+					a = b;
+				}
+			}
+			else {
+				x.println(this.player +";"+ boardView.getScore());				
+		    	x.close(); 
+			}
+			
+			
+	    }
     }
-
 
     public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
@@ -199,7 +221,6 @@ public class BoardController {
 
     private void handlePrintTrace(Trace trace) {
        List<Point> tracePoints = trace.getPoints();
-       //System.out.println("TRACE " + trace);
        this.boardView.printLine(tracePoints.get(0).getX(), tracePoints.get(0).getY(), tracePoints.get(tracePoints.size() - 1).getX(), tracePoints.get(tracePoints.size() - 1).getY());
     }
 

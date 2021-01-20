@@ -94,7 +94,7 @@ public class Board {
             }
         }
 
-        System.out.println("Nb points actifs MODEL :" + counter);
+        //System.out.println("Nb points actifs MODEL :" + counter);
     }
 
     public void updateVoisins() {

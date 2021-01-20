@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import Controller.BoardController;
+import Controller.Ranking;
 
 import java.awt.geom.Line2D;
 import javax.sound.sampled.Line;
@@ -55,8 +56,7 @@ public class BoardView extends JPanel {
             g.drawLine(30, i, 480, i);
         }
         
-        g.drawRect(30, 500, 100, 40);
-
+        g.drawRect(30, 520, 100, 40);
 
         synchronized (lines) {
             for(LineView l : lines) {
@@ -112,7 +112,7 @@ public class BoardView extends JPanel {
     public void printScore() {
     	this.scoreTxt.repaint();
     	setLayout(null);
-    	scoreTxt.setBounds(50, 470, 100, 100);
+    	scoreTxt.setBounds(50, 490, 100, 100);
     	scoreTxt.setText("Score : "+this.score);
         this.add(scoreTxt);
     }
@@ -126,7 +126,7 @@ public class BoardView extends JPanel {
 	public void attachOnClickButtonRandomGame(ActionListener callback) {
 		jbutton.addActionListener(callback);
     }
-
+	
     public void removeOnClickButtonRandomGame() {
         for( ActionListener al : jbutton.getActionListeners() ) {
             jbutton.removeActionListener( al );
@@ -170,7 +170,7 @@ public class BoardView extends JPanel {
     
     public void erreurMsg() {
     	setLayout(null);
-    	msgErreur.setBounds(250, 470, 1000, 100);
+    	msgErreur.setBounds(30, 450, 1000, 100);
     	msgErreur.setText("Il n'est pas possible de placer un point ici");
     	msgErreur.setForeground(new Color(255,0,0));
         this.add(msgErreur);
@@ -190,7 +190,7 @@ public class BoardView extends JPanel {
     }
     
     public void buttonRandomGame() {
-    	jbutton.setBounds(140, 500, 100, 40);	
+    	jbutton.setBounds(140, 520, 100, 40);	
     	this.add(jbutton);
     	repaint();
     }
@@ -205,24 +205,27 @@ public class BoardView extends JPanel {
         return button;
     }
     
-    public void tabScore(List<String> t) {
+    public void tabScore(List<Ranking> t) {
     	setLayout(null);
     	JLabel nameTabScore = new JLabel();
     	nameTabScore.setBounds(530, 0, 100, 100);
     	nameTabScore.setText("Player rankings");
     	this.add(nameTabScore);
     	
-    	int y = 20;
+    	int y = 40;
     	
-    	for(String s : t) {
+    	for(Ranking s : t) {
     		JLabel playerAndScore = new JLabel();
-    		playerAndScore.setText(s);
-    		playerAndScore.setBounds(530, y, 100, 100);
+    		playerAndScore.setText(s.getPseudo()+" : "+s.getScores());
+    		playerAndScore.setBounds(530, y, 300, 100);
     		y = y + 20;
     		this.add(playerAndScore);
     	}
-    	
-    	
- 
     }
+    
+    public String namePlayer() {   	
+    	String input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	return input;  	
+    }
+
 }
