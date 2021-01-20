@@ -131,6 +131,15 @@ public class BoardView extends JPanel {
 		jbutton.addActionListener(callback);
     }
 
+    public void attachOnClick5D(ActionListener callback) {
+        button5D.addActionListener(callback);
+    }
+
+    public void attachOnClick5T(ActionListener callback) {
+        button5T.addActionListener(callback);
+    }
+
+
     public void removeMorpionButtonsListener() {
 	    this.removeOnClickButtonListener();
 	    this.removeOnClickButtonRandomGame();

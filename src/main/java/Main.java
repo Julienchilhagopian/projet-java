@@ -21,7 +21,7 @@ public class Main {
         frame.setVisible(true);
 
         Controller controller = Controller.withDefaultModel(boardView);
-        controller.buildEditionController();
+        controller.buildBoardController();
     }
 
 }
