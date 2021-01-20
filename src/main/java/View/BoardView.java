@@ -28,6 +28,8 @@ public class BoardView extends JPanel {
     private JLabel scoreTxt; 
     private JLabel msgErreur;
     private JButton jbutton;
+    private JButton button5D;
+    private JButton button5T;
 
 	public BoardView() {
         this.buttons = new HashMap<>();
@@ -36,6 +38,8 @@ public class BoardView extends JPanel {
         this.scoreTxt = new JLabel();
         this.msgErreur = new JLabel();
         this.jbutton = new JButton("Random");
+        this.button5D = new JButton("5D Mode");
+        this.button5T = new JButton("5T Mode");
     }
 	
 	public Map<JButton, Point> getButtons() {
@@ -127,17 +131,33 @@ public class BoardView extends JPanel {
 		jbutton.addActionListener(callback);
     }
 
-    public void removeOnClickButtonRandomGame() {
+    public void removeMorpionButtonsListener() {
+	    this.removeOnClickButtonListener();
+	    this.removeOnClickButtonRandomGame();
+    }
+
+
+    private void removeOnClickButtonRandomGame() {
         for( ActionListener al : jbutton.getActionListeners() ) {
             jbutton.removeActionListener( al );
         }
     }
 
-    public void removeOnClickButtonListener() {
+    private void removeOnClickButtonListener() {
         for (JButton btn : this.buttons.keySet()) {
             for( ActionListener al : jbutton.getActionListeners() ) {
                 btn.removeActionListener( al );
             }
+        }
+    }
+
+    private void remmoveVersionButtonsListene() {
+        for( ActionListener al : button5D.getActionListeners() ) {
+            button5D.removeActionListener( al );
+        }
+
+        for( ActionListener al : button5T.getActionListeners() ) {
+            button5T.removeActionListener( al );
         }
     }
 
@@ -184,11 +204,24 @@ public class BoardView extends JPanel {
 	    this.score = 0;
 	    this.repaint();
     }
+
+    public void initMorpionButtons() {
+	    this.buttonRandomGame();
+	    this.versionButtons();
+        repaint();
+    }
     
-    public void buttonRandomGame() {
+    private void buttonRandomGame() {
     	jbutton.setBounds(390, 500, 100, 40);	
     	this.add(jbutton);
-    	repaint();
+    }
+
+    private void versionButtons() {
+        button5D.setBounds(170, 500, 100, 40);
+        button5T.setBounds(270, 500, 100, 40);
+
+        this.add(button5D);
+        this.add(button5T);
     }
 
     public JButton getButton(Point p){

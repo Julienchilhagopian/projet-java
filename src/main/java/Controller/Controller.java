@@ -10,6 +10,7 @@ public class Controller {
     private Controller(Board startModel, BoardView mainView) {
         this.boardModel = startModel;
         this.view = mainView;
+        initBoardView();
     }
 
     public static Controller withDefaultModel(BoardView mainView) {
@@ -20,6 +21,13 @@ public class Controller {
 
     public BoardController buildEditionController() {
         return BoardController.create(this);
+    }
+
+
+    private void initBoardView() {
+        this.view.printPoints(this.boardModel.getPoints());
+        this.view.printScore();
+        this.view.initMorpionButtons();
     }
 
     public Board getBoardModel() {

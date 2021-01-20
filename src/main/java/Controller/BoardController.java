@@ -33,9 +33,6 @@ public class BoardController {
     */
 
     private void initBoardView() {
-        controller.getView().printPoints(this.controller.getBoardModel().getPoints());
-        controller.getView().printScore();
-        controller.getView().buttonRandomGame();
         controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
         controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
 
@@ -102,8 +99,7 @@ public class BoardController {
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
             this.controller.getView().gameOver();
-            this.controller.getView().removeOnClickButtonRandomGame();
-            this.controller.getView().removeOnClickButtonListener();
+            this.controller.getView().removeMorpionButtonsListener();
             this.controller.getView().reset();
 
             this.controller.resetDefaultModel();
