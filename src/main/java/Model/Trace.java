@@ -34,7 +34,12 @@ public class Trace {
 		return "Trace [points=" + points + ", orientation=" + orientation + "]";
 	}
 
-    public boolean isEligible(String orientation, Point p) {
+    public boolean NotEligible(String orientation, Point p) {
         return this.orientation.equals(orientation);
     }
+
+    public String getOrientation() {
+        return orientation;
+    }
+
 }

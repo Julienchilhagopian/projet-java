@@ -156,7 +156,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.isEligible("Vertical", this)) {
+				if(tr.NotEligible("Vertical", this)) {
 					return false;
 				}
 			}
@@ -169,7 +169,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.isEligible("Horizontal",  this)) {
+				if(tr.NotEligible("Horizontal",  this)) {
 					return false;
 				}
 			}
@@ -182,7 +182,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.isEligible("DiagonalRight", this)) {
+				if(tr.NotEligible("DiagonalRight", this)) {
 					return false;
 				}
 			}
@@ -195,7 +195,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.isEligible("DiagonalLeft", this)) {
+				if(tr.NotEligible("DiagonalLeft", this)) {
 					return false;
 				}
 			}
