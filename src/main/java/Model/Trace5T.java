@@ -11,7 +11,7 @@ public class Trace5T extends Trace {
 
     @Override
     public Trace init(String orientation) {
-        return new Trace5T();
+        return new Trace5T(orientation);
     }
 
     public boolean NotEligible(String orientation, Point p) {
