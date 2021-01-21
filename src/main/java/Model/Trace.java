@@ -9,6 +9,7 @@ public class Trace {
     
     public Trace() {
         this.points = new ArrayList<>();
+        this.orientation = "Default";
     }
 
     public Trace(String orientation) {
@@ -20,8 +21,8 @@ public class Trace {
         return points;
     }
 
-    public String getOrientation() {
-        return orientation;
+    public Trace init(String orientation) {
+        return new Trace(orientation);
     }
 
     public Boolean isValid() {

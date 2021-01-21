@@ -1,6 +1,8 @@
 package Controller;
 
 import Model.Board;
+import Model.Trace;
+import Model.Trace5T;
 import View.BoardView;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +18,7 @@ public class Controller {
         this.view = mainView;
         initBoardView();
 
-        this.currentController = this.build5DController();
+        this.currentController = this.buildController(new Trace());
     }
 
     public static Controller withDefaultModel(BoardView mainView) {
@@ -25,8 +27,8 @@ public class Controller {
         return new Controller(model, mainView);
     }
 
-    private BoardController build5DController() {
-        return BoardController.create(this);
+    private BoardController buildController(Trace traceType) {
+        return BoardController.create(this, traceType);
     }
 
     private void initBoardView() {
@@ -56,7 +58,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetBoardView();
-                currentController = build5DController();
+                currentController = buildController(new Trace());
                 System.out.println("launch 5D");
                 restartBoardView();
             }
@@ -68,7 +70,7 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetBoardView();
-                // set currentController = nouvelle classe 5T
+                currentController = buildController(new Trace5T());
                 System.out.println("launch 5T");
                 restartBoardView();
             }

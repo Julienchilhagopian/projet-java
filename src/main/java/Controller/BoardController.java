@@ -12,15 +12,17 @@ public class BoardController implements IController{
     private Thread randomThread;
     private RandomGame randomBehavior;
     private Controller controller;
+    private Trace traceToCreate;
 
 
-    private BoardController(Controller mainController) {
+    private BoardController(Controller mainController, Trace traceType) {
         this.controller = mainController;
+        this.traceToCreate = traceType;
         initBoardView();
     }
 
-    public static BoardController create(Controller controller) {
-        return new BoardController(controller);
+    public static BoardController create(Controller controller, Trace traceType) {
+        return new BoardController(controller, traceType);
     }
 
 
@@ -153,7 +155,7 @@ public class BoardController implements IController{
 
 
     private Trace verticalTrace(Point inputPoint) {
-        Trace trace = new Trace("Vertical");
+        Trace trace = this.traceToCreate.init("Vertical");
         Point startPoint = inputPoint;
 
         // ajout du point de départ.
@@ -207,7 +209,7 @@ public class BoardController implements IController{
 
 
     private Trace horizontalTrace(Point inputPoint) {
-        Trace trace = new Trace("Horizontal");
+        Trace trace = this.traceToCreate.init("Horizontal");
         Point startPoint = inputPoint;
 
         // ajout du point de départ.
@@ -256,7 +258,7 @@ public class BoardController implements IController{
     }
 
     private Trace diagonalRightTrace(Point inputPoint) {
-        Trace trace = new Trace("DiagonalRight");
+        Trace trace = this.traceToCreate.init("DiagonalRight");
         Point startPoint = inputPoint;
 
         // ajout du point de départ.
@@ -305,7 +307,7 @@ public class BoardController implements IController{
     }
 
     private Trace diagonalLeftTrace(Point inputPoint) {
-        Trace trace = new Trace("DiagonalLeft");
+        Trace trace = this.traceToCreate.init("DiagonalLeft");
         Point startPoint = inputPoint;
 
         // ajout du point de départ.
