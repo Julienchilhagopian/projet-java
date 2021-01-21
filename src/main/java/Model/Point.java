@@ -156,7 +156,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.getOrientation().equals("Vertical")) {
+				if(tr.isEligible("Vertical", this)) {
 					return false;
 				}
 			}
@@ -169,7 +169,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.getOrientation().equals("Horizontal")) {
+				if(tr.isEligible("Horizontal",  this)) {
 					return false;
 				}
 			}
@@ -182,7 +182,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.getOrientation().equals("DiagonalRight")) {
+				if(tr.isEligible("DiagonalRight", this)) {
 					return false;
 				}
 			}
@@ -195,7 +195,7 @@ public class Point {
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.getOrientation().equals("DiagonalLeft")) {
+				if(tr.isEligible("DiagonalLeft", this)) {
 					return false;
 				}
 			}
