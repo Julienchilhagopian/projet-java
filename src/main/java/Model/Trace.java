@@ -32,4 +32,12 @@ public class Trace {
 	public String toString() {
 		return "Trace [points=" + points + ", orientation=" + orientation + "]";
 	}
+
+    public boolean isEligible(String orientation, Point p) {
+        if(this.orientation.equals(orientation)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

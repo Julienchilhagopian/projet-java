@@ -25,8 +25,8 @@ public class Controller {
         return new Controller(model, mainView);
     }
 
-    private BoardController5D build5DController() {
-        return BoardController5D.create(this);
+    private BoardController build5DController() {
+        return BoardController.create(this);
     }
 
     private void initBoardView() {
@@ -67,10 +67,10 @@ public class Controller {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                resetBoardView();
                 // set currentController = nouvelle classe 5T
-                
                 System.out.println("launch 5T");
+                restartBoardView();
             }
         };
     }

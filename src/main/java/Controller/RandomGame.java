@@ -11,11 +11,11 @@ import java.util.Random;
 
 public class RandomGame implements Runnable {
     private Board boardModel;
-    private BoardController5D controller;
+    private BoardController controller;
     private BoardView boardView;
     private boolean randomGameOver;
 
-    public RandomGame(Board boardModel, BoardController5D controller, BoardView boardView) {
+    public RandomGame(Board boardModel, BoardController controller, BoardView boardView) {
         this.boardModel = boardModel;
         this.controller = controller;
         this.boardView = boardView;

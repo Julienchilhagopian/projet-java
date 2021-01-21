@@ -8,25 +8,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
-public class BoardController5D implements IController{
+public class BoardController implements IController{
     private Thread randomThread;
     private RandomGame randomBehavior;
     private Controller controller;
 
 
-    private BoardController5D(Controller mainController) {
+    private BoardController(Controller mainController) {
         this.controller = mainController;
         initBoardView();
     }
 
-    public static BoardController5D create(Controller controller) {
-        return new BoardController5D(controller);
+    public static BoardController create(Controller controller) {
+        return new BoardController(controller);
     }
 
 
-    /*public static BoardController5D inst(BoardView view) {
+    /*public static BoardController inst(BoardView view) {
         Board model = Board.withClassicBoard();
-        return new BoardController5D(model, view);
+        return new BoardController(model, view);
     }
     */
 
