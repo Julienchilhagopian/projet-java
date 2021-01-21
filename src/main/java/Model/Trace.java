@@ -40,7 +40,7 @@ public class Trace {
 
     public boolean isEligible(String orientation, Point p) {
         if(this.orientation.equals(orientation)) {
-            return (this.points.get(0).equals(p) || this.points.get(1).equals(p));
+            return !this.points.get(2).equals(p);
         } else {
             return true;
         }
