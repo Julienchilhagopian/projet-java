@@ -11,12 +11,16 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.util.*;
 
 public class BoardController {
@@ -25,6 +29,8 @@ public class BoardController {
     private Thread randomThread;
     private RandomGame randomBehavior;
     private String player;
+	private BufferedReader br;
+	private PrintWriter x2;
 
 
     private BoardController(Board boardModel, BoardView view) {
@@ -147,11 +153,12 @@ public class BoardController {
             List<Ranking> tab = new ArrayList<>();
             Scanner scanner=new Scanner(f);
             while (scanner.hasNextLine()) {
-			      String line = scanner.nextLine();
+			      String line = scanner.nextLine();	
 			      tab.add(new Ranking(line,";"));
 			}
+                      
             Collections.sort(tab);
-            Collections.reverse(tab);       
+            Collections.reverse(tab); 
             boardView.tabScore(tab);
 
         } catch (IOException e) {
@@ -161,40 +168,51 @@ public class BoardController {
     
     public void writeScore() {
     	File f = new File("PlayerRanking.txt");
-    	PrintWriter x;
-    	Scanner scanner;
-		try {
-			x = new PrintWriter(new FileWriter(f,true));
-			scanner = new Scanner(f);
-		} catch (IOException e) {
-			throw new IllegalStateException(e);
-		}
-		
-		if(f.length() == 0) {
-			x.println(this.player +";"+ boardView.getScore());				
-	    	x.close();	
-		}
-		
-		while (scanner.hasNextLine()) 
-	    {
-			String lineFromFile = scanner.nextLine();
-			
-			if(lineFromFile.contains(this.player)) {
-				String[] decompose = lineFromFile.split(";");
-				
-				if(this.boardView.getScore()>Integer.parseInt(decompose[1])) {
-					int a = Integer.parseInt(decompose[1]);
-					int b = this.boardView.getScore();
-					a = b;
-				}
-			}
-			else {
-			
-				x.println(this.player +";"+ boardView.getScore());				
-		    	x.close(); 
-			}			
-	    }
+    	File f2 = new File("PlayerRankingModif.txt");
+    	
+    	try { 		
+    		BufferedReader br = new BufferedReader(new FileReader(f));
+            PrintWriter x2 = new PrintWriter(new FileWriter(f2));
+            String line;
+            int count = 0;
+
+            while ((line = br.readLine()) != null) {
+                
+    			String[] decompose = line.split(";");
+    			if(this.player.equals(decompose[0])) {
+    				count++;
+    				if(this.boardView.getScore()>=Integer.parseInt(decompose[1])) {
+    					line = decompose[0] +";"+ boardView.getScore();
+    					x2.println(line);
+    				}
+    				else {
+    					line = decompose[0] +";"+ decompose[1];
+    					x2.println(line);
+    				}
+    			}
+    			else
+    				x2.println(line);   			    			
+            }
+            if(count==0) {
+            	x2.println(this.player +";"+ boardView.getScore());
+            }
+  
+            br.close();
+            x2.close();
+            
+            delete(f,f2);
+
+        } catch (IOException e) {
+        	System.out.println("Erreur");
+        }
     }
+    
+    public void delete(File f, File f2) {
+    	if(f.delete()) {
+    		f2.renameTo(f);
+    	}
+    }
+  
 
     public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
