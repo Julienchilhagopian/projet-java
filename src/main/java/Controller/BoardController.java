@@ -32,9 +32,8 @@ public class BoardController implements IController{
     private BoardController(Controller mainController, Trace traceType) {
         this.controller = mainController;
         this.traceToCreate = traceType;
-        this.player = "";
         initBoardView();
-        player = this.controller.getView().namePlayer(); 
+        this.player = this.controller.getView().namePlayer(); 
         controllerInput();       
     }
 
@@ -42,16 +41,26 @@ public class BoardController implements IController{
         return new BoardController(controller, traceType);
     }
 
-    public void controllerInput() {
-    	while(true) {
+    public void controllerInput() {	
+    	if (player == null) 
+    		System.exit(0);
+    	
+    	while(player != null) {	
+          	
         	if(!player.equals("") && player.length()<=15)
         		break;
         	
-        	if(player.equals(""))
-        		player = this.controller.getView().namePlayerError(); 
+        	if(player.equals("")) {
+        		player = this.controller.getView().namePlayerError();
+        		if (player == null) 
+        			System.exit(0);
+        	}
         	
-        	if(player.length()>15)
-        		player = this.controller.getView().namePlayerErrorSize(); 	
+        	if(player.length()>15) {
+        		player = this.controller.getView().namePlayerErrorSize();
+        		if (player == null) 
+        			System.exit(0);
+        	}
         }
     }
 
