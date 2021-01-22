@@ -33,7 +33,6 @@ public class Controller {
 
     private void initBoardView() {
         this.view.printPoints(this.boardModel.getPoints());
-        this.view.printScore();
         this.view.initMorpionButtons();
         this.view.attachOnClick5D(this.launch5D());
         this.view.attachOnClick5T(this.launch5T());
@@ -48,7 +47,6 @@ public class Controller {
 
     public void restartBoardView(){
         this.view.printPoints(this.boardModel.getPoints());
-        this.view.printScore();
         this.view.attachOnClickButtonListenner(this.currentController.buildClickPointBehavior());
         this.view.attachOnClickButtonRandomGame(this.currentController.buildRandomGame());
     }

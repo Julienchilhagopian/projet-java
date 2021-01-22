@@ -6,11 +6,27 @@ import Model.Trace;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.util.*;
 
 public class BoardController implements IController{
     private Thread randomThread;
     private RandomGame randomBehavior;
+    private String player;
+	private BufferedReader br;
+	private PrintWriter x2;
     private Controller controller;
     private Trace traceToCreate;
 
@@ -18,7 +34,11 @@ public class BoardController implements IController{
     private BoardController(Controller mainController, Trace traceType) {
         this.controller = mainController;
         this.traceToCreate = traceType;
+        this.player = "";
         initBoardView();
+        player = this.controller.getView().namePlayer();
+        if(player == null)
+            player = "Unknown";
     }
 
     public static BoardController create(Controller controller, Trace traceType) {
@@ -33,6 +53,8 @@ public class BoardController implements IController{
     */
 
     private void initBoardView() {
+        readScore();
+        this.controller.getView().printScore();
         controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
         controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
 
@@ -99,6 +121,8 @@ public class BoardController implements IController{
 
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
+            this.writeScore();
+            this.controller.getView().printScore();
             this.controller.getView().gameOver();
             this.controller.resetBoardView();
 
@@ -119,6 +143,72 @@ public class BoardController implements IController{
 
         this.randomThread = new Thread(randomBehavior, "Random Thread");
        randomThread.start();
+    }
+
+    public void readScore() {
+    	try {
+            File f = new File("PlayerRanking.txt");
+            List<Ranking> tab = new ArrayList<>();
+            Scanner scanner=new Scanner(f);
+            while (scanner.hasNextLine()) {
+			      String line = scanner.nextLine();
+			      tab.add(new Ranking(line,";"));
+			}
+
+            Collections.sort(tab);
+            Collections.reverse(tab);
+            this.controller.getView().tabScore(tab);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeScore() {
+    	File f = new File("PlayerRanking.txt");
+    	File f2 = new File("PlayerRankingModif.txt");
+
+    	try {
+    		BufferedReader br = new BufferedReader(new FileReader(f));
+            PrintWriter x2 = new PrintWriter(new FileWriter(f2));
+            String line;
+            int count = 0;
+
+            while ((line = br.readLine()) != null) {
+
+    			String[] decompose = line.split(";");
+    			if(this.player.equals(decompose[0])) {
+    				count++;
+    				if(this.controller.getView().getScore()>=Integer.parseInt(decompose[1])) {
+    					line = decompose[0] +";"+ this.controller.getView().getScore();
+    					x2.println(line);
+    				}
+    				else {
+    					line = decompose[0] +";"+ decompose[1];
+    					x2.println(line);
+    				}
+    			}
+    			else
+    				x2.println(line);
+            }
+            if(count==0) {
+            	x2.println(this.player +";"+ this.controller.getView().getScore());
+            }
+
+            br.close();
+            x2.close();
+
+            delete(f,f2);
+
+        } catch (IOException e) {
+        	System.out.println("Erreur");
+        }
+    }
+
+    public void delete(File f, File f2) {
+    	if(f.delete()) {
+    		f2.renameTo(f);
+    	}
     }
 
 

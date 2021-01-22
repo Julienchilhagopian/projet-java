@@ -6,6 +6,10 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import javax.swing.*;
+import javax.swing.border.*;
+
+import Controller.BoardController;
+import Controller.Ranking;
 
 import Model.Point;
 
@@ -15,7 +19,7 @@ public class BoardView extends JPanel {
 	private final List<LineView> lines;
     private int score;
     private JLabel scoreTxt; 
-    private JLabel msgErreur;
+	private JLabel msgErreur;
     private JButton jbutton;
     private JButton button5D;
     private JButton button5T;
@@ -49,8 +53,7 @@ public class BoardView extends JPanel {
             g.drawLine(30, i, 480, i);
         }
         
-        g.drawRect(30, 500, 100, 40);
-
+        g.drawRect(30, 520, 100, 40);
 
         synchronized (lines) {
             for(LineView l : lines) {
@@ -106,7 +109,7 @@ public class BoardView extends JPanel {
     public void printScore() {
     	this.scoreTxt.repaint();
     	setLayout(null);
-    	scoreTxt.setBounds(50, 470, 100, 100);
+    	scoreTxt.setBounds(50, 490, 100, 100);
     	scoreTxt.setText("Score : "+this.score);
         this.add(scoreTxt);
     }
@@ -144,6 +147,10 @@ public class BoardView extends JPanel {
         }
     }
 
+    public int getScore() {
+		return score;
+	}
+
     private void removeVersionButtonsListene() {
         for( ActionListener al : button5D.getActionListeners() ) {
             button5D.removeActionListener( al );
@@ -169,7 +176,7 @@ public class BoardView extends JPanel {
     	int y = btn.getY();
     	setLayout(null);
     	numtext.setBounds(x, y, 50, 30);
-    	String s = p.toString();
+    	String s = String.valueOf(p.getNum());
     	numtext.setText(s);
     	this.add(numtext);
     	this.pointLabels.add(numtext);
@@ -180,7 +187,7 @@ public class BoardView extends JPanel {
     
     public void erreurMsg() {
     	setLayout(null);
-    	msgErreur.setBounds(140, 470, 1000, 100);
+    	msgErreur.setBounds(30, 450, 1000, 100);
     	msgErreur.setText("Il n'est pas possible de placer un point ici");
     	msgErreur.setForeground(new Color(255,0,0));
         this.add(msgErreur);
@@ -205,7 +212,6 @@ public class BoardView extends JPanel {
 	    this.lines.clear();
 	    this.buttons.clear();
 	    this.score = 0;
-
 	    this.repaint();
     }
 
@@ -214,9 +220,9 @@ public class BoardView extends JPanel {
 	    this.versionButtons();
         repaint();
     }
-    
-    private void buttonRandomGame() {
-    	jbutton.setBounds(390, 500, 100, 40);	
+
+    public void buttonRandomGame() {
+    	jbutton.setBounds(140, 520, 100, 40);
     	this.add(jbutton);
     }
 
@@ -241,4 +247,28 @@ public class BoardView extends JPanel {
     public void disableBtn(JButton btn) {
 	    btn.setEnabled(false);
     }
+
+    public void tabScore(List<Ranking> t) {
+    	setLayout(null);
+    	JLabel nameTabScore = new JLabel();
+    	nameTabScore.setBounds(530, 0, 100, 100);
+    	nameTabScore.setText("Player rankings");
+    	this.add(nameTabScore);
+
+    	int y = 40;
+
+    	for(Ranking s : t) {
+    		JLabel playerAndScore = new JLabel();
+    		playerAndScore.setText(s.getPseudo()+" : "+s.getScores());
+    		playerAndScore.setBounds(530, y, 300, 100);
+    		y = y + 20;
+    		this.add(playerAndScore);
+    	}
+    }
+
+    public String namePlayer() {
+    	String input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	return input;
+    }
+
 }
