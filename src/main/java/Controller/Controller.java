@@ -84,7 +84,6 @@ public class Controller {
         };
     }
 
-
     public Board getBoardModel() {
         return boardModel;
     }

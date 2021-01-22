@@ -134,7 +134,6 @@ public class BoardView extends JPanel {
         button5T.addActionListener(callback);
     }
 
-
     public void removeOnClickButtonRandomGame() {
         for( ActionListener al : jbutton.getActionListeners() ) {
             jbutton.removeActionListener( al );

@@ -25,8 +25,6 @@ public class BoardController implements IController{
     private Thread randomThread;
     private RandomGame randomBehavior;
     private String player;
-	private BufferedReader br;
-	private PrintWriter x2;
     private Controller controller;
     private Trace traceToCreate;
 
