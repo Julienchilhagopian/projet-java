@@ -54,7 +54,6 @@ public class BoardController implements IController{
 
     private void initBoardView() {
         readScore();
-        this.controller.getView().printScore();
         controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
         controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
 
@@ -122,7 +121,6 @@ public class BoardController implements IController{
     private void handlePrintGameOver(Boolean gameOver) {
         if(gameOver) {
             this.writeScore();
-            this.controller.getView().printScore();
             this.controller.getView().gameOver();
             this.controller.resetBoardView();
 
