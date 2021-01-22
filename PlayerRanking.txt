@@ -1,12 +1,3 @@
-sam5D;50
-pierre;20
-sam;59
-Toto;47
-;47
-eee;20
-ok;25
-errrrrr;23
-aaaaaaaaaaaaaaa;38
-eeee;24
-popo;21
-aaaaaaaaa;20
+pierre;56
+leo;23
+boris;179
