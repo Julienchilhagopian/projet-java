@@ -22,7 +22,7 @@ public class Trace5T extends Trace {
         if(this.getOrientation().equals(traceCreated.getOrientation())) {
             if(!this.getPoints().get(2).equals(p)) {
                 traceCreated.incrementNbCommonPart();
-                return (traceCreated.getNbCommonPart() <= 2);
+                return (traceCreated.getNbCommonPart() <= 1);
             } else {
                 return false;
             }
@@ -32,7 +32,7 @@ public class Trace5T extends Trace {
     }
 
     public Boolean isValid() {
-        return this.getPoints().size() == 5 && this.nbCommonPart <= 2;
+        return this.getPoints().size() == 5 && this.nbCommonPart <= 1;
     }
 
     public int getNbCommonPart() {
