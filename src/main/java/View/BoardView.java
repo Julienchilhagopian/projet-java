@@ -225,6 +225,10 @@ public class BoardView extends JPanel {
     
     public String namePlayer() {   	
     	String input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	
+    	if(input == null)
+    		return "Unknow";
+    	
     	return input;  	
     }
 

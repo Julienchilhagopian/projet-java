@@ -31,7 +31,7 @@ public class RandomGame implements Runnable {
             buttons = this.possibleButtons();
             if(buttons.size() != 0) {
                 Random rand = new Random();
-                JButton randomButton = buttons.get(rand.nextInt(buttons.size()));          
+                JButton randomButton = buttons.get(rand.nextInt(buttons.size()));
                 randomButton.doClick();
             }
         }

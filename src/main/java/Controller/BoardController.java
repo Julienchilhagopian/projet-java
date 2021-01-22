@@ -29,18 +29,13 @@ public class BoardController {
     private Thread randomThread;
     private RandomGame randomBehavior;
     private String player;
-	private BufferedReader br;
-	private PrintWriter x2;
-
 
     private BoardController(Board boardModel, BoardView view) {
         this.boardModel = boardModel;
         this.boardView = view;
         this.player = "";
-        initBoardView();    
+        initBoardView();  
         player = boardView.namePlayer();
-        if(player == null)
-        	player = "Unknown";
     }
 
     public Board getModel() {
