@@ -234,8 +234,8 @@ public class BoardView extends JPanel {
     }
 
     private void versionButtons() {
-        button5D.setBounds(300, 500, 100, 40);
-        button5T.setBounds(400, 500, 100, 40);
+        button5D.setBounds(280, 520, 100, 40);
+        button5T.setBounds(380, 520, 100, 40);
 
         this.add(button5D);
         this.add(button5T);
