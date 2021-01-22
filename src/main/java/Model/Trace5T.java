@@ -20,19 +20,17 @@ public class Trace5T extends Trace {
     public boolean eligible(Trace traceInMaking, Point p) {
         Trace5T traceCreated = (Trace5T) traceInMaking;
         if(this.getOrientation().equals(traceCreated.getOrientation())) {
-            if(!this.getPoints().get(2).equals(p)) {
-                traceCreated.incrementNbCommonPart();
-                return (traceCreated.getNbCommonPart() <= 1);
-            } else {
-                return false;
-            }
+            //traceCreated.incrementNbCommonPart();
+            // (traceCreated.getNbCommonPart() <= 2);
+            return this.getPoints().get(0).equals(p) || this.getPoints().get(this.getPoints().size() - 1).equals(p);
         } else {
             return true;
         }
     }
 
     public Boolean isValid() {
-        return this.getPoints().size() == 5 && this.nbCommonPart <= 1;
+        return this.getPoints().size() == 5;
+        //&& this.nbCommonPart <= 2;
     }
 
     public int getNbCommonPart() {
