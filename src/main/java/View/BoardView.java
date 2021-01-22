@@ -274,7 +274,20 @@ public class BoardView extends JPanel {
     }
 
     public String namePlayer() {
-    	String input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	String input="";
+    	input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname (less than 15 characters)","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	return input;
+    }
+    
+    public String namePlayerError() {
+    	String input="";
+    	input = (String)JOptionPane.showInputDialog(null, "<html><div color=red>Your nickname is required. Please enter it here.","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	return input;
+    }
+    
+    public String namePlayerErrorSize() {
+    	String input="";
+    	input = (String)JOptionPane.showInputDialog(null, "<html><div color=red>Your nickname can't be more than 15 characters long. Please enter it here.","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
     	return input;
     }
 
