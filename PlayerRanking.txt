@@ -1,0 +1,2 @@
+sam5D;50
+pierre;20

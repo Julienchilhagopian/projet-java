@@ -255,11 +255,11 @@ public class BoardView extends JPanel {
 	    btn.setEnabled(false);
     }
 
-    public void tabScore(List<Ranking> t) {
+    public void tabScore(List<Ranking> t, String versionName) {
     	setLayout(null);
     	this.nameTabScore = new JLabel();
-    	nameTabScore.setBounds(530, 0, 100, 100);
-    	nameTabScore.setText("Player rankings");
+    	nameTabScore.setBounds(520, 0, 200, 100);
+    	nameTabScore.setText("Player rankings "+versionName);
     	this.add(nameTabScore);
 
     	int y = 40;

@@ -131,7 +131,7 @@ public class BoardController implements IController{
 
 
             this.readScore();
-           this.controller.restartBoardView();
+            this.controller.restartBoardView();
         }
     }
 
@@ -147,7 +147,15 @@ public class BoardController implements IController{
 
     public void readScore() {
     	try {
-            File f = new File("PlayerRanking.txt");
+    		File f;
+        	
+        	if(controller.getVersionName()=="5D") {
+        		f = new File("PlayerRanking.txt");
+        		
+        	}else {
+        		f = new File("PlayerRanking5T.txt");
+        	}
+        	
             List<Ranking> tab = new ArrayList<>();
             Scanner scanner=new Scanner(f);
             while (scanner.hasNextLine()) {
@@ -157,7 +165,7 @@ public class BoardController implements IController{
 
             Collections.sort(tab);
             Collections.reverse(tab);
-            this.controller.getView().tabScore(tab);
+            this.controller.getView().tabScore(tab,controller.getVersionName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,9 +173,19 @@ public class BoardController implements IController{
     }
 
     public void writeScore() {
-    	File f = new File("PlayerRanking.txt");
-    	File f2 = new File("PlayerRankingModif.txt");
-
+    	
+    	File f;
+    	File f2;
+    	
+    	if(controller.getVersionName()=="5D") {
+    		f = new File("PlayerRanking.txt");
+        	f2 = new File("PlayerRankingModif.txt");
+    	}
+    	else {
+    		f = new File("PlayerRanking5T.txt");
+        	f2 = new File("PlayerRankingModif5T.txt");
+    	}
+  	
     	try {
     		BufferedReader br = new BufferedReader(new FileReader(f));
             PrintWriter x2 = new PrintWriter(new FileWriter(f2));
