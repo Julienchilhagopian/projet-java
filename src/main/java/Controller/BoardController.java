@@ -130,6 +130,7 @@ public class BoardController implements IController{
             }
 
            this.controller.restartBoardView();
+            this.readScore();
         }
     }
 
