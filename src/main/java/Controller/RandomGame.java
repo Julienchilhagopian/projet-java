@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomGame implements Runnable {
+public class RandomGame {
     private Board boardModel;
     private BoardController controller;
     private BoardView boardView;
@@ -22,8 +22,7 @@ public class RandomGame implements Runnable {
         this.randomGameOver = false;
     }
 
-    @Override
-    public void run() {
+    public void start() {
         this.boardModel.updateVoisins();
         this.randomGameOver = false;
         List<JButton> buttons = new ArrayList<>();

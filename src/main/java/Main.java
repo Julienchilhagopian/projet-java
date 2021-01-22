@@ -6,10 +6,10 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Main::displayMorpion);
+        new Main().displayMorpion();
     }
 
-    private static void displayMorpion() {
+    private void displayMorpion() {
         JFrame frame = new JFrame("Java Avancée - Morpion Solitaire");
         frame.setSize(new Dimension(700,620));
         frame.setVisible(true);

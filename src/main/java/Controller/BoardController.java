@@ -21,20 +21,21 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.util.*;
 
-public class BoardController implements IController{
-    private Thread randomThread;
+public class BoardController implements IController {
     private RandomGame randomBehavior;
     private String player;
 	private BufferedReader br;
 	private PrintWriter x2;
     private Controller controller;
     private Trace traceToCreate;
+    private int counter;
 
 
     private BoardController(Controller mainController, Trace traceType) {
         this.controller = mainController;
         this.traceToCreate = traceType;
         this.player = "";
+        this.randomBehavior = new RandomGame(this.controller.getBoardModel(), this, this.controller.getView());
         initBoardView();
         player = this.controller.getView().namePlayer();
         if(player == null)
@@ -57,7 +58,7 @@ public class BoardController implements IController{
         controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
         controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
 
-       // randomGame();
+       //randomBehavior.start();
     }
     
     public ActionListener buildClickPointBehavior() {
@@ -124,11 +125,7 @@ public class BoardController implements IController{
             this.controller.getView().gameOver();
             this.controller.resetBoardView();
 
-            if(this.randomThread != null) {
-                this.randomThread = null;
-                this.randomBehavior.stopRandomGame();
-            }
-
+            this.randomBehavior.stopRandomGame();
 
             this.readScore();
            this.controller.restartBoardView();
@@ -141,8 +138,7 @@ public class BoardController implements IController{
         // Essai avec invokeLater
         //SwingUtilities.invokeLater(new RandomGame(this.controller.getBoardModel(, this, this.controller.getView()));
 
-        this.randomThread = new Thread(randomBehavior, "Random Thread");
-       randomThread.start();
+        randomBehavior.start();
     }
 
     public void readScore() {
@@ -207,6 +203,7 @@ public class BoardController implements IController{
 
     public void delete(File f, File f2) {
     	if(f.delete()) {
+            System.out.println("Fichier supprimé" + counter++);
     		f2.renameTo(f);
     	}
     }
