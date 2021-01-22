@@ -166,48 +166,50 @@ public class BoardController {
     	File f2 = new File("PlayerRankingModif.txt");
     	
     	try { 		
-    		BufferedReader br = new BufferedReader(new FileReader(f));
-            PrintWriter x2 = new PrintWriter(new FileWriter(f2));
+    		BufferedReader br = new BufferedReader(new FileReader(f));            
+            FileWriter fw = new FileWriter(f2);
+            BufferedWriter bw = new BufferedWriter(fw);
             String line;
             int count = 0;
-
+            
             while ((line = br.readLine()) != null) {
-                
-    			String[] decompose = line.split(";");
-    			if(this.player.equals(decompose[0])) {
-    				count++;
+            	
+            	String[] decompose = line.split(";");
+            	if(this.player.equals(decompose[0])) {
+            		count++;
     				if(this.boardView.getScore()>=Integer.parseInt(decompose[1])) {
     					line = decompose[0] +";"+ boardView.getScore();
-    					x2.println(line);
+    					bw.write(line);
+    					bw.write("\n");
     				}
     				else {
-    					line = decompose[0] +";"+ decompose[1];
-    					x2.println(line);
+    					bw.write(line);
+    					bw.write("\n");
     				}
-    			}
-    			else
-    				x2.println(line);   			    			
+    				
+            	}
+            	else {
+            		bw.write(line);
+            		bw.write("\n");	
+            	}
             }
             if(count==0) {
-            	x2.println(this.player +";"+ boardView.getScore());
+            	bw.write(this.player +";"+ boardView.getScore());
+            	bw.write("\n");	
             }
   
+            bw.close();
             br.close();
-            x2.close();
             
-            delete(f,f2);
+            if(f.delete()) {
+            	System.out.println("fichier supprime");
+        		f2.renameTo(f);
+        	}
 
         } catch (IOException e) {
         	System.out.println("Erreur");
         }
     }
-    
-    public void delete(File f, File f2) {
-    	if(f.delete()) {
-    		f2.renameTo(f);
-    	}
-    }
-  
 
     public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
