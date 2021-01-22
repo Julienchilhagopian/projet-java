@@ -129,8 +129,9 @@ public class BoardController implements IController{
                 this.randomBehavior.stopRandomGame();
             }
 
-           this.controller.restartBoardView();
+
             this.readScore();
+           this.controller.restartBoardView();
         }
     }
 

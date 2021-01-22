@@ -6,9 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
-import Controller.BoardController;
 import Controller.Ranking;
 
 import Model.Point;
@@ -23,14 +21,18 @@ public class BoardView extends JPanel {
     private JButton jbutton;
     private JButton button5D;
     private JButton button5T;
+    private JLabel nameTabScore;
+    private List<JLabel> playerAndScoreList;
 
-	public BoardView() {
+    public BoardView() {
         this.buttons = new HashMap<>();
         this.pointLabels = new ArrayList<>();
         this.lines = Collections.synchronizedList(new LinkedList<>());
         this.score = 0;
         this.scoreTxt = new JLabel();
         this.msgErreur = new JLabel();
+        this.nameTabScore = new JLabel();
+        this.playerAndScoreList = new ArrayList<>();
         this.jbutton = new JButton("Random");
         this.button5D = new JButton("5D Mode");
         this.button5T = new JButton("5T Mode");
@@ -207,7 +209,12 @@ public class BoardView extends JPanel {
             this.remove(label);
         }
 
+        for(JLabel lab : this.playerAndScoreList) {
+            this.remove(lab);
+        }
+
         this.remove(scoreTxt);
+        this.remove(this.nameTabScore);
         this.pointLabels.clear();
 	    this.lines.clear();
 	    this.buttons.clear();
@@ -250,7 +257,7 @@ public class BoardView extends JPanel {
 
     public void tabScore(List<Ranking> t) {
     	setLayout(null);
-    	JLabel nameTabScore = new JLabel();
+    	this.nameTabScore = new JLabel();
     	nameTabScore.setBounds(530, 0, 100, 100);
     	nameTabScore.setText("Player rankings");
     	this.add(nameTabScore);
@@ -263,6 +270,7 @@ public class BoardView extends JPanel {
     		playerAndScore.setBounds(530, y, 300, 100);
     		y = y + 20;
     		this.add(playerAndScore);
+    		this.playerAndScoreList.add(playerAndScore);
     	}
     }
 
