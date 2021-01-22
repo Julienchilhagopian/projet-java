@@ -74,6 +74,7 @@ public class BoardController implements IController{
             this.controller.getView().printNewPoint(pointToUpdate);
             this.controller.getBoardModel().countActive();
             handlePrintTrace(trace);
+            this.controller.getView().disableBtn(btn);
         }
         else {
         	controller.getView().erreurMsg();
