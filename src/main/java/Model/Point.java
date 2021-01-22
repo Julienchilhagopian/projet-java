@@ -151,51 +151,12 @@ public class Point {
 	}
 
 
-	public Boolean isEligibleVertical() {
+	public Boolean isEligible(Trace traceInMaking) {
 		if(this.traces.isEmpty()){
 			return true;
 		} else {
 			for(Trace tr : traces) {
-				if(tr.NotEligible("Vertical", this)) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
-
-	public Boolean isEligibleHorizontal() {
-		if(this.traces.isEmpty()){
-			return true;
-		} else {
-			for(Trace tr : traces) {
-				if(tr.NotEligible("Horizontal",  this)) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
-
-	public Boolean isEligibleDiagonalRight() {
-		if(this.traces.isEmpty()){
-			return true;
-		} else {
-			for(Trace tr : traces) {
-				if(tr.NotEligible("DiagonalRight", this)) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
-
-	public Boolean isEligibleDiagonalLeft() {
-		if(this.traces.isEmpty()){
-			return true;
-		} else {
-			for(Trace tr : traces) {
-				if(tr.NotEligible("DiagonalLeft", this)) {
+				if(!tr.eligible(traceInMaking, this)) {
 					return false;
 				}
 			}

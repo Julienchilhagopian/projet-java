@@ -40,6 +40,7 @@ public class BoardController implements IController {
         player = this.controller.getView().namePlayer();
         if(player == null)
             player = "Unknown";
+        //this.randomBehavior.start();
     }
 
     public static BoardController create(Controller controller, Trace traceType) {
@@ -112,6 +113,7 @@ public class BoardController implements IController {
             if(p.getTraces().isEmpty()) {
                 if (this.searchTrace(p).isValid()) {
                     gameOver = false;
+                    break;
                 }
             }
         }
@@ -253,7 +255,7 @@ public class BoardController implements IController {
         while(startPoint.getDownNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownNeighbor().get();
 
-            if(foundPoint.isEligibleVertical()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -276,7 +278,7 @@ public class BoardController implements IController {
         while(startPoint.getUpNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpNeighbor().get();
 
-            if(foundPoint.isEligibleVertical()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -307,7 +309,7 @@ public class BoardController implements IController {
         while(startPoint.getRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getRightNeighbor().get();
 
-            if(foundPoint.isEligibleHorizontal()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -327,7 +329,7 @@ public class BoardController implements IController {
         while(startPoint.getLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getLeftNeighbor().get();
 
-            if(foundPoint.isEligibleHorizontal()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -356,7 +358,7 @@ public class BoardController implements IController {
         while(startPoint.getUpRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpRightNeighbor().get();
 
-            if(foundPoint.isEligibleDiagonalRight()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -376,7 +378,7 @@ public class BoardController implements IController {
         while(startPoint.getDownLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownLeftNeighbor().get();
 
-            if(foundPoint.isEligibleDiagonalRight()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -405,7 +407,7 @@ public class BoardController implements IController {
         while(startPoint.getUpLeftNeighbor().isPresent()) {
             Point foundPoint = startPoint.getUpLeftNeighbor().get();
 
-            if(foundPoint.isEligibleDiagonalLeft()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -425,7 +427,7 @@ public class BoardController implements IController {
         while(startPoint.getDownRightNeighbor().isPresent()) {
             Point foundPoint = startPoint.getDownRightNeighbor().get();
 
-            if(foundPoint.isEligibleDiagonalLeft()) {
+            if(foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
 
                 // la trace est terminée
@@ -443,9 +445,5 @@ public class BoardController implements IController {
         return trace;
     }
 
-    
-   
-	
-    
 
 }

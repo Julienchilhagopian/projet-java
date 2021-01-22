@@ -34,8 +34,8 @@ public class Trace {
 		return "Trace [points=" + points + ", orientation=" + orientation + "]";
 	}
 
-    public boolean NotEligible(String orientation, Point p) {
-        return this.orientation.equals(orientation);
+    public boolean eligible(Trace traceInMaking, Point p) {
+        return !this.orientation.equals(traceInMaking.getOrientation());
     }
 
     public String getOrientation() {
