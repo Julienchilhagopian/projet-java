@@ -56,8 +56,8 @@ public class BoardController implements IController {
 
     private void initBoardView() {
         readScore();
-        controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
-        controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
+        //controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
+       // controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
 
        //randomBehavior.start();
     }

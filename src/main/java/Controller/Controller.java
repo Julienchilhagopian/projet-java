@@ -16,9 +16,9 @@ public class Controller {
     private Controller(Board startModel, BoardView mainView) {
         this.boardModel = startModel;
         this.view = mainView;
-        initBoardView();
 
         this.currentController = this.buildController(new Trace());
+        initBoardView();
     }
 
     public static Controller withDefaultModel(BoardView mainView) {
@@ -37,6 +37,8 @@ public class Controller {
         this.view.initMorpionButtons();
         this.view.attachOnClick5D(this.launch5D());
         this.view.attachOnClick5T(this.launch5T());
+        this.view.attachOnClickButtonListenner(this.currentController.buildClickPointBehavior());
+        this.view.attachOnClickButtonRandomGame(this.currentController.buildRandomGame());
     }
 
     public void resetBoardView() {
