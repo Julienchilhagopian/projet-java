@@ -22,6 +22,7 @@ public class BoardController implements IController {
     private Controller controller;
     private Trace traceToCreate;
     private int counter;
+    private Thread randomThread;
 
 
     private BoardController(Controller mainController, Trace traceType) {
@@ -119,7 +120,10 @@ public class BoardController implements IController {
             this.controller.getView().gameOver();
             this.controller.resetBoardView();
 
-            this.randomBehavior.stopRandomGame();
+            if(this.randomThread != null) {
+                this.randomThread = null;
+                this.randomBehavior.stopRandomGame();
+            }
 
             this.readScore();
            this.controller.restartBoardView();
@@ -132,7 +136,8 @@ public class BoardController implements IController {
         // Essai avec invokeLater
         //SwingUtilities.invokeLater(new RandomGame(this.controller.getBoardModel(, this, this.controller.getView()));
 
-        randomBehavior.start();
+        this.randomThread = new Thread(randomBehavior, "Random Thread");
+        randomThread.start();
     }
 
     public void readScore() {
