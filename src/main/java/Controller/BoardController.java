@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class BoardController implements IController {
+public class BoardController {
     private RandomGame randomBehavior;
     private String player;
     private Controller controller;
@@ -35,7 +35,7 @@ public class BoardController implements IController {
         return new BoardController(controller, traceType);
     }
 
-    public void controllerInput() {
+    private void controllerInput() {
     	if (player == null)
     		System.exit(0);
 
@@ -86,7 +86,6 @@ public class BoardController implements IController {
         
         // maj des voisins de tous les points.
         this.controller.getBoardModel().updateVoisins();
-        //System.out.println("VOISINS" + pointToUpdate.getNeighbors());
 
         Trace trace = this.searchTrace(pointToUpdate);
 
@@ -135,21 +134,18 @@ public class BoardController implements IController {
     }
 
 
-    public void randomGame() {
+    private void randomGame() {
         this.randomBehavior = new RandomGame(this.controller.getBoardModel(), this, this.controller.getView());
-        // Essai avec invokeLater
-        //SwingUtilities.invokeLater(new RandomGame(this.controller.getBoardModel(, this, this.controller.getView()));
 
         randomBehavior.start();
     }
 
-    public void readScore() {
+    private void readScore() {
     	try {
     		File f;
 
-        	if(controller.getVersionName()=="5D") {
+        	if(controller.getVersionName().equals("5D")) {
         		f = new File("PlayerRanking.txt");
-
         	}else {
         		f = new File("PlayerRanking5T.txt");
         	}
@@ -170,8 +166,7 @@ public class BoardController implements IController {
         }
     }
 
-    public void writeScore() {
-
+    private void writeScore() {
     	File f;
     	File f2;
 
@@ -221,7 +216,7 @@ public class BoardController implements IController {
         }
     }
 
-    public void delete(File f, File f2) {
+    private void delete(File f, File f2) {
     	if(f.delete()) {
     		f2.renameTo(f);
     	}

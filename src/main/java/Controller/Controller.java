@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class Controller {
     private Board boardModel;
     private BoardView view;
-    private IController currentController;
+    private BoardController currentController;
     private String versionName;
 
     public String getVersionName() {

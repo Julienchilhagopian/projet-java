@@ -37,10 +37,6 @@ public class BoardView extends JPanel {
         this.button5D = new JButton("5D Mode");
         this.button5T = new JButton("5T Mode");
     }
-	
-	public Map<JButton, Point> getButtons() {
-		return buttons;
-	}
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -65,7 +61,6 @@ public class BoardView extends JPanel {
 	}
 
     public void printPoints(List<Point> points){
-    	
         for (Point p : points) {
             int cellX = 30 + (p.getX()*30);
             int cellY = 30 + (p.getY()*30);

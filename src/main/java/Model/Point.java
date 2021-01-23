@@ -24,7 +24,6 @@ public class Point {
 		this.y = y;
 	}
 	public Point(int x, int y) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.isActive = false;
@@ -47,10 +46,6 @@ public class Point {
 
 	public void addNeighbour(Point neighbour){
 		this.neighbors.add(neighbour);
-	}
-
-	public Set<Point> getNeighbors() {
-		return neighbors;
 	}
 
 	public Optional<Point> getDownNeighbor() {
@@ -141,15 +136,12 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
-
-	
 	public void pointNum(int count) {
 		this.num = count;
 	}
 	public int getNum() {
 		return num;
 	}
-
 
 	public Boolean isEligible(Trace traceInMaking) {
 		if(this.traces.isEmpty()){

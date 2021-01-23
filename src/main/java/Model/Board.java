@@ -19,7 +19,7 @@ public class Board {
 
     // Construction du plateau de départ d'un point de vue modèle.
     //J'ai modifie la classe pour accèder a cette methode plus facilement mais du coup on changera :) 
-    public List<Point> buildStartList() {
+    private List<Point> buildStartList() {
         List<Point> points = new ArrayList<>();
 
         for (int r = 0; r <= row; r++) {
@@ -84,7 +84,6 @@ public class Board {
         }
     }
 
-
     // méthode pour test
     public void countActive() {
         int counter = 0;
@@ -93,8 +92,6 @@ public class Board {
                 counter++;
             }
         }
-
-        //System.out.println("Nb points actifs MODEL :" + counter);
     }
 
     public void updateVoisins() {

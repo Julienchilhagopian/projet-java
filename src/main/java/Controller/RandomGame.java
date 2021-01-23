@@ -51,8 +51,4 @@ public class RandomGame {
         randomGameOver = true;
     }
 
-    public void restartRandomGame(){
-        randomGameOver = false;
-    }
-
 }
