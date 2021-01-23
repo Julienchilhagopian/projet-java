@@ -96,10 +96,6 @@ public class Controller {
         this.boardModel = Board.withClassicBoard();
     }
 
-    public void setBoardModel(Board boardModel) {
-        this.boardModel = boardModel;
-    }
-
     public BoardView getView() {
         return view;
     }

@@ -58,18 +58,8 @@ public class BoardController implements IController {
         }
     }
 
-    /*public static BoardController inst(BoardView view) {
-        Board model = Board.withClassicBoard();
-        return new BoardController(model, view);
-    }
-    */
-
     private void init() {
         readScore();
-        //controller.getView().attachOnClickButtonListenner(this.buildClickPointBehavior());
-       // controller.getView().attachOnClickButtonRandomGame(this.buildRandomGame());
-
-       //randomBehavior.start();
     }
     
     public ActionListener buildClickPointBehavior() {
