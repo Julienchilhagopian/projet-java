@@ -17,11 +17,8 @@ import java.util.*;
 public class BoardController implements IController {
     private RandomGame randomBehavior;
     private String player;
-	private BufferedReader br;
-	private PrintWriter x2;
     private Controller controller;
     private Trace traceToCreate;
-    private int counter;
 
 
     private BoardController(Controller mainController, Trace traceType) {
@@ -31,14 +28,35 @@ public class BoardController implements IController {
         this.randomBehavior = new RandomGame(this.controller.getBoardModel(), this, this.controller.getView());
         init();
         player = this.controller.getView().namePlayer();
-        if(player == null)
-            player = "Unknown";
+        controllerInput();
     }
 
     public static BoardController create(Controller controller, Trace traceType) {
         return new BoardController(controller, traceType);
     }
 
+    public void controllerInput() {
+    	if (player == null)
+    		System.exit(0);
+
+    	while(player != null) {
+
+        	if(!player.equals("") && player.length()<=15)
+        		break;
+
+        	if(player.equals("")) {
+        		player = this.controller.getView().namePlayerError();
+        		if (player == null)
+        			System.exit(0);
+        	}
+
+        	if(player.length()>15) {
+        		player = this.controller.getView().namePlayerErrorSize();
+        		if (player == null)
+        			System.exit(0);
+        	}
+        }
+    }
 
     /*public static BoardController inst(BoardView view) {
         Board model = Board.withClassicBoard();
@@ -137,7 +155,15 @@ public class BoardController implements IController {
 
     public void readScore() {
     	try {
-            File f = new File("PlayerRanking.txt");
+    		File f;
+
+        	if(controller.getVersionName()=="5D") {
+        		f = new File("PlayerRanking.txt");
+
+        	}else {
+        		f = new File("PlayerRanking5T.txt");
+        	}
+
             List<Ranking> tab = new ArrayList<>();
             Scanner scanner=new Scanner(f);
             while (scanner.hasNextLine()) {
@@ -147,7 +173,7 @@ public class BoardController implements IController {
 
             Collections.sort(tab);
             Collections.reverse(tab);
-            this.controller.getView().tabScore(tab);
+            this.controller.getView().tabScore(tab,controller.getVersionName());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -155,8 +181,18 @@ public class BoardController implements IController {
     }
 
     public void writeScore() {
-    	File f = new File("PlayerRanking.txt");
-    	File f2 = new File("PlayerRankingModif.txt");
+
+    	File f;
+    	File f2;
+
+    	if(controller.getVersionName()=="5D") {
+    		f = new File("PlayerRanking.txt");
+        	f2 = new File("PlayerRankingModif.txt");
+    	}
+    	else {
+    		f = new File("PlayerRanking5T.txt");
+        	f2 = new File("PlayerRankingModif5T.txt");
+    	}
 
     	try {
     		BufferedReader br = new BufferedReader(new FileReader(f));
@@ -197,7 +233,6 @@ public class BoardController implements IController {
 
     public void delete(File f, File f2) {
     	if(f.delete()) {
-            System.out.println("Fichier supprimé" + counter++);
     		f2.renameTo(f);
     	}
     }

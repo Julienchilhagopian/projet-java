@@ -134,7 +134,6 @@ public class BoardView extends JPanel {
         button5T.addActionListener(callback);
     }
 
-
     public void removeOnClickButtonRandomGame() {
         for( ActionListener al : jbutton.getActionListeners() ) {
             jbutton.removeActionListener( al );
@@ -240,8 +239,8 @@ public class BoardView extends JPanel {
     }
 
     private void versionButtons() {
-        button5D.setBounds(300, 500, 100, 40);
-        button5T.setBounds(400, 500, 100, 40);
+        button5D.setBounds(280, 520, 100, 40);
+        button5T.setBounds(380, 520, 100, 40);
 
         this.add(button5D);
         this.add(button5T);
@@ -261,11 +260,11 @@ public class BoardView extends JPanel {
 	    btn.setEnabled(false);
     }
 
-    public void tabScore(List<Ranking> t) {
+    public void tabScore(List<Ranking> t, String versionName) {
     	setLayout(null);
     	this.nameTabScore = new JLabel();
-    	nameTabScore.setBounds(530, 0, 100, 100);
-    	nameTabScore.setText("Player rankings");
+    	nameTabScore.setBounds(520, 0, 200, 100);
+    	nameTabScore.setText("Player rankings "+versionName);
     	this.add(nameTabScore);
 
     	int y = 40;
@@ -281,7 +280,20 @@ public class BoardView extends JPanel {
     }
 
     public String namePlayer() {
-    	String input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	String input="";
+    	input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname (less than 15 characters)","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	return input;
+    }
+    
+    public String namePlayerError() {
+    	String input="";
+    	input = (String)JOptionPane.showInputDialog(null, "<html><div color=red>Your nickname is required. Please enter it here.","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
+    	return input;
+    }
+    
+    public String namePlayerErrorSize() {
+    	String input="";
+    	input = (String)JOptionPane.showInputDialog(null, "<html><div color=red>Your nickname can't be more than 15 characters long. Please enter it here.","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
     	return input;
     }
 

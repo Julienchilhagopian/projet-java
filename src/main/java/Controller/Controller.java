@@ -12,8 +12,14 @@ public class Controller {
     private Board boardModel;
     private BoardView view;
     private IController currentController;
+    private String versionName;
 
-    private Controller(Board startModel, BoardView mainView) {
+    public String getVersionName() {
+		return versionName;
+	}
+
+	private Controller(Board startModel, BoardView mainView) {
+		this.versionName = "5D";
         this.boardModel = startModel;
         this.view = mainView;
 
@@ -60,6 +66,7 @@ public class Controller {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	versionName = "5D";
                 resetBoardView();
                 currentController = buildController(new Trace());
                 System.out.println("launch 5D");
@@ -72,6 +79,7 @@ public class Controller {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	versionName = "5T";
                 resetBoardView();
                 currentController = buildController(new Trace5T());
                 System.out.println("launch 5T");
