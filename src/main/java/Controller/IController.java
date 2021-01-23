@@ -6,4 +6,6 @@ public interface IController {
     ActionListener buildClickPointBehavior();
 
     ActionListener buildRandomGame();
+
+    void randomGame();
 }

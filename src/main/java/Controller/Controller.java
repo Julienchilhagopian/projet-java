@@ -39,6 +39,7 @@ public class Controller {
         this.view.attachOnClick5T(this.launch5T());
         this.view.attachOnClickButtonListenner(this.currentController.buildClickPointBehavior());
         this.view.attachOnClickButtonRandomGame(this.currentController.buildRandomGame());
+        this.currentController.randomGame();
     }
 
     public void resetBoardView() {
