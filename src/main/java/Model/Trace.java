@@ -34,7 +34,13 @@ public class Trace {
 		return "Trace [points=" + points + ", orientation=" + orientation + "]";
 	}
 
-    public boolean eligible(Trace traceInMaking, Point p) {
+	/**
+	* Find out if the added point allows you to draw a line in 5D mode
+	* @param traceInMaking corresponding to the line
+	* @param point corresponding to the new point
+	* @return a boolean if the added point allows to draw a line or not
+	*/
+    public boolean eligible(Trace traceInMaking, Point point) {
         return !this.orientation.equals(traceInMaking.getOrientation());
     }
 

@@ -11,7 +11,7 @@ public class LineView extends JPanel{
     private int ya;
     private int xb;
     private int yb;
-
+    
     public LineView(int xa, int ya, int xb, int yb) {
         super();
         this.xa = xa;
@@ -19,6 +19,11 @@ public class LineView extends JPanel{
         this.xb = xb;
         this.yb = yb;
     }
+    
+    /**
+    * Drawing of each line when adding a point by the player
+    * @param g for the graphic  
+    */
     public void draw(Graphics g) {
         super.paintComponent(g);
 

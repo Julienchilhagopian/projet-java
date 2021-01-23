@@ -42,6 +42,10 @@ public class BoardView extends JPanel {
 		return buttons;
 	}
 
+	/**
+	* Draw the grid
+	* @param g for the Graphic
+	*/
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -64,6 +68,10 @@ public class BoardView extends JPanel {
         }
 	}
 
+	/**
+	* Display of initialization points when starting the game
+	* @param points for the list of model points
+	*/
     public void printPoints(List<Point> points){
     	
         for (Point p : points) {
@@ -91,9 +99,13 @@ public class BoardView extends JPanel {
         }
     }
     
-    public void printNewPoint(Point a) {
-    	int cellX = 30 + (a.getX()*30);
-        int cellY = 30 + (a.getY()*30);
+    /**
+	* Display each point added by the player
+	* @param point for the point to be added
+	*/
+    public void printNewPoint(Point point) {
+    	int cellX = 30 + (point.getX()*30);
+        int cellY = 30 + (point.getY()*30);
         cellX = cellX - 10 /2;
         cellY = cellY - 10 /2;
         
@@ -101,13 +113,16 @@ public class BoardView extends JPanel {
     	j.setBounds(cellX, cellY, 10, 10);
         j.setBackground(Color.GRAY);
         j.setOpaque(true);
-    	this.buttons.put(j, a); 
+    	this.buttons.put(j, point); 
         this.setLayout(null);
         this.add(j);
         
         //repaint();
     }
     
+    /**
+	* Display of the player's score
+	*/
     public void printScore() {
     	this.scoreTxt.repaint();
     	setLayout(null);
@@ -162,6 +177,13 @@ public class BoardView extends JPanel {
         }
     }
 
+    /**
+	* Display each line on the grid 
+	* @param xa for the coordinates of x for point a
+	* @param ya for the coordinates of y for point a
+	* @param xb for the coordinates of x for point b
+	* @param yb for the coordinates of y for point b
+	*/
     public void printLine(int xa, int ya, int xb, int yb) {
         LineView lineView = new LineView((xa+1)*30,(ya+1)*30,(xb+1)*30,(yb+1)*30);
         this.add(lineView);
@@ -173,13 +195,18 @@ public class BoardView extends JPanel {
         return this.buttons.get(btn);
     }
     
-    public void numPoint(JButton btn, Point p) {
+    /**
+	* Point number added by the player
+	* @param btn for the button corresponding to the position of the added point
+	* @param point for the point added by the player
+	*/
+    public void numPoint(JButton btn, Point point) {
     	JLabel numtext = new JLabel();
     	int x = btn.getX()-10;
     	int y = btn.getY();
     	setLayout(null);
     	numtext.setBounds(x, y, 50, 30);
-    	String s = String.valueOf(p.getNum());
+    	String s = String.valueOf(point.getNum());
     	numtext.setText(s);
     	this.add(numtext);
     	this.pointLabels.add(numtext);
@@ -188,6 +215,9 @@ public class BoardView extends JPanel {
     	this.msgErreur.setText("");
     }
     
+    /**
+	* Display of the error message if adding a point is not possible at this location
+	*/
     public void erreurMsg() {
     	setLayout(null);
     	msgErreur.setBounds(30, 450, 1000, 100);
@@ -197,10 +227,16 @@ public class BoardView extends JPanel {
         this.msgErreur.repaint();
     }
 
+    /**
+	* Display of the game over message
+	*/
     public void gameOver() {
         JOptionPane.showMessageDialog(null,"Game Over !\nScore : "+ this.score);
     }
 
+    /**
+	* Resetting the game grid following a game over or a change of mode
+	*/
     public void reset() {
         for(JButton btn : this.buttons.keySet()) {
             this.remove(btn);
@@ -227,6 +263,9 @@ public class BoardView extends JPanel {
 	    this.repaint();
     }
 
+    /**
+	* Display of 5T and 5D mode buttons
+	*/
     public void initMorpionButtons() {
 	    this.buttonRandomGame();
 	    this.versionButtons();
@@ -246,10 +285,15 @@ public class BoardView extends JPanel {
         this.add(button5T);
     }
 
-    public JButton getButton(Point p){
+    /**
+    * Retrieve the button corresponding to the point
+    * @param point
+    * @return button associated with the point
+    */
+    public JButton getButton(Point point){
 	    JButton button = new JButton();
         for (Map.Entry<JButton, Point> entry : buttons.entrySet()) {
-            if (entry.getValue().equals(p)) {
+            if (entry.getValue().equals(point)) {
                 button = entry.getKey();
             }
         }
@@ -260,7 +304,12 @@ public class BoardView extends JPanel {
 	    btn.setEnabled(false);
     }
 
-    public void tabScore(List<Ranking> t, String versionName) {
+    /**
+     * Display of player rankings
+     * @param listRanking for the list of players and their score
+     * @param versionNames for the selected game mode
+     */
+    public void tabScore(List<Ranking> listRanking, String versionName) {
     	setLayout(null);
     	this.nameTabScore = new JLabel();
     	nameTabScore.setBounds(520, 0, 200, 100);
@@ -269,7 +318,7 @@ public class BoardView extends JPanel {
 
     	int y = 40;
 
-    	for(Ranking s : t) {
+    	for(Ranking s : listRanking) {
     		JLabel playerAndScore = new JLabel();
     		playerAndScore.setText(s.getPseudo()+" : "+s.getScores());
     		playerAndScore.setBounds(530, y, 300, 100);
@@ -279,18 +328,30 @@ public class BoardView extends JPanel {
     	}
     }
 
+    /**
+     * Display of the request for the player's nickname
+     * @return input corresponding to the entry of the player's nickname
+     */
     public String namePlayer() {
     	String input="";
     	input = (String)JOptionPane.showInputDialog(null, "Please enter your nickname (less than 15 characters)","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
     	return input;
     }
     
+    /**
+     * Display when input is null
+     * @return input corresponding to the entry of the player's nickname
+     */
     public String namePlayerError() {
     	String input="";
     	input = (String)JOptionPane.showInputDialog(null, "<html><div color=red>Your nickname is required. Please enter it here.","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
     	return input;
     }
     
+    /**
+     * Display when the entry is greater than 15 characters
+     * @return input corresponding to the entry of the player's nickname
+     */
     public String namePlayerErrorSize() {
     	String input="";
     	input = (String)JOptionPane.showInputDialog(null, "<html><div color=red>Your nickname can't be more than 15 characters long. Please enter it here.","Player Name", JOptionPane.QUESTION_MESSAGE,null,null,"");
