@@ -11,6 +11,9 @@ import javax.swing.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Please enter a pseudo each time a test is launched.
+ */
 public class BoardControllerTest {
     private BoardView view = new BoardView();
     private Controller controller = Controller.withDefaultModel(view);
@@ -41,7 +44,7 @@ public class BoardControllerTest {
         assertEquals(1, controller.getBoardModel().getPoints().get(100).getTraces().size());
         assertEquals(1, controller.getBoardModel().getPoints().get(101).getTraces().size());
         assertEquals(1, controller.getBoardModel().getPoints().get(102).getTraces().size());
-        // voisin suivant en dehors de la trace.
+        // Voisin suivant en dehors de la trace.
         assertEquals(0, controller.getBoardModel().getPoints().get(103).getTraces().size());
 
 

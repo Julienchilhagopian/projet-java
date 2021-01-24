@@ -4,10 +4,12 @@ import Model.Board;
 import Model.Point;
 import Model.Trace;
 import org.junit.jupiter.api.Test;
-import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Please enter a pseudo each time a test is launched.
+ */
 public class BoardModelTest {
 	private Board board = Board.withClassicBoard();
 
