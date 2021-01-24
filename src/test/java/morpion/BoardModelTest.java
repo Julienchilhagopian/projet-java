@@ -47,8 +47,8 @@ public class BoardModelTest {
 		assertFalse(pointTest.isEligible(trace));
 
 		board.updateVoisins();
-		// Target du point 3:6
-		Point startPoint = board.getPoints().get(54);
+		// Target du point 3:5 pour test de descente verticale
+		Point startPoint = board.getPoints().get(53);
 		int counter = 1;
 
 		while(startPoint.getDownNeighbor().isPresent()) {
@@ -56,7 +56,31 @@ public class BoardModelTest {
 			counter++;
 		}
 
-		// A partir du point 3:6 inclus on peut descendre 3 fois.
-		assertEquals(4, counter);
+		// A partir du point 3:5 inclus on peut descendre 3 fois.
+		assertEquals(5, counter);
+
+		// Target du point 8:6 pour test de déplacement horizontal
+		startPoint = board.getPoints().get(134);
+		counter = 1;
+
+		while(startPoint.getRightNeighbor().isPresent()) {
+			startPoint = startPoint.getRightNeighbor().get();
+			counter++;
+		}
+
+		assertEquals(5, counter);
+
+
+		// Target du point 10:10 pour test de déplacement diagonal
+		startPoint = board.getPoints().get(170);
+		counter = 1;
+
+		while(startPoint.getDownLeftNeighbor().isPresent()) {
+			startPoint = startPoint.getDownLeftNeighbor().get();
+			counter++;
+		}
+
+		// on doit pouvoir visiter 3 points en diagonal descendante depuis ce point.
+		assertEquals(3, counter);
 	}
 }

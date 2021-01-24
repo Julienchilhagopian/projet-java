@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardControllerTest {
 
@@ -28,11 +27,18 @@ public class BoardControllerTest {
         assertEquals(0, noTracePoint.getTraces().size());
 
         // Point éligible pour un trace verticale
-        Point traceEligiblePoint = controller.getBoardModel().getPoints().get(54);
-        JButton buttonEligible = view.getButton(noTracePoint);
+        Point traceEligiblePoint = controller.getBoardModel().getPoints().get(98);
+        JButton buttonEligible = view.getButton(traceEligiblePoint);
         buttonEligible.doClick();
 
-        assertFalse(noTracePoint.isActive());
+        assertTrue(traceEligiblePoint.isActive());
+        assertEquals(1, traceEligiblePoint.getTraces().size());
 
+        // Chaque point de la lignée doit posséder une trace.
+        assertEquals(1, controller.getBoardModel().getPoints().get(99).getTraces().size());
+        assertEquals(1, controller.getBoardModel().getPoints().get(100).getTraces().size());
+        assertEquals(1, controller.getBoardModel().getPoints().get(101).getTraces().size());
+        assertEquals(1, controller.getBoardModel().getPoints().get(102).getTraces().size());
+        assertEquals(0, controller.getBoardModel().getPoints().get(103).getTraces().size());
     }
 }
