@@ -20,7 +20,7 @@ public class Board {
      *
      * @return points corresponding to the list of points at initialization
      */
-    public List<Point> buildStartList() {
+    private List<Point> buildStartList() {
         List<Point> points = new ArrayList<>();
         Integer row = 15;
         Integer column = 15;

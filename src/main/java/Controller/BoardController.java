@@ -167,7 +167,7 @@ public class BoardController {
     /**
      * Launching the behavior of the random part
      */
-    public void randomGame() {
+    private void randomGame() {
         this.randomBehavior = new RandomGame(this.controller.getBoardModel(), this, this.controller.getView());
 
         randomBehavior.start();
@@ -177,11 +177,11 @@ public class BoardController {
      * Reads the player ranking file, sorts the players from best to least good and
      * calls the view to display it
      */
-    public void readScore() {
+    private void readScore() {
         try {
             File f;
 
-            if (controller.getVersionName() == "5D") {
+            if (controller.getVersionName().equals("5D")) {
                 f = new File("PlayerRanking.txt");
 
             } else {
@@ -208,7 +208,7 @@ public class BoardController {
      * Writing the player and the score in the ranking file. If the player is
      * already present in the file then the score is just updated.
      */
-    public void writeScore() {
+    private void writeScore() {
 
         File f;
         File f2;
@@ -259,7 +259,7 @@ public class BoardController {
     /**
      * Deleting the old file and renaming the temporary file to the ranking file
      */
-    public void delete(File f, File f2) {
+    private void delete(File f, File f2) {
         if (f.delete()) {
             f2.renameTo(f);
         }

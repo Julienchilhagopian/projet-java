@@ -258,7 +258,7 @@ public class BoardView extends JPanel {
         repaint();
     }
 
-    public void buttonRandomGame() {
+    private void buttonRandomGame() {
         jbutton.setBounds(140, 520, 100, 40);
         this.add(jbutton);
     }

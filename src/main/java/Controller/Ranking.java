@@ -32,7 +32,7 @@ public class Ranking implements Comparable<Ranking> {
      */
     @Override
     public int compareTo(Ranking rank) {
-        int score1 = ((Ranking) rank).getScores();
+        int score1 = rank.getScores();
         int score2 = this.getScores();
         if (score1 > score2)
             return -1;

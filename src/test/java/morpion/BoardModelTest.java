@@ -4,7 +4,6 @@ import Model.Board;
 import Model.Point;
 import Model.Trace;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +12,7 @@ public class BoardModelTest {
 	private Board board = Board.withClassicBoard();
 
 	@Test
-	void testModel() throws Exception {
+	void testModel() {
 
 		assertEquals(256, board.getPoints().size());
 
@@ -34,7 +33,7 @@ public class BoardModelTest {
 
 
 	@Test
-	void testModelPoint() throws Exception {
+	void testModelPoint() {
 		Trace trace = new Trace("Vertical");
 
 		// Ce point ne possède pas de trace il est éligible à en avoir une.

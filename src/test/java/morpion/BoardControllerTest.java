@@ -1,7 +1,6 @@
 package morpion;
 
 import Controller.Controller;
-import Controller.BoardController;
 import Model.Point;
 import Model.Trace;
 import Model.Trace5T;
@@ -17,7 +16,7 @@ public class BoardControllerTest {
     private Controller controller = Controller.withDefaultModel(view);
 
     @Test
-    void testController5D() throws Exception {
+    void testController5D() {
         view = new BoardView();
         controller = Controller.withDefaultModel(view);
 
@@ -83,7 +82,7 @@ public class BoardControllerTest {
     }
 
     @Test
-    void testController5T() throws Exception {
+    void testController5T() {
 
         // launch du mode 5T
         view.getButton5T().doClick();

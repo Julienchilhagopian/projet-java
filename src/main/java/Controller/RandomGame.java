@@ -30,7 +30,7 @@ public class RandomGame {
     public void start() {
         this.boardModel.updateVoisins();
         this.randomGameOver = false;
-        List<JButton> buttons = new ArrayList<>();
+        List<JButton> buttons;
         while (!randomGameOver) {
             buttons = this.possibleButtons();
             if (buttons.size() != 0) {
