@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.Sort.TraceSortByX;
+import Controller.Sort.TraceSortByY;
 import Model.Point;
 import Model.Trace;
 

@@ -1,4 +1,4 @@
-package Controller;
+package Controller.Sort;
 
 import Model.Point;
 
