@@ -188,10 +188,10 @@ public class BoardController {
 			File f;
 
 			if (controller.getVersionName().equals("5D")) {
-				f = new File("PlayerRanking.txt");
+				f = new File("src/main/resources/PlayerRanking.txt");
 
 			} else {
-				f = new File("PlayerRanking5T.txt");
+				f = new File("src/main/resources/PlayerRanking5T.txt");
 			}
 
 			List<Ranking> tab = new ArrayList<>();
@@ -221,11 +221,11 @@ public class BoardController {
 		File f2;
 
 		if (controller.getVersionName().equals("5D")) {
-			f = new File("PlayerRanking.txt");
-			f2 = new File("PlayerRankingModif.txt");
+			f = new File("src/main/resources/PlayerRanking.txt");
+			f2 = new File("src/main/resources/PlayerRankingModif.txt");
 		} else {
-			f = new File("PlayerRanking5T.txt");
-			f2 = new File("PlayerRankingModif5T.txt");
+			f = new File("src/main/resources/PlayerRanking5T.txt");
+			f2 = new File("src/main/resources/PlayerRankingModif5T.txt");
 		}
 
 		try {
