@@ -15,7 +15,7 @@
                 <attribute name="Main-Class" value="Main"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="${dir.jarfile}/target/classes"/>
+            <fileset dir="${dir.jarfile}/src/main/java"/>
             <zipfileset excludes="META-INF/*.SF" src="/Users/Chilou/.m2/repository/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="/Users/Chilou/.m2/repository/com/google/guava/guava/29.0-jre/guava-29.0-jre.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="/Users/Chilou/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar"/>
