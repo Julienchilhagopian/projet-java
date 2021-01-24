@@ -510,7 +510,7 @@ public class BoardController {
 
             if (foundPoint.isEligible(trace)) {
                 trace.getPoints().add(foundPoint);
-                
+
                 if (trace.isValid()) {
                     trace.getPoints().sort(new TraceSortByX());
                     return trace;
@@ -524,6 +524,5 @@ public class BoardController {
         trace.getPoints().clear();
         return trace;
     }
-
 
 }

@@ -5,33 +5,30 @@ import java.util.List;
 
 public class Board {
     private List<Point> points;
-    private Integer row = 15;
-    private Integer column = 15;
-    private int count=1;
-    
+    private int count = 1;
+
     private Board() {
         this.points = this.buildStartList();
     }
 
     public static Board withClassicBoard() {
-       return new Board();
-   }
-
-    // Construction du plateau de départ d'un point de vue modèle.
-    //J'ai modifie la classe pour accèder a cette methode plus facilement mais du coup on changera :)
+        return new Board();
+    }
 
     /**
-    * Construction of the starting points from the point of view of the model by making these points active or not on display
-    * @return points corresponding to the list of points at initialization
-    */
+     * Construction of the starting points from the point of view of the model by making these points active or not on display
+     *
+     * @return points corresponding to the list of points at initialization
+     */
     public List<Point> buildStartList() {
         List<Point> points = new ArrayList<>();
+        Integer row = 15;
+        Integer column = 15;
 
         for (int r = 0; r <= row; r++) {
             for (int c = 0; c <= column; c++) {
                 Point pt = new Point(r, c);
 
-                //J'ai un peu changer la méthode, j'ai pas trop compris les setactive
                 if ((r == 3) && (c >= 6 && c <= 9)) {
                     pt.setActive(true);
                 } else if (r == 4 && (c == 6 || c == 9)) {
@@ -50,7 +47,7 @@ public class Board {
                     pt.setActive(true);
                 } else if (r == 11 && (c == 6 || c == 9)) {
                     pt.setActive(true);
-                } else if ((r == 12 ) && (c >= 6 && c <= 9)) {
+                } else if ((r == 12) && (c >= 6 && c <= 9)) {
                     pt.setActive(true);
                 }
                 points.add(pt);
@@ -66,15 +63,16 @@ public class Board {
 
     /**
      * Activate point for display in the view
+     *
      * @param pointToUpdate corresponding to the point to be activated
      */
     public void setActive(Point pointToUpdate) {
-        if(!this.points.contains(pointToUpdate)) {
-            throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
+        if (!this.points.contains(pointToUpdate)) {
+            throw new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
         }
 
-        for(Point pt : this.points) {
-            if(pt.equals(pointToUpdate)) {
+        for (Point pt : this.points) {
+            if (pt.equals(pointToUpdate)) {
                 pt.setActive(true);
                 pt.pointNum(count);
                 this.count++;
@@ -84,23 +82,24 @@ public class Board {
 
     /**
      * Add a line in the Point model
+     *
      * @param trace corresponding to the trace added
      */
     public void setTrace(Trace trace) {
-        for(Point tracePoint : trace.getPoints()) {
-            for(Point pt : this.points) {
-                if(pt.equals(tracePoint)) {
+        for (Point tracePoint : trace.getPoints()) {
+            for (Point pt : this.points) {
+                if (pt.equals(tracePoint)) {
                     pt.addTraces(trace);
                 }
             }
         }
     }
 
-    // méthode pour test
+    // Method dedicated to testing
     public int countActive() {
         int counter = 0;
         for (Point pt : this.points) {
-            if(pt.isActive()) {
+            if (pt.isActive()) {
                 counter++;
             }
         }
