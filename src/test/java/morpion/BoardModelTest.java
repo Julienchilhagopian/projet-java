@@ -47,6 +47,7 @@ public class BoardModelTest {
 		assertFalse(pointTest.isEligible(trace));
 
 		board.updateVoisins();
+		// Target du point 3:6
 		Point startPoint = board.getPoints().get(54);
 		int counter = 1;
 
