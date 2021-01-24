@@ -12,8 +12,8 @@ public class TraceSortByY implements Comparator<Point> {
      * @param a1 corresponding to point 1
      * @param a2 corresponding to point 2
      * @return This method returns the value zero if (a1.getY()==a2.getY()), if
-     * (a1.getY() < a2.getY()) then it returns a value less than zero and if
-     * (a1.getY() > a2.getY()) then it returns a value greater than zero.
+     * (a1.getY() inferior a2.getY()) then it returns a value less than zero and if
+     * (a1.getY() superior a2.getY()) then it returns a value greater than zero.
      */
     @Override
 	public int compare(Point a1, Point a2) {

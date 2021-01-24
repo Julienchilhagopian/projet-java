@@ -39,6 +39,7 @@ public class Point {
 
     /**
      * The point is make active for display on the grid
+     * @param active boolean to be set
      */
     public void setActive(Boolean active) {
         isActive = active;
@@ -46,6 +47,7 @@ public class Point {
 
     /**
      * We add the point in the list of neighbors
+     *  @param neighbour neighbor to add
      */
     public void addNeighbour(Point neighbour) {
         this.neighbors.add(neighbour);
@@ -211,6 +213,7 @@ public class Point {
 
     /**
      * List of all current lines
+     * @param trace trace to add
      */
     public void addTraces(Trace trace) {
         this.traces.add(trace);
