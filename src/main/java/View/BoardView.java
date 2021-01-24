@@ -251,6 +251,10 @@ public class BoardView extends JPanel {
         return button;
     }
 
+    public JButton getButton5T() {
+        return button5T;
+    }
+
     public void disableBtn(JButton btn) {
 	    btn.setEnabled(false);
     }

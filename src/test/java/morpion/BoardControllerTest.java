@@ -4,6 +4,7 @@ import Controller.Controller;
 import Controller.BoardController;
 import Model.Point;
 import Model.Trace;
+import Model.Trace5T;
 import View.BoardView;
 import org.junit.jupiter.api.Test;
 
@@ -12,11 +13,13 @@ import javax.swing.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardControllerTest {
+    private BoardView view = new BoardView();
+    private Controller controller = Controller.withDefaultModel(view);
 
     @Test
-    void testController() throws Exception {
-        BoardView view = new BoardView();
-        Controller controller = Controller.withDefaultModel(view);
+    void testController5D() throws Exception {
+        view = new BoardView();
+        controller = Controller.withDefaultModel(view);
 
         Point noTracePoint = controller.getBoardModel().getPoints().get(3);
         JButton button = view.getButton(noTracePoint);
@@ -77,6 +80,38 @@ public class BoardControllerTest {
         // voisin suivant en dehors de la trace.
         assertEquals(0, controller.getBoardModel().getPoints().get(145).getTraces().size());
 
+    }
 
+    @Test
+    void testController5T() throws Exception {
+
+        // launch du mode 5T
+        view.getButton5T().doClick();
+
+        // Trace horizontale sur le point (8:9)
+        Point traceEligiblePoint = controller.getBoardModel().getPoints().get(137);
+        JButton buttonEligible = view.getButton(traceEligiblePoint);
+        buttonEligible.doClick();
+
+        // Recuperation du point adjacent 5T (7:9)
+        Point eligiblePoint = controller.getBoardModel().getPoints().get(121);
+
+        Trace traceHorizontal = new Trace5T("Horizontal");
+
+        // Les points adjacents sont autorisés en 5T.
+        assertTrue(eligiblePoint.isEligible(traceHorizontal));
+
+
+        // Trace verticale sur le point (6:8)
+        traceEligiblePoint = controller.getBoardModel().getPoints().get(104);
+        buttonEligible = view.getButton(traceEligiblePoint);
+        buttonEligible.doClick();
+
+        eligiblePoint = controller.getBoardModel().getPoints().get(121);
+
+        Trace traceVerticale = new Trace5T("Vertical");
+
+        assertTrue(eligiblePoint.isEligible(traceVerticale));
+        
     }
 }
