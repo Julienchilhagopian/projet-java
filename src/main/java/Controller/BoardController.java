@@ -85,7 +85,7 @@ public class BoardController {
         Point pointToUpdate = this.controller.getView().getPoint(btn);
         
         // maj des voisins de tous les points.
-        this.controller.getBoardModel().updateVoisins();
+        this.controller.getBoardModel().updateNeighbor();
 
         Trace trace = this.searchTrace(pointToUpdate);
 

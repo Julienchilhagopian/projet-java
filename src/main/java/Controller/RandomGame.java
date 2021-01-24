@@ -23,7 +23,7 @@ public class RandomGame {
     }
 
     public void start() {
-        this.boardModel.updateVoisins();
+        this.boardModel.updateNeighbor();
         this.randomGameOver = false;
         List<JButton> buttons = new ArrayList<>();
         while(!randomGameOver){
