@@ -163,4 +163,8 @@ public class Point {
 	public List<Trace> getTraces() {
 		return this.traces;
 	}
+
+	public Set<Point> getNeighbors() {
+		return this.neighbors;
+	}
 }

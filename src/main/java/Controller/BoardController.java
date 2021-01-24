@@ -94,7 +94,6 @@ public class BoardController {
         	this.controller.getBoardModel().setActive(pointToUpdate);
             this.controller.getView().numPoint(btn,pointToUpdate);
             this.controller.getView().printNewPoint(pointToUpdate);
-            this.controller.getBoardModel().countActive();
             handlePrintTrace(trace);
             this.controller.getView().disableBtn(btn);
         }

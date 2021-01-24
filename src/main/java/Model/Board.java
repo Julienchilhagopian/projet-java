@@ -85,13 +85,14 @@ public class Board {
     }
 
     // méthode pour test
-    public void countActive() {
+    public int countActive() {
         int counter = 0;
         for (Point pt : this.points) {
             if(pt.isActive()) {
                 counter++;
             }
         }
+        return counter;
     }
 
     public void updateVoisins() {
