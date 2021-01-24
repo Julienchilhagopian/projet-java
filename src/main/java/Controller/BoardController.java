@@ -22,6 +22,9 @@ public class BoardController {
     private String player;
     private Controller controller;
     private Trace traceToCreate;
+	private Scanner scanner;
+	private BufferedReader br;
+	private PrintWriter x2;
 
     private BoardController(Controller mainController, Trace traceType) {
         this.controller = mainController;
@@ -192,7 +195,8 @@ public class BoardController {
             }
 
             List<Ranking> tab = new ArrayList<>();
-            Scanner scanner = new Scanner(f);
+            scanner = new Scanner(f);
+            
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 tab.add(new Ranking(line, ";"));
@@ -201,6 +205,7 @@ public class BoardController {
             Collections.sort(tab);
             Collections.reverse(tab);
             this.controller.getView().tabScore(tab, controller.getVersionName());
+            
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -225,8 +230,8 @@ public class BoardController {
         }
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(f));
-            PrintWriter x2 = new PrintWriter(new FileWriter(f2));
+            br = new BufferedReader(new FileReader(f));
+            x2 = new PrintWriter(new FileWriter(f2));
             String line;
             int count = 0;
 
@@ -255,7 +260,7 @@ public class BoardController {
             delete(f, f2);
 
         } catch (IOException e) {
-            System.out.println("Erreur");
+            System.out.println("IOException :"+e);
         }
     }
 
@@ -278,26 +283,21 @@ public class BoardController {
      */
     public Trace searchTrace(Point pointToUpdate) {
         Trace trace = this.verticalTrace(pointToUpdate);
-
-        // il faut executer une méthode de recherche seulement une après l'autre si la précédente n'a pas trouvé de trace.
         if (trace.isValid()) {
             return trace;
-        } else {
-            trace = this.horizontalTrace(pointToUpdate);
-            if (trace.isValid()) {
-                return trace;
-            } else {
-                trace = this.diagonalRightTrace(pointToUpdate);
-                if (trace.isValid()) {
-                    return trace;
-                } else {
-                    trace = this.diagonalLeftTrace(pointToUpdate);
-                    if (trace.isValid()) {
-                        return trace;
-                    }
-                }
-            }
         }
+		trace = this.horizontalTrace(pointToUpdate);
+		if (trace.isValid()) {
+		    return trace;
+		}
+		trace = this.diagonalRightTrace(pointToUpdate);
+		if (trace.isValid()) {
+		    return trace;
+		}
+		trace = this.diagonalLeftTrace(pointToUpdate);
+		if (trace.isValid()) {
+		    return trace;
+		}
 
         return trace;
     }

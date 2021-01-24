@@ -13,7 +13,8 @@ public enum Directions {
         name = s;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         return this.name;
     }
 }

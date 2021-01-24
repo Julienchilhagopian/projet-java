@@ -21,7 +21,7 @@ public class Board {
      * @return points corresponding to the list of points at initialization
      */
     private List<Point> buildStartList() {
-        List<Point> points = new ArrayList<>();
+        List<Point> listPoints = new ArrayList<>();
         Integer row = 15;
         Integer column = 15;
 
@@ -50,10 +50,10 @@ public class Board {
                 } else if ((r == 12) && (c >= 6 && c <= 9)) {
                     pt.setActive(true);
                 }
-                points.add(pt);
+                listPoints.add(pt);
             }
         }
-        return points;
+        return listPoints;
     }
 
 

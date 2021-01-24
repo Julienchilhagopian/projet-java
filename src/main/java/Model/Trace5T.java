@@ -22,16 +22,13 @@ public class Trace5T extends Trace {
      * @param point         corresponding to the new point
      * @return a boolean if the added point allows to draw a line or not
      */
-    public boolean eligible(Trace traceInMaking, Point point) {
+    
+	@Override
+	public boolean eligible(Trace traceInMaking, Point point) {
         Trace5T traceCreated = (Trace5T) traceInMaking;
         if (this.getOrientation().equals(traceCreated.getOrientation())) {
             return this.getPoints().get(0).equals(point) || this.getPoints().get(this.getPoints().size() - 1).equals(point);
-        } else {
-            return true;
         }
-    }
-
-    public Boolean isValid() {
-        return this.getPoints().size() == 5;
+		return true;
     }
 }

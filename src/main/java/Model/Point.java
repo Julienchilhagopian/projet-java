@@ -200,14 +200,13 @@ public class Point {
     public Boolean isEligible(Trace traceInMaking) {
         if (this.traces.isEmpty()) {
             return true;
-        } else {
-            for (Trace tr : traces) {
-                if (!tr.eligible(traceInMaking, this)) {
-                    return false;
-                }
-            }
-            return true;
         }
+		for (Trace tr : traces) {
+		    if (!tr.eligible(traceInMaking, this)) {
+		        return false;
+		    }
+		}
+		return true;
     }
 
     /**

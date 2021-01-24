@@ -6,8 +6,13 @@ import java.util.List;
 public class Trace {
     private List<Point> points;
     private String orientation;
+    private Point curentPoint;
 
-    public Trace() {
+    public Point getCurentPoint() {
+		return curentPoint;
+	}
+
+	public Trace() {
         this.points = new ArrayList<>();
         this.orientation = "Default";
     }
@@ -21,8 +26,8 @@ public class Trace {
         return points;
     }
 
-    public Trace init(String orientation) {
-        return new Trace(orientation);
+    public Trace init(String inputOrientation) {
+        return new Trace(inputOrientation);
     }
 
     public Boolean isValid() {
@@ -42,6 +47,7 @@ public class Trace {
      * @return a boolean if the added point allows to draw a line or not
      */
     public boolean eligible(Trace traceInMaking, Point point) {
+    	this.curentPoint = point;
         return !this.orientation.equals(traceInMaking.getOrientation());
     }
 

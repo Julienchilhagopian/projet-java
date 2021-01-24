@@ -15,7 +15,8 @@ public class TraceSortByX implements Comparator<Point> {
      * (a1.getX() < a2.getX()) then it returns a value less than zero and if
      * (a1.getX() > a2.getX()) then it returns a value greater than zero.
      */
-    public int compare(Point a1, Point a2) {
+    @Override
+	public int compare(Point a1, Point a2) {
         return Integer.compare(a1.getX(), a2.getX());
     }
 }

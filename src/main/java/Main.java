@@ -17,14 +17,14 @@ public class Main {
         JFrame frame = new JFrame("Java Avancée - Morpion Solitaire");
         frame.setSize(new Dimension(700, 620));
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
 
         BoardView boardView = new BoardView();
         frame.add(boardView);
         frame.setVisible(true);
 
-        Controller controller = Controller.withDefaultModel(boardView);
+        Controller.withDefaultModel(boardView);
     }
 
 }

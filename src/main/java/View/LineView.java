@@ -6,7 +6,8 @@ import javax.swing.JPanel;
 
 public class LineView extends JPanel {
 
-    private int xa;
+	private static final long serialVersionUID = 1L;
+	private int xa;
     private int ya;
     private int xb;
     private int yb;
