@@ -45,5 +45,17 @@ public class BoardModelTest {
 
 		// Après l'ajout d'une trace vertical le point n'est plus éligible.
 		assertFalse(pointTest.isEligible(trace));
+
+		board.updateVoisins();
+		Point startPoint = board.getPoints().get(54);
+		int counter = 1;
+
+		while(startPoint.getDownNeighbor().isPresent()) {
+			startPoint = startPoint.getDownNeighbor().get();
+			counter++;
+		}
+
+		// A partir du point 3:6 inclus on peut descendre 3 fois.
+		assertEquals(4, counter);
 	}
 }
