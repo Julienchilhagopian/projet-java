@@ -1,18 +1,19 @@
 package morpion;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import Model.Board;
+import Model.Point;
+import Model.Trace;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class BoardModelTest {
+	private Board board = Board.withClassicBoard();
 
 	@Test
-	void testSomething() throws Exception {
-		Board board = Board.withClassicBoard();
+	void testModel() throws Exception {
 
 		assertEquals(256, board.getPoints().size());
 
@@ -29,5 +30,20 @@ public class BoardModelTest {
 		// Le point 3 est actif donc le point 2 doit posséder 1 voisin
 		assertEquals(1, board.getPoints().get(2).getNeighbors().size());
 
+	}
+
+
+	@Test
+	void testModelPoint() throws Exception {
+		Trace trace = new Trace("Vertical");
+
+		// Ce point ne possède pas de trace il est éligible à en avoir une.
+		Point pointTest = board.getPoints().get(1);
+		assertTrue(pointTest.isEligible(trace));
+
+		pointTest.addTraces(trace);
+
+		// Après l'ajout d'une trace vertical le point n'est plus éligible.
+		assertFalse(pointTest.isEligible(trace));
 	}
 }
