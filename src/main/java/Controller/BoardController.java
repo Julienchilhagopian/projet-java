@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Enum.Directions;
 import Controller.Sort.TraceSortByX;
 import Controller.Sort.TraceSortByY;
 import Model.Point;
@@ -321,7 +322,7 @@ public class BoardController {
      * search
      */
     private Trace verticalTrace(Point inputPoint) {
-        Trace trace = this.traceToCreate.init("Vertical");
+        Trace trace = this.traceToCreate.init(Directions.VERTICAL.toString());
         Point startPoint = inputPoint;
 
         // Add departure point
@@ -380,7 +381,7 @@ public class BoardController {
      * research
      */
     private Trace horizontalTrace(Point inputPoint) {
-        Trace trace = this.traceToCreate.init("Horizontal");
+        Trace trace = this.traceToCreate.init(Directions.HORIZONTAL.toString());
         Point startPoint = inputPoint;
 
         trace.getPoints().add(startPoint);
@@ -432,7 +433,7 @@ public class BoardController {
      * research
      */
     private Trace diagonalRightTrace(Point inputPoint) {
-        Trace trace = this.traceToCreate.init("DiagonalRight");
+        Trace trace = this.traceToCreate.init(Directions.DIAGONALRIGHT.toString());
         Point startPoint = inputPoint;
 
         trace.getPoints().add(startPoint);
@@ -484,7 +485,7 @@ public class BoardController {
      * research
      */
     private Trace diagonalLeftTrace(Point inputPoint) {
-        Trace trace = this.traceToCreate.init("DiagonalLeft");
+        Trace trace = this.traceToCreate.init(Directions.DIAGONALLEFT.toString());
         Point startPoint = inputPoint;
 
         trace.getPoints().add(startPoint);

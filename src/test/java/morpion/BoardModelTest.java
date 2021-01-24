@@ -1,5 +1,6 @@
 package morpion;
 
+import Controller.Enum.Directions;
 import Model.Board;
 import Model.Point;
 import Model.Trace;
@@ -35,7 +36,7 @@ public class BoardModelTest {
 
     @Test
     void testModelPoint() {
-        Trace trace = new Trace("Vertical");
+        Trace trace = new Trace(Directions.VERTICAL.toString());
 
         // This point does not own a trace, he is eligible for one.
         Point pointTest = board.getPoints().get(1);

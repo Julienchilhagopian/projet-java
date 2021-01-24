@@ -1,6 +1,7 @@
 package morpion;
 
 import Controller.Controller;
+import Controller.Enum.Directions;
 import Model.Point;
 import Model.Trace;
 import Model.Trace5T;
@@ -98,7 +99,7 @@ public class BoardControllerTest {
         // Retrieving adjacent point 5T (7:9)
         Point eligiblePoint = controller.getBoardModel().getPoints().get(121);
 
-        Trace traceHorizontal = new Trace5T("Horizontal");
+        Trace traceHorizontal = new Trace5T(Directions.HORIZONTAL.toString());
 
         // Adjacent points are allowed in 5T.
         assertTrue(eligiblePoint.isEligible(traceHorizontal));
@@ -111,7 +112,7 @@ public class BoardControllerTest {
 
         eligiblePoint = controller.getBoardModel().getPoints().get(121);
 
-        Trace traceVerticale = new Trace5T("Vertical");
+        Trace traceVerticale = new Trace5T(Directions.VERTICAL.toString());
 
         assertTrue(eligiblePoint.isEligible(traceVerticale));
 
