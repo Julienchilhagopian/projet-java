@@ -40,14 +40,28 @@ public class Point {
 		return isActive;
 	}
 
+	/**
+	* The point is make active for display on the grid
+	*/
 	public void setActive(Boolean active) {
 		isActive = active;
 	}
 
+	/**
+	* We add the point in the list of neighbors
+	*/
 	public void addNeighbour(Point neighbour){
 		this.neighbors.add(neighbour);
 	}
 
+	public Set<Point> getNeighbors() {
+		return neighbors;
+	}
+
+	/**
+	* We look at all the neighbors below
+	* @return pt corresponding to the point below
+	*/
 	public Optional<Point> getDownNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -59,6 +73,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors above
+	* @return pt corresponding to the point above
+	*/
 	public Optional<Point> getUpNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -70,6 +88,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors to the left
+	* @return pt corresponding to the point on the left
+	*/
 	public Optional<Point> getLeftNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -81,6 +103,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors to the right
+	* @return pt corresponding to the point on the right
+	*/
 	public Optional<Point> getRightNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -92,6 +118,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors to the top right
+	* @return pt corresponding to the point on the top right
+	*/
 	public Optional<Point> getUpRightNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -103,6 +133,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors to the bottom left
+	* @return pt corresponding to the point on the bottom left
+	*/
 	public Optional<Point> getDownLeftNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -114,6 +148,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors to the top left
+	* @return pt corresponding to the point on the top left
+	*/
 	public Optional<Point> getUpLeftNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -125,6 +163,10 @@ public class Point {
 		return Optional.ofNullable(pt);
 	}
 
+	/**
+	* We look at all the neighbors to the bottom right
+	* @return pt corresponding to the point on the bottom right
+	*/
 	public Optional<Point> getDownRightNeighbor() {
 		Point pt = null;
 		for(Point p : this.neighbors) {
@@ -143,6 +185,11 @@ public class Point {
 		return num;
 	}
 
+	/**
+	* Find out if the added point allows you to draw a line
+	* @param traceInMaking corresponding to the line
+	* @return a boolean if the added point allows to draw a line or not
+	*/
 	public Boolean isEligible(Trace traceInMaking) {
 		if(this.traces.isEmpty()){
 			return true;
@@ -156,6 +203,9 @@ public class Point {
 		}
 	}
 
+	/**
+	* List of all current lines
+	*/
 	public void addTraces(Trace trace) {
 		this.traces.add(trace);
 	}
@@ -164,7 +214,4 @@ public class Point {
 		return this.traces;
 	}
 
-	public Set<Point> getNeighbors() {
-		return this.neighbors;
-	}
 }

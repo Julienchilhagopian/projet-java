@@ -18,8 +18,13 @@ public class Board {
    }
 
     // Construction du plateau de départ d'un point de vue modèle.
-    //J'ai modifie la classe pour accèder a cette methode plus facilement mais du coup on changera :) 
-    private List<Point> buildStartList() {
+    //J'ai modifie la classe pour accèder a cette methode plus facilement mais du coup on changera :)
+
+    /**
+    * Construction of the starting points from the point of view of the model by making these points active or not on display
+    * @return points corresponding to the list of points at initialization
+    */
+    public List<Point> buildStartList() {
         List<Point> points = new ArrayList<>();
 
         for (int r = 0; r <= row; r++) {
@@ -59,6 +64,10 @@ public class Board {
         return points;
     }
 
+    /**
+     * Activate point for display in the view
+     * @param pointToUpdate corresponding to the point to be activated
+     */
     public void setActive(Point pointToUpdate) {
         if(!this.points.contains(pointToUpdate)) {
             throw  new IllegalArgumentException("Le point n'est pas dans la liste, c'est un problème.");
@@ -73,7 +82,10 @@ public class Board {
         }
     }
 
-
+    /**
+     * Add a line in the Point model
+     * @param trace corresponding to the trace added
+     */
     public void setTrace(Trace trace) {
         for(Point tracePoint : trace.getPoints()) {
             for(Point pt : this.points) {
@@ -95,7 +107,10 @@ public class Board {
         return counter;
     }
 
-    public void updateNeighbor() {
+    /**
+     * Update neighboring points around each active point
+     */
+    public void updateVoisins() {
         for (Point p : this.points) {
             for (Point voisin : this.points) {
                 if (voisin.isActive()) {
