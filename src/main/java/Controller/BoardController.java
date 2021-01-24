@@ -133,10 +133,8 @@ public class BoardController {
         }
     }
 
-
     private void randomGame() {
         this.randomBehavior = new RandomGame(this.controller.getBoardModel(), this, this.controller.getView());
-
         randomBehavior.start();
     }
 
@@ -170,7 +168,7 @@ public class BoardController {
     	File f;
     	File f2;
 
-    	if(controller.getVersionName()=="5D") {
+    	if(controller.getVersionName().equals("5D")) {
     		f = new File("PlayerRanking.txt");
         	f2 = new File("PlayerRankingModif.txt");
     	}

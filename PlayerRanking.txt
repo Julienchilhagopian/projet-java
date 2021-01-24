@@ -1,4 +1,0 @@
-julien;50
-test1;21
-julien1;22
-ju;48
