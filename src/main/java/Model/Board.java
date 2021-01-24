@@ -95,7 +95,7 @@ public class Board {
         return counter;
     }
 
-    public void updateVoisins() {
+    public void updateNeighbor() {
         for (Point p : this.points) {
             for (Point voisin : this.points) {
                 if (voisin.isActive()) {
